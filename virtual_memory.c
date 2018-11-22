@@ -26,7 +26,7 @@ int run_queue[20];
 struct msgbuf{
         long int  mtype;
         int pid_index;
-        long int virt_mem;
+        unsigned int  virt_mem[10];
 };
 
 typedef struct{
@@ -54,6 +54,7 @@ void initialize_table()
 		}
 	}
 }
+
 void child_signal_handler(int signum)  // sig child handler
 {
 
@@ -61,7 +62,12 @@ void child_signal_handler(int signum)  // sig child handler
 	memset(&msg,0,sizeof(msg));
 	msg.mtype = IPC_NOWAIT;
 	msg.pid_index = i;
-	msg.virt_mem = 0x1234;
+	unsigned int addr;
+	for (int k=0; k< 10 ; k++){
+		addr = rand() %0xff;
+        	addr |= (rand()&0xff)<<8;
+		msg.virt_mem[k] = addr ;
+	}
 	ret = msgsnd(msgq, &msg, sizeof(msg),IPC_NOWAIT);
 	if(ret == -1)
 		perror("msgsnd error");
@@ -96,6 +102,11 @@ void parent_signal_handler(int signum)  // sig parent handler
 int main(int argc, char *argv[])
 {
         //pid_t pid;
+	unsigned int virt_mem[10];
+        unsigned int offset[10];
+        unsigned int pageIndex[10];
+	int pid_index;
+	
 	msgq = msgget( key, IPC_CREAT | 0666);
         while(i< CHILDNUM) {
  	initialize_table();
@@ -139,8 +150,17 @@ int main(int argc, char *argv[])
 		ret = msgrcv(msgq,&msg,sizeof(msg),IPC_NOWAIT,IPC_NOWAIT); //to receive message
 		if(ret != -1){
 			printf("get message\n");
-			printf("message virtual memory: %ld\n",msg.virt_mem);
+			pid_index = msg.pid_index;
+			for(int k=0 ; k < 10 ; k ++ ){
+				virt_mem[k]=msg.virt_mem[k]; 
+				offset[k] = virt_mem[k] & 0xfff;
+				pageIndex[k] = virt_mem[k] & 0xf000;
+				printf("message virtual memory: 0x%04x\n",msg.virt_mem[k]);
+				printf("Offset: 0x%04x\n", offset[k]);
+				printf("Page Index: 0x%4x\n", pageIndex[k]);			
+			}
 			memset(&msg, 0, sizeof(msg));
+	
 
 		}
 	}
