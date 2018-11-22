@@ -157,7 +157,7 @@ int main(int argc, char *argv[])
 				pageIndex[k] = (virt_mem[k] & 0xf000)>>12;
 				printf("message virtual memory: 0x%04x\n",msg.virt_mem[k]);
 				printf("Offset: 0x%04x\n", offset[k]);
-				printf("Page Index: 0x%x\n", pageIndex[k]);			
+				printf("Page Index: 0x%02d\n", pageIndex[k]);			
 			}
 			memset(&msg, 0, sizeof(msg));
 	
