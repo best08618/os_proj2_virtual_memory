@@ -36,7 +36,7 @@ typedef struct{
 
 TABLE table[CHILDNUM][INDEXNUM];
 int phy_mem [FRAMENUM];
-int freeList = 0;
+int fpl = 0;
 
 int msgq;
 int ret;
