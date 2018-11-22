@@ -154,10 +154,10 @@ int main(int argc, char *argv[])
 			for(int k=0 ; k < 10 ; k ++ ){
 				virt_mem[k]=msg.virt_mem[k]; 
 				offset[k] = virt_mem[k] & 0xfff;
-				pageIndex[k] = virt_mem[k] & 0xf000;
+				pageIndex[k] = (virt_mem[k] & 0xf000)>>12;
 				printf("message virtual memory: 0x%04x\n",msg.virt_mem[k]);
 				printf("Offset: 0x%04x\n", offset[k]);
-				printf("Page Index: 0x%4x\n", pageIndex[k]);			
+				printf("Page Index: 0x%x\n", pageIndex[k]);			
 			}
 			memset(&msg, 0, sizeof(msg));
 	
