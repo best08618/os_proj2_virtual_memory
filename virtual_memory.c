@@ -36,7 +36,10 @@ typedef struct{
 
 TABLE table[CHILDNUM][INDEXNUM];
 int phy_mem [FRAMENUM];
-int freeList = 0;
+int fpl = 0;
+
+unsigned int pageIndex[10];
+
 
 int msgq;
 int ret;
@@ -54,6 +57,28 @@ void initialize_table()
 		}
 	}
 }
+
+void va_to_pa()
+{
+	for(int l= 0; l<INDEXNUM ; l++) //for one process, check all the pages
+	{
+		if(table[msg.pid_index][pageIndex[l]].valid == 0) //if its invalid
+        {
+			printf("Valid:%d, get free page list \n",table[msg.pid_index][pageIndex[l]].valid);
+            table[msg.pid_index][pageIndex[l]].pfn=fpl;
+            printf("VA %d -> PA %d\n", pageIndex[l], fpl);
+            fpl++;
+            table[msg.pid_index][pageIndex[l]].valid = 1;
+        }
+        else if(table[msg.pid_index][pageIndex[l]].valid == 1)
+        {
+			printf("Valid: %d, get the page frame number \n", table[msg.pid_index][pageIndex[l]].valid);
+            printf("VA %d -> PA %d\n", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn);
+        }
+	}
+
+}
+
 
 void child_signal_handler(int signum)  // sig child handler
 {
@@ -103,10 +128,9 @@ int main(int argc, char *argv[])
 {
         //pid_t pid;
 	unsigned int virt_mem[10];
-        unsigned int offset[10];
-        unsigned int pageIndex[10];
+    unsigned int offset[10];
+//    unsigned int pageIndex[10];
 	int pid_index;
-	
 	msgq = msgget( key, IPC_CREAT | 0666);
         while(i< CHILDNUM) {
  	initialize_table();
@@ -151,17 +175,19 @@ int main(int argc, char *argv[])
 		if(ret != -1){
 			printf("get message\n");
 			pid_index = msg.pid_index;
-			for(int k=0 ; k < 10 ; k ++ ){
+			for(int k=0 ; k < 10 ; k ++ )
+			{
 				virt_mem[k]=msg.virt_mem[k]; 
 				offset[k] = virt_mem[k] & 0xfff;
 				pageIndex[k] = (virt_mem[k] & 0xf000)>>12;
 				printf("message virtual memory: 0x%04x\n",msg.virt_mem[k]);
 				printf("Offset: 0x%04x\n", offset[k]);
-				printf("Page Index: 0x%02d\n", pageIndex[k]);			
+				printf("Page Index: 0x%02d\n", pageIndex[k]);
+
+				va_to_pa();
+						
 			}
 			memset(&msg, 0, sizeof(msg));
-	
-
 		}
 	}
         return 0;
