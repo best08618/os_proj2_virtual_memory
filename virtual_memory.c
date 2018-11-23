@@ -23,6 +23,9 @@ int front, rear = 0;
 int run_queue[20];
 int pid_index =0;
 
+int child_execution_time[CHILDNUM] = {2,6,5};
+int child_execution_ctime[CHILDNUM];
+
 struct msgbuf{
 	long int  mtype;
     int pid_index;
@@ -61,53 +64,75 @@ void initialize_table()
 
 void child_signal_handler(int signum)  // sig child handler
 {
-		printf("pid: %d get signal\n",getpid());
-		memset(&msg,0,sizeof(msg));
-		msg.mtype = IPC_NOWAIT;
-		msg.pid_index = i;
-		for (int k=0; k< 10 ; k++){
-			unsigned int addr;
-			addr = rand() %0xff;
-        	addr |= (rand()%0xff)<<8;
-			msg.virt_mem[k] = addr ;
-		}
-		ret = msgsnd(msgq, &msg, sizeof(msg),IPC_NOWAIT);
-		if(ret == -1)
-			perror("msgsnd error");
-	
+
+	printf("pid: %d remaining cpu-burst%d\n",getpid(), child_execution_time[i]);
+	child_execution_time[i]--;
+	if(child_execution_time[i] <= 0)
+	{
+		child_execution_time[i] = child_execution_ctime[i];
+	}
+	printf("pid: %d get signal\n",getpid());
+	memset(&msg,0,sizeof(msg));
+	msg.mtype = IPC_NOWAIT;
+	msg.pid_index = i;
+	for (int k=0; k< 10 ; k++){
+		unsigned int addr;
+		addr = rand() %0xff;
+       	addr |= (rand()%0xff)<<8;
+		msg.virt_mem[k] = addr ;
+	}
+	ret = msgsnd(msgq, &msg, sizeof(msg),IPC_NOWAIT);
+	if(ret == -1)
+		perror("msgsnd error");
 }
 
 void parent_signal_handler(int signum)  // sig parent handler
 {
-        total_count ++;
-        count ++;
-        if(total_count >= 6 )
-		{
-		 	for(int k = 0; k < CHILDNUM ; k ++)
-            {
-				kill(pid[k],SIGKILL);
-            }
-            msgctl(msgq, IPC_RMID, NULL);
-
-			exit(0);
-		}
-		
-        printf("time %d:\n",total_count);
-        kill(pid[run_queue[front% 20]],SIGINT);
-        if(count == 1){
-                run_queue[(rear++)%20] = run_queue[front%20];
-                front ++;
-				count =0;
+	total_count ++;
+    count ++;
+    if(total_count >= 6 )
+	{
+	 	for(int k = 0; k < CHILDNUM ; k ++)
+        {
+			kill(pid[k],SIGKILL);
         }
+        msgctl(msgq, IPC_RMID, NULL);
+		exit(0);
+	}
+		
+	if((front%20) != (rear%20))
+	{
+		child_execution_time[run_queue[front%20]] --;
+       	printf("time %d:==================================\n",total_count);
+       	kill(pid[run_queue[front% 20]],SIGINT);
+       	if((count == 3)|(child_execution_time[run_queue[front%20]] != 0))
+		{
+			count =0;
+			if(child_execution_time[run_queue[front%20]] != 0)
+               	run_queue[(rear++)%20] = run_queue[front%20];
+			if(child_execution_time[run_queue[front%20]] == 0)
+			{	
+				child_execution_time[run_queue[front%20]] = child_execution_ctime[run_queue[front%20]];
+				run_queue[(rear++)%20] = run_queue[front%20];
+            }
+			front++;
+       	}
+	}
 }
 
 
 int main(int argc, char *argv[])
 {
         //pid_t pid;
+
+	for(int l = 0; l< CHILDNUM; l++)
+	{
+		child_execution_ctime[l]= child_execution_time[l];
+	}
 	msgq = msgget( key, IPC_CREAT | 0666);
     while(i< CHILDNUM) 
 	{
+		srand(time(NULL));
  		initialize_table();
 		pid[i] = fork();
 		run_queue[(rear++)%20] = i ;
