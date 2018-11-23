@@ -22,7 +22,7 @@ int total_count = 0;
 pid_t pid[CHILDNUM];
 int front, rear = 0;
 int run_queue[20];
-
+int flag = 0;
 
 int child_execution_time[CHILDNUM] ={2,6,5};
 int child_execution_ctime[CHILDNUM];
@@ -47,7 +47,8 @@ DIR_TABLE dir_table[CHILDNUM][PAGETNUM];
 
 int phy_mem [FRAMENUM];
 
-int fpl=0 ; //free page list
+int fpl[32] ; //free page list
+int fpl_rear,fpl_front = 0;
 //int fpn=0;
 
 int msgq;
@@ -90,9 +91,34 @@ void child_signal_handler(int signum)  // sig child handler
 
 
 }
+void clean_memory(DIR_TABLE* dtpt)
+{
+	DIR_TABLE* dir_ptf = dtpt;
+	for(int j=0; j< PAGETNUM ; j++)
+	{
+		if(dir_ptf[j].valid == 1 ){
+			dir_ptf[j].valid=0;
+			for(int k=0 ; k < INDEXNUM ; k++)
+				if((dir_ptf[j].pt)[k].valid == 1){
+					printf("add %d to fpl\n",(dir_ptf[j].pt)[k].pfn);
+					fpl[(fpl_rear++)%FRAMENUM]=(dir_ptf[j].pt)[k].pfn; 
+				}
+			dir_ptf[j].pt =NULL;
+			free(dir_ptf[j].pt);
+		}
+	}
+
+
+
+}
 
 void parent_signal_handler(int signum)  // sig parent handler
 {
+	if(flag == 1){
+		clean_memory(dir_table[run_queue[(front-1)%20]]);
+		flag = 0;
+	}
+
         total_count ++;
         count ++;
         if(total_count >= 13){
@@ -116,7 +142,8 @@ void parent_signal_handler(int signum)  // sig parent handler
 			if(child_execution_time[run_queue[front%20]] == 0 ){
 				child_execution_time[run_queue[front%20]] = child_execution_ctime[run_queue[front%20]];
 				run_queue[(rear++)%20] = run_queue[front%20];
-
+				flag = 1;
+				//clean_memory(dir_table[run_queue[front%20]]);
 			}
 			front ++;
 		}
@@ -135,6 +162,11 @@ int main(int argc, char *argv[])
 
 	for(int l=0; l<CHILDNUM;l++)
 		child_execution_ctime[l]=child_execution_time[l]; 
+	
+	for(int l=0 ; l < FRAMENUM; l++){
+		fpl[l] = l ;
+		fpl_rear++ ;
+	}
 	msgq = msgget( key, IPC_CREAT | 0666);
 
 	while(i< CHILDNUM) {
@@ -207,10 +239,18 @@ int main(int argc, char *argv[])
 				if(imm_tp[pageIndex[k]].valid== 0)
 				{
 					printf("page fault in second page\n");
-					imm_tp[pageIndex[k]].pfn = fpl;
-					imm_tp[pageIndex[k]].valid = 1;
-					fpl++;
+					if(fpl_front != fpl_rear){
+						imm_tp[pageIndex[k]].pfn = fpl[(fpl_front%FRAMENUM)];
+						imm_tp[pageIndex[k]].valid = 1;
+						fpl_front++;
+					}
+					else{
+						printf("full");
+						return 0;
+					}
 				}
+			
+
 				printf("VM : 0x%08x , PFN : %d\n", virt_mem[k], imm_tp[pageIndex[k]].pfn);
 				
 			//	printf("message virtual memory: 0x%08x\n",msg.virt_mem[k]);
@@ -219,9 +259,9 @@ int main(int argc, char *argv[])
 			//	printf("paget index : %d\n",pageTIndex[k]);			
 			}
 			memset(&msg, 0, sizeof(msg));
-
-
 		}
+
+		
 	}
 	return 0;
 
