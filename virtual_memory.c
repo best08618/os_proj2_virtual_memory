@@ -21,12 +21,12 @@ int total_count = 0;
 pid_t pid[CHILDNUM];
 int front, rear = 0;
 int run_queue[20];
-
+int pid_index =0;
 
 struct msgbuf{
-        long int  mtype;
-        int pid_index;
-        unsigned int  virt_mem[10];
+	long int  mtype;
+    int pid_index;
+    unsigned int  virt_mem[10];
 };
 
 typedef struct{
@@ -39,7 +39,8 @@ int phy_mem [FRAMENUM];
 int fpl = 0;
 
 unsigned int pageIndex[10];
-
+unsigned int virt_mem[10];
+unsigned int offset[10];
 
 int msgq;
 int ret;
@@ -48,78 +49,55 @@ struct msgbuf msg;
 
 void initialize_table()
 {
-	for( int i = 0; i < CHILDNUM ; i++){
+	for( int a = 0; a < CHILDNUM ; a++){
 		for(int j =0; j< INDEXNUM ; j++)
 		{	
-			table[i][j].valid =0;
-			table[i][j].pfn = 0;
+			table[a][j].valid =0;
+			table[a][j].pfn = 0;
 	
 		}
 	}
 }
 
-void va_to_pa()
-{
-	for(int l= 0; l<INDEXNUM ; l++) //for one process, check all the pages
-	{
-		if(table[msg.pid_index][pageIndex[l]].valid == 0) //if its invalid
-        {
-			printf("Valid:%d, get free page list \n",table[msg.pid_index][pageIndex[l]].valid);
-            table[msg.pid_index][pageIndex[l]].pfn=fpl;
-            printf("VA %d -> PA %d\n", pageIndex[l], fpl);
-            fpl++;
-            table[msg.pid_index][pageIndex[l]].valid = 1;
-        }
-        else if(table[msg.pid_index][pageIndex[l]].valid == 1)
-        {
-			printf("Valid: %d, get the page frame number \n", table[msg.pid_index][pageIndex[l]].valid);
-            printf("VA %d -> PA %d\n", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn);
-        }
-	}
-
-}
-
-
 void child_signal_handler(int signum)  // sig child handler
 {
-
-	printf("pid: %d get signal",getpid());
-	memset(&msg,0,sizeof(msg));
-	msg.mtype = IPC_NOWAIT;
-	msg.pid_index = i;
-	unsigned int addr;
-	for (int k=0; k< 10 ; k++){
-		addr = rand() %0xff;
-        	addr |= (rand()&0xff)<<8;
-		msg.virt_mem[k] = addr ;
-	}
-	ret = msgsnd(msgq, &msg, sizeof(msg),IPC_NOWAIT);
-	if(ret == -1)
-		perror("msgsnd error");
-
+		printf("pid: %d get signal\n",getpid());
+		memset(&msg,0,sizeof(msg));
+		msg.mtype = IPC_NOWAIT;
+		msg.pid_index = i;
+		for (int k=0; k< 10 ; k++){
+			unsigned int addr;
+			addr = rand() %0xff;
+        	addr |= (rand()%0xff)<<8;
+			msg.virt_mem[k] = addr ;
+		}
+		ret = msgsnd(msgq, &msg, sizeof(msg),IPC_NOWAIT);
+		if(ret == -1)
+			perror("msgsnd error");
+	
 }
 
 void parent_signal_handler(int signum)  // sig parent handler
 {
         total_count ++;
         count ++;
-        if(total_count >= 10 ){
+        if(total_count >= 6 )
+		{
+		 	for(int k = 0; k < CHILDNUM ; k ++)
+            {
+				kill(pid[k],SIGKILL);
+            }
+            msgctl(msgq, IPC_RMID, NULL);
 
-		 for(int k = 0; k < CHILDNUM ; k ++)
-                {
-                        kill(pid[k],SIGKILL);
-                }
-                 msgctl(msgq, IPC_RMID, NULL);
-
-                exit(0);
-	}
-
-
+			exit(0);
+		}
+		
         printf("time %d:\n",total_count);
         kill(pid[run_queue[front% 20]],SIGINT);
-        if(count == 3){
+        if(count == 1){
                 run_queue[(rear++)%20] = run_queue[front%20];
                 front ++;
+				count =0;
         }
 }
 
@@ -127,15 +105,13 @@ void parent_signal_handler(int signum)  // sig parent handler
 int main(int argc, char *argv[])
 {
         //pid_t pid;
-	unsigned int virt_mem[10];
-    unsigned int offset[10];
-//    unsigned int pageIndex[10];
-	int pid_index;
 	msgq = msgget( key, IPC_CREAT | 0666);
-        while(i< CHILDNUM) {
- 	initialize_table();
-	pid[i] = fork();
-        run_queue[(rear++)%20] = i ;
+    while(i< CHILDNUM) 
+	{
+ 		initialize_table();
+		pid[i] = fork();
+		run_queue[(rear++)%20] = i ;
+		
         if (pid[i]== -1) {
                 perror("fork error");
                 return 0;
@@ -151,9 +127,6 @@ int main(int argc, char *argv[])
                 return 0;
         }
         else {
-                //parent
-                //printf("my pid is %d\n", getpid());
-                // iterative signal , timer --> alarm
                 struct sigaction old_sa;
                 struct sigaction new_sa;
                 memset(&new_sa, 0, sizeof(new_sa));
@@ -167,24 +140,39 @@ int main(int argc, char *argv[])
                 new_itimer.it_value.tv_sec = 1;
                 new_itimer.it_value.tv_usec = 0;
                 setitimer(ITIMER_REAL, &new_itimer, &old_itimer);
+        	}
+        	i++;
         }
-        i++;
-        }
+
         while(1){
 		ret = msgrcv(msgq,&msg,sizeof(msg),IPC_NOWAIT,IPC_NOWAIT); //to receive message
 		if(ret != -1){
 			printf("get message\n");
 			pid_index = msg.pid_index;
-			for(int k=0 ; k < 10 ; k ++ )
-			{
-				virt_mem[k]=msg.virt_mem[k]; 
-				offset[k] = virt_mem[k] & 0xfff;
-				pageIndex[k] = (virt_mem[k] & 0xf000)>>12;
-				printf("message virtual memory: 0x%04x\n",msg.virt_mem[k]);
-				printf("Offset: 0x%04x\n", offset[k]);
-				printf("Page Index: 0x%02d\n", pageIndex[k]);
+			printf("pid index: %d\n", pid_index);
 
-				va_to_pa();
+			for(int l=0 ; l <10; l++ ) //accessing 10 memory addresses for one process
+			{
+				virt_mem[l]=msg.virt_mem[l]; 
+				offset[l] = virt_mem[l] & 0xfff;
+				pageIndex[l] = (virt_mem[l] & 0xf000)>>12;
+				printf("message virtual memory: 0x%04x\n",msg.virt_mem[l]);
+				printf("Offset: 0x%04x\n", offset[l]);
+				printf("Page Index: 0x%2d\n", pageIndex[l]);
+
+       			if(table[msg.pid_index][pageIndex[l]].valid == 0) //if its invalid
+   				{
+           			printf("Invalid, get free page list \n");
+           			table[msg.pid_index][pageIndex[l]].pfn=fpl;
+           			printf("VA %d -> PA %d\n", pageIndex[l], fpl);
+           			fpl++;
+           			table[msg.pid_index][pageIndex[l]].valid = 1;
+       			}
+				else if(table[msg.pid_index][pageIndex[l]].valid == 1)
+				{
+					printf("Valid, get page frame number \n");
+					printf("VA %d -> PA %d\n", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn);
+				}
 						
 			}
 			memset(&msg, 0, sizeof(msg));
@@ -193,4 +181,12 @@ int main(int argc, char *argv[])
         return 0;
 
 }
+
+
+
+
+
+
+
+
 
