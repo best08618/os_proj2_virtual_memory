@@ -11,7 +11,7 @@
 #include <sys/msg.h>
 #include <time.h>
 
-#define CHILDNUM 10
+#define CHILDNUM 3
 #define INDEXNUM 16
 #define FRAMENUM 32
 
@@ -22,6 +22,7 @@ pid_t pid[CHILDNUM];
 int front, rear = 0;
 int run_queue[20];
 int pid_index =0;
+int flag = 0;
 
 int child_execution_time[CHILDNUM] = {2,6,5};
 int child_execution_ctime[CHILDNUM];
@@ -39,7 +40,9 @@ typedef struct{
 
 TABLE table[CHILDNUM][INDEXNUM];
 int phy_mem [FRAMENUM];
-int fpl = 0;
+//int fpl = 0;
+int fpl[32];
+int fpl_rear, fpl_front =0;
 
 unsigned int pageIndex[10];
 unsigned int virt_mem[10];
@@ -77,8 +80,8 @@ void child_signal_handler(int signum)  // sig child handler
 	msg.pid_index = i;
 	for (int k=0; k< 10 ; k++){
 		unsigned int addr;
-		addr = rand() %0xff;
-       	addr |= (rand()%0xff)<<8;
+		addr = (rand() %0x4)<<12;
+       	addr |= (rand()%0xfff);
 		msg.virt_mem[k] = addr ;
 	}
 	ret = msgsnd(msgq, &msg, sizeof(msg),IPC_NOWAIT);
@@ -86,11 +89,37 @@ void child_signal_handler(int signum)  // sig child handler
 		perror("msgsnd error");
 }
 
+void clean_memory(TABLE* page_table)
+{
+	TABLE* pageTable = page_table;
+
+	for(int a = 0; a < INDEXNUM	; a++)
+	{
+		if(pageTable[a].valid == 1)
+       	{
+			fpl[(fpl_rear++)%FRAMENUM] = pageTable[a].pfn;
+			printf("add %d to fpl\n", pageTable[a].pfn);
+           	pageTable[a].valid =0;
+           	pageTable[a].pfn =0;
+       	}
+		
+	}
+	return;
+
+}
+
+
 void parent_signal_handler(int signum)  // sig parent handler
 {
+	if(flag == 1)
+	{
+		clean_memory(table[run_queue[(front-1)%20]]);
+		flag =0;
+	}
+
 	total_count ++;
     count ++;
-    if(total_count >= 10 )
+    if(total_count >= 35 )
 	{
 	 	for(int k = 0; k < CHILDNUM ; k ++)
         {
@@ -114,6 +143,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 			{	
 				child_execution_time[run_queue[front%20]] = child_execution_ctime[run_queue[front%20]];
 				run_queue[(rear++)%20] = run_queue[front%20];
+				flag=1;
             }
 			front++;
        	}
@@ -129,6 +159,13 @@ int main(int argc, char *argv[])
 	{
 		child_execution_ctime[l]= child_execution_time[l];
 	}
+
+	for(int h=0; h<FRAMENUM; h++)
+	{
+		fpl[h] = h;
+		fpl_rear++;
+	}
+
 	msgq = msgget( key, IPC_CREAT | 0666);
     while(i< CHILDNUM) 
 	{
@@ -169,9 +206,11 @@ int main(int argc, char *argv[])
         	i++;
         }
 
-        while(1){
+        while(1)
+		{
 		ret = msgrcv(msgq,&msg,sizeof(msg),IPC_NOWAIT,IPC_NOWAIT); //to receive message
-		if(ret != -1){
+		if(ret != -1)
+		{
 			printf("get message\n");
 			pid_index = msg.pid_index;
 			printf("pid index: %d\n", pid_index);
@@ -182,27 +221,40 @@ int main(int argc, char *argv[])
 				offset[l] = virt_mem[l] & 0xfff;
 				pageIndex[l] = (virt_mem[l] & 0xf000)>>12;
 				printf("message virtual memory: 0x%04x\n",msg.virt_mem[l]);
-				printf("Offset: 0x%04x\n", offset[l]);
-				printf("Page Index: 0x%2d\n", pageIndex[l]);
+			//	printf("Offset: 0x%04x\n", offset[l]);
+			//	printf("Page Index: 0x%2d\n", pageIndex[l]);
 
-       			if(table[msg.pid_index][pageIndex[l]].valid == 0) //if its invalid
+       			if(table[pid_index][pageIndex[l]].valid == 0) //if its invalid
    				{
-           			printf("Invalid, get free page list \n");
-           			table[msg.pid_index][pageIndex[l]].pfn=fpl;
-           			printf("VA %d -> PA %d\n", pageIndex[l], fpl);
-           			fpl++;
-           			table[msg.pid_index][pageIndex[l]].valid = 1;
+           	//		printf("Invalid, get free page list \n");
+					if(fpl_front != fpl_rear)
+					{
+           				table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
+           				printf("VA %d -> PA %d\n", pageIndex[l], fpl[fpl_front%FRAMENUM]);
+           				//fpl++;
+           				table[pid_index][pageIndex[l]].valid = 1;
+						fpl_front++;
+					}
+					else
+					{
+						printf("full");
+						return 0;
+					}
+					
        			}
 				else if(table[msg.pid_index][pageIndex[l]].valid == 1)
 				{
-					printf("Valid, get page frame number \n");
+			//		printf("Valid, get page frame number \n");
 					printf("VA %d -> PA %d\n", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn);
 				}
-						
-			}
+				
+			}				
+
+		
+		}
 			memset(&msg, 0, sizeof(msg));
 		}
-	}
+	
         return 0;
 
 }
