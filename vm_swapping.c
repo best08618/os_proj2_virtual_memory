@@ -24,7 +24,7 @@ int front, rear = 0;
 int run_queue[20];
 int flag = 0;
 
-int child_execution_time[CHILDNUM] ={2,6,5};
+int child_execution_time[CHILDNUM] ={3,6,5};
 int child_execution_ctime[CHILDNUM];
 
 struct msgbuf{
