@@ -90,7 +90,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 {
 	total_count ++;
     count ++;
-    if(total_count >= 6 )
+    if(total_count >= 10 )
 	{
 	 	for(int k = 0; k < CHILDNUM ; k ++)
         {
@@ -105,7 +105,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 		child_execution_time[run_queue[front%20]] --;
        	printf("time %d:==================================\n",total_count);
        	kill(pid[run_queue[front% 20]],SIGINT);
-       	if((count == 3)|(child_execution_time[run_queue[front%20]] != 0))
+       	if((count == 3)|(child_execution_time[run_queue[front%20]] == 0))
 		{
 			count =0;
 			if(child_execution_time[run_queue[front%20]] != 0)
