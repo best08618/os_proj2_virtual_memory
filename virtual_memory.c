@@ -14,6 +14,8 @@
 #define CHILDNUM 3
 #define INDEXNUM 16
 #define FRAMENUM 32
+#define TLBSIZE 8
+
 
 int count = 0;
 int i = 0;
@@ -23,6 +25,7 @@ int front, rear = 0;
 int run_queue[20];
 int pid_index =0;
 int flag = 0;
+
 
 int child_execution_time[CHILDNUM] = {2,6,5};
 int child_execution_ctime[CHILDNUM];
@@ -38,11 +41,20 @@ typedef struct{
 	int pfn;
 }TABLE;
 
-TABLE table[CHILDNUM][INDEXNUM];
-int phy_mem [FRAMENUM];
-//int fpl = 0;
+typedef struct
+{
+	unsigned int tag;
+	int tlb_pfn;
+//	int counter;
+	int tlb_flag;
+}TLB;
+
+
+int phy_mem[FRAMENUM];
 int fpl[32];
 int fpl_rear, fpl_front =0;
+TABLE table[CHILDNUM][INDEXNUM];
+TLB tlb[TLBSIZE];
 
 unsigned int pageIndex[10];
 unsigned int virt_mem[10];
@@ -63,7 +75,16 @@ void initialize_table()
 	
 		}
 	}
+	
+	for(int c =0; c<TLBSIZE; c++)
+	{
+		tlb[c].tag =0;
+		tlb[c].tlb_pfn =0;
+//		tlb[c].counter =0;
+		tlb[c].tlb_flag =0;
+	}
 }
+
 
 void child_signal_handler(int signum)  // sig child handler
 {
@@ -119,7 +140,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 
 	total_count ++;
     count ++;
-    if(total_count >= 35 )
+    if(total_count >= 10 )
 	{
 	 	for(int k = 0; k < CHILDNUM ; k ++)
         {
@@ -153,7 +174,6 @@ void parent_signal_handler(int signum)  // sig parent handler
 
 int main(int argc, char *argv[])
 {
-        //pid_t pid;
 
 	for(int l = 0; l< CHILDNUM; l++)
 	{
@@ -174,40 +194,42 @@ int main(int argc, char *argv[])
 		pid[i] = fork();
 		run_queue[(rear++)%20] = i ;
 		
-        if (pid[i]== -1) {
-                perror("fork error");
-                return 0;
-        }
-        else if (pid[i]== 0) {
-                //child
-                struct sigaction old_sa;
-                struct sigaction new_sa;
-                memset(&new_sa, 0, sizeof(new_sa));
-                new_sa.sa_handler = &child_signal_handler;
-                sigaction(SIGINT, &new_sa, &old_sa);
-                while(1);
-                return 0;
-        }
-        else {
-                struct sigaction old_sa;
-                struct sigaction new_sa;
-                memset(&new_sa, 0, sizeof(new_sa));
-
-                new_sa.sa_handler = &parent_signal_handler;
-                sigaction(SIGALRM, &new_sa, &old_sa);
-
-                struct itimerval new_itimer, old_itimer;
-                new_itimer.it_interval.tv_sec = 1;
-                new_itimer.it_interval.tv_usec = 0;
-                new_itimer.it_value.tv_sec = 1;
-                new_itimer.it_value.tv_usec = 0;
-                setitimer(ITIMER_REAL, &new_itimer, &old_itimer);
-        	}
-        	i++;
-        }
-
-        while(1)
+        if (pid[i]== -1) 
 		{
+        	perror("fork error");
+            return 0;
+        }
+        else if (pid[i]== 0) 
+		{
+        	//child
+            struct sigaction old_sa;
+            struct sigaction new_sa;
+            memset(&new_sa, 0, sizeof(new_sa));
+            new_sa.sa_handler = &child_signal_handler;
+            sigaction(SIGINT, &new_sa, &old_sa);
+            while(1);
+            	return 0;
+        }
+        else 
+		{
+        	struct sigaction old_sa;
+            struct sigaction new_sa;
+            memset(&new_sa, 0, sizeof(new_sa));
+            new_sa.sa_handler = &parent_signal_handler;
+            sigaction(SIGALRM, &new_sa, &old_sa);
+
+            struct itimerval new_itimer, old_itimer;
+            new_itimer.it_interval.tv_sec = 1;
+            new_itimer.it_interval.tv_usec = 0;
+            new_itimer.it_value.tv_sec = 1;
+            new_itimer.it_value.tv_usec = 0;
+            setitimer(ITIMER_REAL, &new_itimer, &old_itimer);
+       	}
+       	i++;
+	}
+
+	while(1)
+	{
 		ret = msgrcv(msgq,&msg,sizeof(msg),IPC_NOWAIT,IPC_NOWAIT); //to receive message
 		if(ret != -1)
 		{
@@ -215,7 +237,7 @@ int main(int argc, char *argv[])
 			pid_index = msg.pid_index;
 			printf("pid index: %d\n", pid_index);
 
-			for(int l=0 ; l <10; l++ ) //accessing 10 memory addresses for one process
+			for(int l=0 ; l <10; l++ ) 
 			{
 				virt_mem[l]=msg.virt_mem[l]; 
 				offset[l] = virt_mem[l] & 0xfff;
@@ -224,39 +246,58 @@ int main(int argc, char *argv[])
 			//	printf("Offset: 0x%04x\n", offset[l]);
 			//	printf("Page Index: 0x%2d\n", pageIndex[l]);
 
-       			if(table[pid_index][pageIndex[l]].valid == 0) //if its invalid
-   				{
-           	//		printf("Invalid, get free page list \n");
-					if(fpl_front != fpl_rear)
-					{
-           				table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-           				printf("VA %d -> PA %d\n", pageIndex[l], fpl[fpl_front%FRAMENUM]);
-           				//fpl++;
-           				table[pid_index][pageIndex[l]].valid = 1;
-						fpl_front++;
-					}
-					else
-					{
-						printf("full");
-						return 0;
-					}
-					
-       			}
-				else if(table[msg.pid_index][pageIndex[l]].valid == 1)
-				{
-			//		printf("Valid, get page frame number \n");
-					printf("VA %d -> PA %d\n", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn);
-				}
-				
-			}				
+				for(int m=0; m<TLBSIZE; m++)
+                {
 
-		
-		}
+					if(tlb_flag[m] ==0) //empty tlb, get pageindex into tlb tag
+					{
+						printf("tlb empty miss!!!\n");
+						tlb[m].tag=pageIndex[l];
+						printf("look for pfn in page table\n");
+						tlb_flag =1;	
+			
+						if(table[pid_index][pageIndex[l]].valid == 0) //if its invalid
+              			{
+           	      			printf("Invalid, get fpl\n");
+                   			if(fpl_front != fpl_rear)
+                   			{
+                       			table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
+                       			printf("VA %d -> PA %d\n", pageIndex[l], fpl[fpl_front%FRAMENUM]);
+                       			table[pid_index][pageIndex[l]].valid = 1;
+                       			fpl_front++;
+                   			}
+                   			else
+                   			{
+                       			printf("full");
+                      			return 0;
+                   			}
+               			}
+						else if(table[msg.pid_index][pageIndex[l]].valid == 1)
+               			{
+           	      			printf("Valid, get pfn from pagetable\n");
+                   			printf("VA %d -> PA %d\n", pageIndex[l], table[pid_index][pageIndex[l]].pfn);
+							tlb[m].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
+							printf("got pfn from pagetable\n");	
+               			}
+					
+					}
+	
+					else //flag =1, not empty tlb
+					{
+						if(pageIndex[l] != tlb[m].tag)
+						{
+							printf("not match, compare next tag\n");
+							
+						}
+						 
+					}
+				}
+			}
+			printf("Counter: %d\n", tlb[m].counter);				
 			memset(&msg, 0, sizeof(msg));
 		}
-	
-        return 0;
-
+	}
+	return 0;
 }
 
 
