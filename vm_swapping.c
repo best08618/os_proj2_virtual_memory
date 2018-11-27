@@ -129,8 +129,33 @@ void clean_memory(DIR_TABLE* dtpt)
 		}
 	}
 
-
-
+	int pid_index = run_queue[(front-1)%20];
+	FILE* pFile = fopen("disk.txt","r");
+	if(pFile != NULL){
+	FILE* ptemp = fopen("temp.txt","w");
+	char* str;
+	char cstr[256];
+	char* pstr = cstr;
+	int swap_out = 0;
+	ssize_t read;
+	ssize_t len=0;
+	while( (read=getline(&str, &len, pFile)) != -1)
+	{
+		int p=0 ;
+		for(int j = 0; j < 256; j ++)
+			cstr[j] = str[j];
+		char* token = strtok(pstr, " ");
+		if(atoi(token) == pid_index)
+			continue;
+		else
+			fprintf(ptemp,"%s",str);
+	
+	}
+	fclose(pFile);
+	fclose(ptemp);
+	remove("disk.txt");
+	rename("temp.txt","disk.txt");}
+	
 }
 
 void parent_signal_handler(int signum)  // sig parent handler
