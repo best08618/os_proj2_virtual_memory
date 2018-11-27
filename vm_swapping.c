@@ -116,6 +116,7 @@ void clean_memory(DIR_TABLE* dtpt)
 						fpl[(fpl_rear++)%FRAMENUM]=(dir_ptf[j].pt)[k].pfn;
 					}
 					else{
+						(dir_ptf[j].pt)[k].disk = 0;
 						//file 접근해서 free 시키기 
 					} 
 					phy_mem[(dir_ptf[j].pt)[k].pfn].sca =0;
@@ -141,7 +142,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 
         total_count ++;
         count ++;
-        if(total_count >= 16){
+        if(total_count >= 18){
 
 		for(int k = 0; k < CHILDNUM ; k ++)
 		{
@@ -163,7 +164,6 @@ void parent_signal_handler(int signum)  // sig parent handler
 				child_execution_time[run_queue[front%20]] = child_execution_ctime[run_queue[front%20]];
 				run_queue[(rear++)%20] = run_queue[front%20];
 				flag = 1;
-				//clean_memory(dir_table[run_queue[front%20]]);
 			}
 			front ++;
 		}
@@ -208,7 +208,7 @@ int swapping (){
 	update_table(vict_pfn);
 	printf("vict_pm %d goes to disk\n",vict_pfn);
 	fpl_front ++;
-	fptr = fopen("disk","a");
+	fptr = fopen("disk.txt","a");
 	printf("disk : %d %d %d\n",phy_mem[vict_pfn].pid,phy_mem[vict_pfn].dir,phy_mem[vict_pfn].pgn);
 	fprintf(fptr,"%d %d %d\n",phy_mem[vict_pfn].pid,phy_mem[vict_pfn].dir,phy_mem[vict_pfn].pgn);  
 	fclose(fptr);
@@ -327,63 +327,49 @@ int main(int argc, char *argv[])
 	  			     
 		
 					printf("get data from disk\n");
-					fptr = fopen("disk","r+");
-					FILE* find_line=NULL;
-
-					if(fptr != NULL )
-					{
-						char strTemp[255];
-						char *pStr;
-
-						while( !feof( fptr ) )
-						{
-							pStr = fgets( strTemp, sizeof(strTemp), fptr );	
-							printf( "%s", strTemp );
-							const char s[2] = " ";
-							char* token;
-							int q = 0; 
-
-							if(strcmp(strTemp,"swap") == 0 ){
-								continue;
-							}
-							/* get the first token */
-							token= strtok(pStr, s);
-							q++;
-							printf("%s",token);
-
-							if(atoi(pStr) != pid_index)
-								continue;
-							/* walk through other tokens */
-							while( token!= NULL ) {
-								token = strtok(NULL, s);
-								printf(" %s",token);
-								if(q==1){
-									if(atoi(token)== pageTIndex[k]){
-										q++;
-										continue;
-									}
-									else
-										break;
-								}
-								if((q==2) && (atoi(token) == pageIndex[k]))
-								{	
-									printf("find line \n");
-									find_line = fptr;
+				
+					FILE* pFile = fopen("disk.txt","r");
+					FILE* ptemp = fopen("temp.txt","w");
+					char* str;
+					char cstr[256];
+					char* pstr = cstr;
+					int swap_out = 0;
+					ssize_t read; 
+					ssize_t len=0;
+					while( (read=getline(&str, &len, pFile)) != -1)
+					{	
+						int p=0 ;
+						swap_out = 0;
+						printf("str : %s", str);
+						for(int j = 0; j < 256; j ++)
+							cstr[j] = str[j];
+						char* token = strtok(pstr, " ");
+						if(atoi(token) == pid_index){
+							while (token!= NULL) {
+								p++;
+								token = strtok(NULL, " ");
+								if((p == 1)&&(atoi(token) == pageTIndex[k]))
+									continue;
+								else if( p == 1) 
 									break;
+								if((p == 2) && (atoi(token) == pageIndex[k])){
+									printf("swap out\n");
+									swap_out = 1;
 								}
 							}
-							if(find_line != NULL ){
-								fprintf(find_line,"%s\n","swap");
-								break;
-							}
+						}
 
-						}	
-						fclose(fptr);
-						//rename("disk_new","disk");
-		
-					}
-					//.fclose(fptr);
-		
+						if(swap_out == 1 )
+							continue;
+						else
+							fprintf(ptemp,"%s",str);
+					}	
+			
+					fclose(pFile);
+					fclose(ptemp);
+					remove("disk.txt");
+					rename("temp.txt","disk.txt");
+
 					 if(fpl_front != fpl_rear){
                                                 imm_tp[pageIndex[k]].pfn = fpl[(fpl_front%FRAMENUM)];
                                                 imm_tp[pageIndex[k]].valid = 1;
