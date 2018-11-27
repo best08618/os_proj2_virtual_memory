@@ -46,6 +46,7 @@ typedef struct
 	unsigned int tag;
 	int tlb_pfn;
 	int tlb_flag;
+	int counter;
 }TLB;
 
 
@@ -72,10 +73,8 @@ void initialize_table()
 		{	
 			table[a][j].valid =0;
 			table[a][j].pfn = 0;
-	
 		}
 	}
-	
 }
 
 void initialize_tlb()
@@ -85,6 +84,7 @@ void initialize_tlb()
         tlb[c].tag =0;
         tlb[c].tlb_pfn =0;
         tlb[c].tlb_flag =0;
+		tlb[c].counter =0;
     }
 	printf("tlb is initialized\n");
 }
@@ -106,7 +106,7 @@ void child_signal_handler(int signum)  // sig child handler
 	msg.pid_index = i;
 	for (int k=0; k< 10 ; k++){
 		unsigned int addr;
-		addr = (rand() %0x4)<<12;
+		addr = (rand() %0x8)<<12;
        	addr |= (rand()%0xfff);
 		msg.virt_mem[k] = addr ;
 	}
@@ -128,10 +128,8 @@ void clean_memory(TABLE* page_table)
            	pageTable[a].valid =0;
            	pageTable[a].pfn =0;
        	}
-		
 	}
 	return;
-
 }
 
 
@@ -166,7 +164,6 @@ void parent_signal_handler(int signum)  // sig parent handler
 		kill(pid[run_queue[front% 20]],SIGINT);
        	if((count == 3)|(child_execution_time[run_queue[front%20]] == 0))
 		{
-//			initialize_tlb();
 			count =0;
 			if(child_execution_time[run_queue[front%20]] != 0)
 			{
@@ -178,7 +175,6 @@ void parent_signal_handler(int signum)  // sig parent handler
 				run_queue[(rear++)%20] = run_queue[front%20];
 				flag=1;
             }
-//			initialize_tlb();
 			front++;
        	}
 	}
@@ -204,7 +200,6 @@ int main(int argc, char *argv[])
 	{
 		srand(time(NULL));
  		initialize_table();
-//		initialize_tlb();
 		pid[i] = fork();
 		run_queue[(rear++)%20] = i ;
 		
@@ -270,14 +265,14 @@ int main(int argc, char *argv[])
 						printf("tlb%d\nEmpty miss!! get page index into tag:%d\n",m, pageIndex[l]);
 						tlb[m].tag=pageIndex[l];
 						tlb[m].tlb_flag =1;
+						tlb[m].counter =1;
 
 						if(table[pid_index][pageIndex[l]].valid == 0) //if its invalid
                         {
-//                            printf("Invalid, get fpl\n");
                             if(fpl_front != fpl_rear)
                             {
                                 table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-                                printf("VA %d -> PA %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], fpl[fpl_front%FRAMENUM]);
+                                printf("VA %d -> PA %d\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], fpl[fpl_front%FRAMENUM], tlb[m].counter);
                                 table[pid_index][pageIndex[l]].valid = 1;
                                 fpl_front++;
 								break;
@@ -290,7 +285,6 @@ int main(int argc, char *argv[])
                         }
                         else
                         {
-//                            printf("Valid, get pfn from pagetable\n");
                             printf("VA %d -> PA %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], table[pid_index][pageIndex[l]].pfn);
                             tlb[m].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
 							break;
@@ -304,7 +298,8 @@ int main(int argc, char *argv[])
                     	{
                         	printf("tlb%d hit!! get pfn\n", m);
                         	tlb[m].tlb_pfn = table[pid_index][pageIndex[l]].pfn;
-                        	printf("VA %d -> PA %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], tlb[m].tlb_pfn);
+							tlb[m].counter++;
+                        	printf("VA %d -> PA %d\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], tlb[m].tlb_pfn ,tlb[m].counter);
                         	break;
                     	}
                     	else
@@ -322,6 +317,7 @@ int main(int argc, char *argv[])
 	}
 	return 0;
 }
+
 
 
 
