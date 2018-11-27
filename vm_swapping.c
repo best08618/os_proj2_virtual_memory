@@ -45,9 +45,16 @@ typedef struct{
 	TABLE*  pt;
 }DIR_TABLE;
 
+typedef struct{
+	int dir;
+	int pgn;
+	int pid;
+	int sca;
+}PH_TABLE;
+
 DIR_TABLE dir_table[CHILDNUM][PAGETNUM];
 
-int phy_mem [FRAMENUM];
+PH_TABLE phy_mem [FRAMENUM];
 
 int fpl[32] ; //free page list
 int fpl_rear,fpl_front = 0;
@@ -111,6 +118,10 @@ void clean_memory(DIR_TABLE* dtpt)
 					else{
 						//file 접근해서 free 시키기 
 					} 
+					phy_mem[(dir_ptf[j].pt)[k].pfn].sca =0;
+					phy_mem[(dir_ptf[j].pt)[k].pfn].pid = -1 ;
+					phy_mem[(dir_ptf[j].pt)[k].pfn].dir = -1 ;
+					phy_mem[(dir_ptf[j].pt)[k].pfn].pgn =  -1; 
 				}
 			dir_ptf[j].pt =NULL;
 			free(dir_ptf[j].pt);
@@ -130,14 +141,14 @@ void parent_signal_handler(int signum)  // sig parent handler
 
         total_count ++;
         count ++;
-        if(total_count >= 13){
+        if(total_count >= 16){
 
 		for(int k = 0; k < CHILDNUM ; k ++)
 		{
 			kill(pid[k],SIGKILL);
 		}
 		msgctl(msgq, IPC_RMID, NULL);
-		fclose(fptr);
+//		fclose(fptr);
 		exit(0);
 	}
 	if((front%20) != (rear%20)){
@@ -159,29 +170,48 @@ void parent_signal_handler(int signum)  // sig parent handler
 	}
 }
 
-int find_victim(TABLE* tp)
+int find_victim(void)
 {
-	int lru= 0;
-	int curr = 0;
-	for( int l =0 ; l < INDEXNUM ; l++)
-	{		
-		if(tp[curr].valid==0|tp[curr].disk == 1)
-			continue;
-		if(tp[curr].counter < tp[lru].counter)
-			lru= curr;
-		curr++;
+	int vic= 0 ;
+	int l = fpl_front;
+	while(1)
+	{			
+		if(phy_mem[fpl[l%32]].sca == 0)
+		{
+			vic = l%32;
+			break;
+		}
+		else
+			phy_mem[fpl[l%32]].sca = 0;
+		l++;
 	}
-	return lru;
-
+	//if(lru == -1)
+	//	printf("lru is -1 ");
+	return vic;
 }
-int swapping (TABLE* tp,int pid_index){
-	int vict_pn;
-	vict_pn = find_victim(tp);
-	printf("vict_pm is %d",vict_pn);
-	int fpl = tp[vict_pn].pfn;
-	tp[vict_pn].disk = 1;
-	printf("vict_pm %d goes to disk ",vict_pn);
-	fprintf(fptr,"pid_index: %d , page_num : %d\n",pid_index,vict_pn);  
+void update_table(int vict_pfn){
+	int pid;
+	int dir, pgn ;
+	pid = phy_mem[vict_pfn].pid;
+	dir = phy_mem[vict_pfn].dir;
+	pgn = phy_mem[vict_pfn].pgn;
+	(dir_table[pid][dir].pt)[pgn].disk = 1;
+	(dir_table[pid][dir].pt)[pgn].pfn = -1 ;
+	return; 
+}
+
+int swapping (){
+	int vict_pfn;
+	vict_pfn = find_victim();
+	printf("vict_pfm is %d\n",vict_pfn);
+	int  fpl = vict_pfn;
+	update_table(vict_pfn);
+	printf("vict_pm %d goes to disk\n",vict_pfn);
+	fpl_front ++;
+	fptr = fopen("disk","a");
+	printf("disk : %d %d %d\n",phy_mem[vict_pfn].pid,phy_mem[vict_pfn].dir,phy_mem[vict_pfn].pgn);
+	fprintf(fptr,"%d %d %d\n",phy_mem[vict_pfn].pid,phy_mem[vict_pfn].dir,phy_mem[vict_pfn].pgn);  
+	fclose(fptr);
 	return fpl;
 }
 
@@ -193,7 +223,7 @@ int main(int argc, char *argv[])
 	unsigned int pageTIndex[10];
         unsigned int pageIndex[10];
 	int pid_index;
-	fptr = fopen("disk","w");
+	//fptr = fopen("disk","a");
 	for(int l=0; l<CHILDNUM;l++)
 		child_execution_ctime[l]=child_execution_time[l]; 
 	
@@ -256,9 +286,9 @@ int main(int argc, char *argv[])
 
 	//			      printf("message virtual memory: 0x%08x\n",msg.virt_mem[k]);
 	//			    printf("Offset: 0x%04x\n", offset[k]);
-	//			      printf("Page Index: %d\n", pageIndex[k]);
-	//			      printf("paget index : %d\n",pageTIndex[k]);
-
+				    
+				      printf("DIR index : %d\n",pageTIndex[k]);
+  					  printf("Page Index: %d\n", pageIndex[k]);
 				//When page fault happened in first level 
 				if( dir_table[pid_index][pageTIndex[k]].valid == 0 )
 				{	
@@ -276,23 +306,111 @@ int main(int argc, char *argv[])
 					if(fpl_front != fpl_rear){
 						imm_tp[pageIndex[k]].pfn = fpl[(fpl_front%FRAMENUM)];
 						imm_tp[pageIndex[k]].valid = 1;
+						phy_mem[fpl[(fpl_front%FRAMENUM)]].pid= pid_index;
+						phy_mem[fpl[(fpl_front%FRAMENUM)]].dir= pageTIndex[k];
+						phy_mem[fpl[(fpl_front%FRAMENUM)]].pgn= pageIndex[k];
 						fpl_front++;
 					}
 					else{
 						printf("full");
-						int sfn = swapping(imm_tp,pid_index); // swapping frame number
+						int sfn = swapping(); // swapping frame number
 						imm_tp[pageIndex[k]].pfn = sfn ;
-                                                imm_tp[pageIndex[k]].valid = 1; 
+                                                imm_tp[pageIndex[k]].valid = 1;
+						fpl[(fpl_rear++)%32] = sfn ;
+						 
 					}
 				}
+			
+				if(imm_tp[pageIndex[k]].disk == 1 ){ // if information is in disk, load to memory
+
+					//file에서 pid , pagen num으로 접근하는 코드 추가해야함
+	  			     
+		
+					printf("get data from disk\n");
+					fptr = fopen("disk","r+");
+					FILE* find_line=NULL;
+
+					if(fptr != NULL )
+					{
+						char strTemp[255];
+						char *pStr;
+
+						while( !feof( fptr ) )
+						{
+							pStr = fgets( strTemp, sizeof(strTemp), fptr );	
+							printf( "%s", strTemp );
+							const char s[2] = " ";
+							char* token;
+							int q = 0; 
+
+							if(strcmp(strTemp,"swap") == 0 ){
+								continue;
+							}
+							/* get the first token */
+							token= strtok(pStr, s);
+							q++;
+							printf("%s",token);
+
+							if(atoi(pStr) != pid_index)
+								continue;
+							/* walk through other tokens */
+							while( token!= NULL ) {
+								token = strtok(NULL, s);
+								printf(" %s",token);
+								if(q==1){
+									if(atoi(token)== pageTIndex[k]){
+										q++;
+										continue;
+									}
+									else
+										break;
+								}
+								if((q==2) && (atoi(token) == pageIndex[k]))
+								{	
+									printf("find line \n");
+									find_line = fptr;
+									break;
+								}
+							}
+							if(find_line != NULL ){
+								fprintf(find_line,"%s\n","swap");
+								break;
+							}
+
+						}	
+						fclose(fptr);
+						//rename("disk_new","disk");
+		
+					}
+					//.fclose(fptr);
+		
+					 if(fpl_front != fpl_rear){
+                                                imm_tp[pageIndex[k]].pfn = fpl[(fpl_front%FRAMENUM)];
+                                                imm_tp[pageIndex[k]].valid = 1;
+						phy_mem[fpl[(fpl_front%FRAMENUM)]].pid= pid_index;
+                                                phy_mem[fpl[(fpl_front%FRAMENUM)]].dir= pageTIndex[k];
+                                                phy_mem[fpl[(fpl_front%FRAMENUM)]].pgn= pageIndex[k];
+                                                fpl_front++;
+                                        }
+                                        else{
+                                                printf("full");
+                                                int sfn = swapping(); // swapping frame number
+                                                imm_tp[pageIndex[k]].pfn = sfn ;
+						fpl[(fpl_rear++)%32] = sfn ;
+                                        }
+
+					imm_tp[pageIndex[k]].disk =0;
+	
+				}		
 				
-				imm_tp[pageIndex[k]].counter ++;
-				printf("VM : 0x%08x , PFN : %d, counter:%d\n", virt_mem[k], imm_tp[pageIndex[k]].pfn,imm_tp[pageIndex[k]].counter);
+
+				phy_mem[imm_tp[pageIndex[k]].pfn].sca = 1;
+				printf("VM : 0x%08x , PFN : %d, sca:%d\n", virt_mem[k], imm_tp[pageIndex[k]].pfn,phy_mem[imm_tp[pageIndex[k]].pfn].sca);
 				
 			//	printf("message virtual memory: 0x%08x\n",msg.virt_mem[k]);
 			//	printf("Offset: 0x%04x\n", offset[k]);
-			//	printf("Page Index: %d\n", pageIndex[k]);
-			//	printf("paget index : %d\n",pageTIndex[k]);			
+	//			printf("Page Index: %d\n", pageIndex[k]);
+	//			printf("paget index : %d\n",pageTIndex[k]);			
 			}
 			memset(&msg, 0, sizeof(msg));
 		}
