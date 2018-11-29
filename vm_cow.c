@@ -34,17 +34,23 @@ struct msgbuf{
         long int  mtype;
     	int pid_index;
     	unsigned int  virt_mem[10];
+	int w_flag[10];
+	int w_data[10];
 	int fork_check;
 };
 
 typedef struct{
         int valid;
         int pfn;
+	int read_only;
 }TABLE;
 
+typedef struct{
+	int data;
+}PHY_TABLE;
 
 TABLE table[CHILDNUM][INDEXNUM];
-int phy_mem [FRAMENUM];
+PHY_TABLE phy_mem [FRAMENUM];
 //int fpl = 0;
 int fpl[32];
 int fpl_rear, fpl_front =0;
@@ -53,7 +59,8 @@ int fpl_rear, fpl_front =0;
 unsigned int pageIndex[10];
 unsigned int virt_mem[10];
 unsigned int offset[10];
-
+int w_flag[10];
+int w_data[10];
 
 int msgq;
 int ret;
@@ -70,6 +77,16 @@ void initialize_table()
 
                 }
         }
+}
+void copy_pagetable()
+{	
+	
+	for(int n=0; n< INDEXNUM; n++)
+	{
+		table[0][n].read_only =1;
+		table[1][n]=table[0][n];
+	}
+	return;	
 }
 
 void child_signal_handler(int signum)  // sig child handler
@@ -98,6 +115,15 @@ void child_signal_handler(int signum)  // sig child handler
                 addr = (rand() %0x09)<<12;
         	addr |= (rand()%0xfff);
                 msg.virt_mem[k] = addr ;
+		int write_flag = rand()%2;
+		msg.w_flag[k] = write_flag;
+		if(write_flag == 1 ){
+			int write_data = rand()%31;
+			msg.w_data[k] = write_data;
+		}
+		else
+			msg.w_data[k] = 0;
+
         }
         ret = msgsnd(msgq, &msg, sizeof(msg),IPC_NOWAIT);
         if(ret == -1)
@@ -167,6 +193,11 @@ void parent_signal_handler(int signum)  // sig parent handler
 	}
 }
 
+void initialize_phymem(){
+
+	for(int l =0 ; l <FRAMENUM ; l++)
+		phy_mem[l].data = l;
+}
 
 int main(int argc,char* argv[])
 {
@@ -185,6 +216,7 @@ int main(int argc,char* argv[])
 	msgq = msgget( key, IPC_CREAT | 0666);
 	srand(time(NULL));
 	initialize_table();
+	initialize_phymem();
 	pid[i]= fork();
 	run_queue[(rear++)%20] = i ;
 	if(pid[0] == -1){
@@ -233,8 +265,9 @@ int main(int argc,char* argv[])
 				virt_mem[l]=msg.virt_mem[l];
 				offset[l] = virt_mem[l] & 0xfff;
 				pageIndex[l] = (virt_mem[l] & 0xf000)>>12;
+				w_flag[l] = msg.w_flag[l];
+				w_data[l] = msg.w_data[l];
 				printf("message virtual memory: 0x%04x\n",msg.virt_mem[l]);
-
 				if(table[pid_index][pageIndex[l]].valid == 0) //if its invalid
 				{
 					//              printf("Invalid, get free page list \n");
@@ -254,13 +287,38 @@ int main(int argc,char* argv[])
 				}
 				else if(table[msg.pid_index][pageIndex[l]].valid == 1)
 				{
-					printf("VA %d -> PA %d\n", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn);
-				}
+					if((w_flag[l] == 1)&&(table[msg.pid_index][pageIndex[l]].read_only==0 )){// write 하고 싶고, not read only
+						int data = phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data;
+						phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data = w_data[l];
+						printf("VA %d -> PA %d\n, Data %d changed to %d ", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,data,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data );
+					}
+					else if((w_flag[l] == 1)&&(table[msg.pid_index][pageIndex[l]].read_only==1 )){//want to write but read only
+						if(fpl_front != fpl_rear)
+						{
+							table[msg.pid_index][pageIndex[l]].read_only = 0;
+							int imm_pa = table[pid_index][pageIndex[l]].pfn;
+							table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
+							printf("PA %d is changed to  PA %d\n", imm_pa, table[pid_index][pageIndex[l]].pfn);
+							//fpl++;
+							fpl_front++;
+							phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data = w_data[l];
+							printf("VA %d -> PA %d\n, Data %d is written", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data );
+						}
 
+						table[msg.pid_index][pageIndex[l]].read_only = 0;
+
+					}
+					else if (w_flag[l] == 0){
+						printf("VA %d -> PA %d\n, Read data: %d ", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data);
+
+					}
+
+				}
 			}
 
 			if(f_check == 1){
 				fork_check ++;
+				copy_pagetable();
 				pid[i] = fork ();
 				run_queue[(rear++)%20] = i;
 				if(pid[i] == 0 ){
