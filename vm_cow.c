@@ -40,12 +40,12 @@ struct msgbuf{
 typedef struct{
         int valid;
         int pfn;
+		int read_only; //1=read, 0=write
 }TABLE;
 
 
 TABLE table[CHILDNUM][INDEXNUM];
 int phy_mem [FRAMENUM];
-//int fpl = 0;
 int fpl[32];
 int fpl_rear, fpl_front =0;
 
@@ -62,14 +62,15 @@ struct msgbuf msg;
 
 void initialize_table()
 {
-        for( int a = 0; a < CHILDNUM ; a++){
-                for(int j =0; j< INDEXNUM ; j++)
-                {
-                        table[a][j].valid =0;
-                        table[a][j].pfn = 0;
-
-                }
+	for( int a = 0; a < CHILDNUM ; a++)
+	{
+    	for(int j =0; j< INDEXNUM ; j++)
+        {
+        	table[a][j].valid =0;
+            table[a][j].pfn = 0;
+			table[a][j].read_only =0;
         }
+    }
 }
 
 void child_signal_handler(int signum)  // sig child handler
@@ -104,6 +105,18 @@ void child_signal_handler(int signum)  // sig child handler
                 perror("msgsnd error");
 }
 
+void copy_pagetable()
+{	
+	
+	for(int n=0; n< INDEXNUM; n++)
+	{
+		table[0][n].read_only =1;
+		table[1][n]=table[0][n];
+	}
+	printf("table 2's ro = %d\n", table[1][3].read_only);
+	return;	
+}
+
 void clean_memory(TABLE* page_table)
 {
         TABLE* pageTable = page_table;
@@ -120,51 +133,51 @@ void clean_memory(TABLE* page_table)
 
         }
         return;
-
 }
 
 
 void parent_signal_handler(int signum)  // sig parent handler
 {
-        if(flag == 1)
-        {
-                clean_memory(table[run_queue[(front-1)%20]]);
-                flag =0;
-        }
+	if(flag == 1)
+	{
+		clean_memory(table[run_queue[(front-1)%20]]);
+		flag =0;
+	}
 
-        total_count ++;
-    	count ++;
- 	if(total_count >= 35 )
-        {
-                for(int k = 0; k < CHILDNUM ; k ++)
-        {
-                        kill(pid[k],SIGKILL);
-        }
-        msgctl(msgq, IPC_RMID, NULL);
-                exit(0);
-        }
+	total_count ++;
+	count ++;
+	if(total_count >= 35 )
+	{
+		for(int k = 0; k < CHILDNUM ; k ++)
+		{
+			kill(pid[k],SIGKILL);
+		}
+		msgctl(msgq, IPC_RMID, NULL);
+		exit(0);
+	}
 
-        if((front%20) != (rear%20))
-        {
-                child_execution_time[run_queue[front%20]] --;
-        	printf("time %d:==================================\n",total_count);
+	if((front%20) != (rear%20))
+	{
+		child_execution_time[run_queue[front%20]] --;
+		printf("time %d:==================================\n",total_count);
 		kill(pid[run_queue[front% 20]],SIGINT);
 		if((count == 3)|(child_execution_time[run_queue[front%20]] == 0))
 		{
 			count =0;
-			if(child_execution_time[run_queue[front%20]] != 0){
-				run_queue[(rear++)%20] = run_queue[front%20];
-				printf("run_queue : %d. pid : %d\n", run_queue[(rear-1)%20], run_queue[front%20]);
-			}
-			if(child_execution_time[run_queue[front%20]] == 0)
+			if(child_execution_time[run_queue[front%20]] != 0)
 			{
-				child_execution_time[run_queue[front%20]] = child_execution_ctime[run_queue[front%20]];
-				run_queue[(rear++)%20] = run_queue[front%20];
-				flag=1;
-			}
-			front++;
+					run_queue[(rear++)%20] = run_queue[front%20];
+								printf("run_queue : %d. pid : %d\n", run_queue[(rear-1)%20], run_queue[front%20]);
+						}
+						if(child_execution_time[run_queue[front%20]] == 0)
+						{
+								child_execution_time[run_queue[front%20]] = child_execution_ctime[run_queue[front%20]];
+								run_queue[(rear++)%20] = run_queue[front%20];
+								flag=1;
+						}
+						front++;
+				}
 		}
-	}
 }
 
 
@@ -237,22 +250,17 @@ int main(int argc,char* argv[])
 
 				if(table[pid_index][pageIndex[l]].valid == 0) //if its invalid
 				{
-					//              printf("Invalid, get free page list \n");
 					if(fpl_front != fpl_rear)
 					{
 						table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
 						printf("VA %d -> PA %d\n", pageIndex[l], fpl[fpl_front%FRAMENUM]);
-						//fpl++;
 						table[pid_index][pageIndex[l]].valid = 1;
 						fpl_front++;
 					}
 					else
-					{
 						return 0;
-					}
-
 				}
-				else if(table[msg.pid_index][pageIndex[l]].valid == 1)
+				else 
 				{
 					printf("VA %d -> PA %d\n", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn);
 				}
@@ -261,6 +269,7 @@ int main(int argc,char* argv[])
 
 			if(f_check == 1){
 				fork_check ++;
+				copy_pagetable();
 				pid[i] = fork ();
 				run_queue[(rear++)%20] = i;
 				if(pid[i] == 0 ){
