@@ -288,8 +288,16 @@ int main(int argc, char *argv[])
 								break;
                             }
                             else
-                            {
-                                printf("full");
+							{
+									printf("full");
+									for(int k = 0; k < CHILDNUM ; k ++)
+									{
+											kill(pid[k],SIGKILL);
+									}
+									msgctl(msgq, IPC_RMID, NULL);
+									//      fclose(fptr);
+									exit(0);
+
                                 return 0;
                             }
                         }
@@ -350,7 +358,15 @@ int main(int argc, char *argv[])
                             				}
                            					else
                             				{
-                                				printf("full");
+													printf("full");
+													for(int k = 0; k < CHILDNUM ; k ++)
+													{
+															kill(pid[k],SIGKILL);
+													}
+													msgctl(msgq, IPC_RMID, NULL);
+													//      fclose(fptr);
+													exit(0);
+
                                 				return 0;
                             				}
                         				}
