@@ -26,7 +26,7 @@ int pid_index =0;
 int flag = 0;
 int m=0;
 int min=0;
-int temp=0;
+int check=0;
 
 int child_execution_time[CHILDNUM] = {2,6,4};
 int child_execution_ctime[CHILDNUM];
@@ -281,7 +281,7 @@ int main(int argc, char *argv[])
                             if(fpl_front != fpl_rear)
                             {
                                 table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-                                printf("VA %d -> PA %d\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], fpl[fpl_front%FRAMENUM], tlb[m].counter);
+                                printf("VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], fpl[fpl_front%FRAMENUM], tlb[m].counter);
                                 table[pid_index][pageIndex[l]].valid = 1;
 								tlb[m].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
                                 fpl_front++;
@@ -296,28 +296,26 @@ int main(int argc, char *argv[])
                         else
                         {
                             tlb[m].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
-							printf("VA %d -> PA %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], table[pid_index][pageIndex[l]].pfn);
+							printf("VA %d -> PA %d (pagetable)\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], table[pid_index][pageIndex[l]].pfn);
 							break;
                         }
 					}
-	                else if(tlb[m].tlb_flag == 1)    //if the line is taken, comapre the current one with the one in tlb
+	                else //if the line is taken, comapre the current one with the one in tlb
                 	{
-                    	printf("tlb%d is taken, compare\n", m);
 
                     	if(tlb[m].tag == pageIndex[l]) // hit 
                     	{
                         	printf("tlb%d hit!! get pfn\n", m);
                         	tlb[m].tlb_pfn = table[pid_index][pageIndex[l]].pfn;
 							tlb[m].counter++;
-                        	printf("VA %d -> PA %d\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], tlb[m].tlb_pfn ,tlb[m].counter);
+                        	printf("VA %d -> PA %d (tlb)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], tlb[m].tlb_pfn ,tlb[m].counter);
                         	break;
                     	} 
                     	else  // miss 
                     	{
                         	printf("tlb%d miss!!\n", m);
 							if(m==7) //all tlb taken
-							{
-								
+							{	
 								printf("all tlb are taken, find a space\n");
 								//find the least frequent used tlb
 								for(int n=0; n<1; n++)
@@ -331,14 +329,39 @@ int main(int argc, char *argv[])
 										min = tlb[n].counter;
 									}
 								}
-								printf("min : %d\n",min); 
 								for(int n=0; n<TLBSIZE; n++)
 								{
-									if(tlb[n].counter == min)
-                                    {
-                                        tlb[n].tag = pageIndex[l];
-                                        printf("tlb%d: VA%d -> PA%d\n", n, tlb[n].tag, tlb[m].tlb_pfn);
-                                        break;
+									if(tlb[((check%TLBSIZE)+n)%TLBSIZE].counter == min)
+                                    {	
+										printf("check: %d\n", check);
+                                        tlb[((check%TLBSIZE)+n)%TLBSIZE].tag = pageIndex[l];
+										if(table[pid_index][pageIndex[l]].valid == 0) //invalid, means not in page table
+                        				{
+                            				if(fpl_front != fpl_rear)
+                            				{
+	            	            		        table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
+    	            	                		printf("tlb%d: VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n",((check%TLBSIZE)+n)%TLBSIZE, tlb[((check%TLBSIZE)+n)%TLBSIZE].tag, fpl[fpl_front%FRAMENUM], tlb[((check%TLBSIZE)+n)%TLBSIZE].counter);
+        			            	            table[pid_index][pageIndex[l]].valid = 1;
+            			            	        tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
+                        				        fpl_front++;
+												check++;
+												printf("check: %d\n", check);
+                                				break;
+                            				}
+                           					else
+                            				{
+                                				printf("full");
+                                				return 0;
+                            				}
+                        				}
+                        				else //means in pagetable,straight get pfn value 
+                        				{
+                            				tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
+                            				printf("tlb%d: VA %d -> PA %d (pagetable)\n~~~~~~~~~~~~~~~~~~~~\n", ((check%TLBSIZE)+n)%TLBSIZE, pageIndex[l], tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn);
+                            				check++;
+
+											break;
+                        				}
                                     }
 								}
 				
@@ -354,13 +377,3 @@ int main(int argc, char *argv[])
 	}
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
