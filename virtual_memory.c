@@ -16,7 +16,6 @@
 #define FRAMENUM 32
 #define TLBSIZE 8
 
-
 int count = 0;
 int i = 0;
 int total_count = 0;
@@ -26,6 +25,8 @@ int run_queue[20];
 int pid_index =0;
 int flag = 0;
 int m=0;
+int min=0;
+int temp=0;
 
 int child_execution_time[CHILDNUM] = {2,6,4};
 int child_execution_ctime[CHILDNUM];
@@ -106,7 +107,7 @@ void child_signal_handler(int signum)  // sig child handler
 	msg.pid_index = i;
 	for (int k=0; k< 10 ; k++){
 		unsigned int addr;
-		addr = (rand() %0x8)<<12;
+		addr = (rand() %0xf)<<12;
        	addr |= (rand()%0xfff);
 		msg.virt_mem[k] = addr ;
 	}
@@ -180,9 +181,20 @@ void parent_signal_handler(int signum)  // sig parent handler
 	}
 }
 
+int compare(int a, int b)
+{
+	if(a<b)
+		return a;
+	else if(a>b)
+		return b;
+	else
+		return a;
+}
+
 
 int main(int argc, char *argv[])
 {
+	int* cptr = malloc(sizeof(int));
 
 	for(int l = 0; l< CHILDNUM; l++)
 	{
@@ -255,9 +267,6 @@ int main(int argc, char *argv[])
 //				printf("Offset: 0x%04x\n", offset[l]);
 //				printf("Page Index: 0x%2d\n", pageIndex[l]);
 
-				if(m==8)
-					m=0;
-
 				for(int m=0;m<TLBSIZE; m++)
 				{
 					if(tlb[m].tlb_flag == 0)
@@ -267,13 +276,14 @@ int main(int argc, char *argv[])
 						tlb[m].tlb_flag =1;
 						tlb[m].counter =1;
 
-						if(table[pid_index][pageIndex[l]].valid == 0) //if its invalid
+						if(table[pid_index][pageIndex[l]].valid == 0) //if its invalid 
                         {
                             if(fpl_front != fpl_rear)
                             {
                                 table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
                                 printf("VA %d -> PA %d\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], fpl[fpl_front%FRAMENUM], tlb[m].counter);
                                 table[pid_index][pageIndex[l]].valid = 1;
+								tlb[m].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
                                 fpl_front++;
 								break;
                             }
@@ -285,8 +295,8 @@ int main(int argc, char *argv[])
                         }
                         else
                         {
-                            printf("VA %d -> PA %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], table[pid_index][pageIndex[l]].pfn);
                             tlb[m].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
+							printf("VA %d -> PA %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], table[pid_index][pageIndex[l]].pfn);
 							break;
                         }
 					}
@@ -294,23 +304,50 @@ int main(int argc, char *argv[])
                 	{
                     	printf("tlb%d is taken, compare\n", m);
 
-                    	if(tlb[m].tag == pageIndex[l])
+                    	if(tlb[m].tag == pageIndex[l]) // hit 
                     	{
                         	printf("tlb%d hit!! get pfn\n", m);
                         	tlb[m].tlb_pfn = table[pid_index][pageIndex[l]].pfn;
 							tlb[m].counter++;
                         	printf("VA %d -> PA %d\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], tlb[m].tlb_pfn ,tlb[m].counter);
                         	break;
-                    	}
-                    	else
+                    	} 
+                    	else  // miss 
                     	{
                         	printf("tlb%d miss!!\n", m);
-                        	
-                    	}
+							if(m==7) //all tlb taken
+							{
+								
+								printf("all tlb are taken, find a space\n");
+								//find the least frequent used tlb
+								for(int n=0; n<1; n++)
+								{
+									min = tlb[n].counter;
+								}
+								for(int n=0; n<TLBSIZE; n++)
+								{
+									if(tlb[n].counter < min)
+									{
+										min = tlb[n].counter;
+									}
+								}
+								printf("min : %d\n",min); 
+								for(int n=0; n<TLBSIZE; n++)
+								{
+									if(tlb[n].counter == min)
+                                    {
+                                        tlb[n].tag = pageIndex[l];
+                                        printf("tlb%d: VA%d -> PA%d\n", n, tlb[n].tag, tlb[m].tlb_pfn);
+                                        break;
+                                    }
+								}
+				
+							}
+						}
+							
 	
-                	}
+                	}					
 				}
-
 			}
 			memset(&msg, 0, sizeof(msg));
 		}
