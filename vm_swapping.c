@@ -24,7 +24,7 @@ int front, rear = 0;
 int run_queue[20];
 int flag = 0;
 
-int child_execution_time[CHILDNUM] ={3,6,5};
+int child_execution_time[CHILDNUM] ={10,6,5};
 int child_execution_ctime[CHILDNUM];
 
 struct msgbuf{
@@ -167,7 +167,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 
         total_count ++;
         count ++;
-        if(total_count >= 18){
+        if(total_count >= 20){
 
 		for(int k = 0; k < CHILDNUM ; k ++)
 		{
