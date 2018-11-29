@@ -38,9 +38,11 @@ TABLE table[CHILDNUM][INDEXNUM];
 int phy_mem [FRAMENUM];
 int fpl = 0;
 
+
 unsigned int pageIndex[10];
 unsigned int virt_mem[10];
 unsigned int offset[10];
+
 
 int msgq;
 int ret;
