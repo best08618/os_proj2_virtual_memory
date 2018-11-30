@@ -11,7 +11,7 @@
 #include <sys/msg.h>
 #include <time.h>
 
-#define CHILDNUM 3
+#define CHILDNUM 5
 #define INDEXNUM 16
 #define FRAMENUM 32
 #define TLBSIZE 8
@@ -28,7 +28,7 @@ int m=0;
 int min=0;
 int check=0;
 
-int child_execution_time[CHILDNUM] = {2,6,4};
+int child_execution_time[CHILDNUM] = {2,6,4,7,8};
 int child_execution_ctime[CHILDNUM];
 
 struct msgbuf{
