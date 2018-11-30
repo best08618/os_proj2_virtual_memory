@@ -11,9 +11,9 @@
 #include <sys/msg.h>
 #include <time.h>
 
-#define CHILDNUM 3
-#define PAGETNUM 1000
-#define INDEXNUM 1000
+#define CHILDNUM 10
+#define PAGETNUM 1024
+#define INDEXNUM 1024
 #define FRAMENUM 32
 
 int count = 0;
@@ -24,7 +24,7 @@ int front, rear = 0;
 int run_queue[20];
 int flag = 0;
 
-int child_execution_time[CHILDNUM] ={10,6,5};
+int child_execution_time[CHILDNUM] ={10,6,5,2,8,4,3,2,7,4};
 int child_execution_ctime[CHILDNUM];
 
 struct msgbuf{
@@ -91,8 +91,8 @@ void child_signal_handler(int signum)  // sig child handler
 	msg.pid_index = i;
 	unsigned int addr;
 	for (int k=0; k< 10 ; k++){
-		addr = (rand() %5)<<22;
-		addr |= (rand()%3)<<12;
+		addr = (rand() %1024)<<22;
+		addr |= (rand()%1024)<<12;
 		addr |= (rand()%0xfff);
 		msg.virt_mem[k] = addr ;
 	}
@@ -167,7 +167,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 
         total_count ++;
         count ++;
-        if(total_count >= 20){
+        if(total_count >= 25){
 
 		for(int k = 0; k < CHILDNUM ; k ++)
 		{
@@ -365,7 +365,7 @@ int main(int argc, char *argv[])
 					{	
 						int p=0 ;
 						swap_out = 0;
-						printf("str : %s", str);
+					//	printf("str : %s", str);
 						for(int j = 0; j < 256; j ++)
 							cstr[j] = str[j];
 						char* token = strtok(pstr, " ");
