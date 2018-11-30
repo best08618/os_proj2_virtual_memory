@@ -274,7 +274,6 @@ int main(int argc,char* argv[])
 					if(fpl_front != fpl_rear)
 					{
 						table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-						printf("VA %d -> PA %d\n", pageIndex[l], fpl[fpl_front%FRAMENUM]);
 						//fpl++;
 						table[pid_index][pageIndex[l]].valid = 1;
 						fpl_front++;
@@ -285,12 +284,12 @@ int main(int argc,char* argv[])
 					}
 
 				}
-				else if(table[msg.pid_index][pageIndex[l]].valid == 1)
+				/*else*/if(table[msg.pid_index][pageIndex[l]].valid == 1)
 				{
 					if((w_flag[l] == 1)&&(table[msg.pid_index][pageIndex[l]].read_only==0 )){// write 하고 싶고, not read only
 						int data = phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data;
 						phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data = w_data[l];
-						printf("VA %d -> PA %d\n, Data %d changed to %d ", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,data,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data );
+						printf("VA %d -> PA %d\n, Data %d changed to %d\n ", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,data,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data );
 					}
 					else if((w_flag[l] == 1)&&(table[msg.pid_index][pageIndex[l]].read_only==1 )){//want to write but read only
 						if(fpl_front != fpl_rear)
@@ -302,14 +301,14 @@ int main(int argc,char* argv[])
 							//fpl++;
 							fpl_front++;
 							phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data = w_data[l];
-							printf("VA %d -> PA %d\n, Data %d is written", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data );
+							printf("VA %d -> PA %d, Data %d is written\n", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data );
 						}
 
 						table[msg.pid_index][pageIndex[l]].read_only = 0;
 
 					}
 					else if (w_flag[l] == 0){
-						printf("VA %d -> PA %d\n, Read data: %d ", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data);
+						printf("VA %d -> PA %d, Read data: %d\n ", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data);
 
 					}
 
