@@ -74,7 +74,7 @@ void initialize_table()
                 {
                         table[a][j].valid =0;
                         table[a][j].pfn = 0;
-
+			table[a][j].read_only = 0;
                 }
         }
 }
@@ -118,7 +118,7 @@ void child_signal_handler(int signum)  // sig child handler
 		int write_flag = rand()%2;
 		msg.w_flag[k] = write_flag;
 		if(write_flag == 1 ){
-			int write_data = rand()%31;
+			int write_data = rand()%31 + 1000 ;
 			msg.w_data[k] = write_data;
 		}
 		else
@@ -289,7 +289,7 @@ int main(int argc,char* argv[])
 					if((w_flag[l] == 1)&&(table[msg.pid_index][pageIndex[l]].read_only==0 )){// write 하고 싶고, not read only
 						int data = phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data;
 						phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data = w_data[l];
-						printf("VA %d -> PA %d\n, Data %d changed to %d\n ", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,data,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data );
+						printf("VA %d -> PA %d, Data %d changed to %d\n ", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,data,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data );
 					}
 					else if((w_flag[l] == 1)&&(table[msg.pid_index][pageIndex[l]].read_only==1 )){//want to write but read only
 						if(fpl_front != fpl_rear)
@@ -303,11 +303,11 @@ int main(int argc,char* argv[])
 							phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data = w_data[l];
 							printf("VA %d -> PA %d, Data %d is written\n", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data );
 						}
-
 						table[msg.pid_index][pageIndex[l]].read_only = 0;
+						table[(msg.pid_index+1)%2][pageIndex[l]].read_only = 0; //change another process not to read only
 
 					}
-					else if (w_flag[l] == 0){
+					else if (w_flag[l] == 0){ // only want to read
 						printf("VA %d -> PA %d, Read data: %d\n ", pageIndex[l], table[msg.pid_index][pageIndex[l]].pfn,phy_mem[table[msg.pid_index][pageIndex[l]].pfn].data);
 
 					}
