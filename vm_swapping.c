@@ -342,6 +342,10 @@ int main(int argc, char *argv[])
 						imm_tp[pageIndex[k]].pfn = sfn ;
                                                 imm_tp[pageIndex[k]].valid = 1;
 						fpl[(fpl_rear++)%32] = sfn ;
+						phy_mem[sfn].pid= pid_index;
+						phy_mem[sfn].dir= pageTIndex[k];
+						phy_mem[sfn].pgn= pageIndex[k];
+
 						 
 					}
 				}
@@ -408,6 +412,9 @@ int main(int argc, char *argv[])
                                                 int sfn = swapping(); // swapping frame number
                                                 imm_tp[pageIndex[k]].pfn = sfn ;
 						fpl[(fpl_rear++)%32] = sfn ;
+						phy_mem[sfn].pid= pid_index;
+                                                phy_mem[sfn].dir= pageTIndex[k];
+                                                phy_mem[sfn].pgn= pageIndex[k];
                                         }
 
 					imm_tp[pageIndex[k]].disk =0;
