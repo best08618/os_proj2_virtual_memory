@@ -29,7 +29,7 @@ int min=0;
 int check=0;
 FILE* fptr;
 
-int child_execution_time[CHILDNUM] = {2,6,4};
+int child_execution_time[CHILDNUM] = {5,6,4};
 int child_execution_ctime[CHILDNUM];
 
 struct msgbuf{
@@ -188,7 +188,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 	}
 	count++;
     
-    if(total_count >= 22 )
+    if(total_count >= 14 )
 	{
 	 	for(int k = 0; k < CHILDNUM ; k ++)
         {
