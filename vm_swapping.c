@@ -11,7 +11,7 @@
 #include <sys/msg.h>
 #include <time.h>
 
-#define CHILDNUM 10
+#define CHILDNUM 3
 #define PAGETNUM 1024
 #define INDEXNUM 1024
 #define FRAMENUM 32
@@ -24,7 +24,7 @@ int front, rear = 0;
 int run_queue[20];
 int flag = 0;
 
-int child_execution_time[CHILDNUM] ={10,6,5,2,8,4,3,2,7,4};
+int child_execution_time[CHILDNUM] ={10,6,5};
 int child_execution_ctime[CHILDNUM];
 
 struct msgbuf{
@@ -91,8 +91,8 @@ void child_signal_handler(int signum)  // sig child handler
 	msg.pid_index = i;
 	unsigned int addr;
 	for (int k=0; k< 10 ; k++){
-		addr = (rand() %1024)<<22;
-		addr |= (rand()%1024)<<12;
+		addr = (rand() %5)<<22;
+		addr |= (rand()%3)<<12;
 		addr |= (rand()%0xfff);
 		msg.virt_mem[k] = addr ;
 	}
@@ -130,7 +130,7 @@ void clean_memory(DIR_TABLE* dtpt)
 	}
 
 	int pid_index = run_queue[(front-1)%20];
-	FILE* pFile = fopen("disk.txt","r");
+	FILE* pFile = fopen("disk2.txt","r");
 	if(pFile != NULL){
 	FILE* ptemp = fopen("temp.txt","w");
 	char* str;
@@ -153,8 +153,8 @@ void clean_memory(DIR_TABLE* dtpt)
 	}
 	fclose(pFile);
 	fclose(ptemp);
-	remove("disk.txt");
-	rename("temp.txt","disk.txt");}
+	remove("disk2.txt");
+	rename("temp.txt","disk2.txt");}
 	
 }
 
@@ -233,7 +233,7 @@ int swapping (){
 	update_table(vict_pfn);
 	printf("vict_pm %d goes to disk\n",vict_pfn);
 	fpl_front ++;
-	fptr = fopen("disk.txt","a");
+	fptr = fopen("disk2.txt","a");
 	printf("disk : %d %d %d\n",phy_mem[vict_pfn].pid,phy_mem[vict_pfn].dir,phy_mem[vict_pfn].pgn);
 	fprintf(fptr,"%d %d %d\n",phy_mem[vict_pfn].pid,phy_mem[vict_pfn].dir,phy_mem[vict_pfn].pgn);  
 	fclose(fptr);
@@ -353,7 +353,7 @@ int main(int argc, char *argv[])
 		
 					printf("get data from disk\n");
 				
-					FILE* pFile = fopen("disk.txt","r");
+					FILE* pFile = fopen("disk2.txt","r");
 					FILE* ptemp = fopen("temp.txt","w");
 					char* str;
 					char cstr[256];
@@ -392,8 +392,8 @@ int main(int argc, char *argv[])
 			
 					fclose(pFile);
 					fclose(ptemp);
-					remove("disk.txt");
-					rename("temp.txt","disk.txt");
+					remove("disk2.txt");
+					rename("temp.txt","disk2.txt");
 
 					 if(fpl_front != fpl_rear){
                                                 imm_tp[pageIndex[k]].pfn = fpl[(fpl_front%FRAMENUM)];
