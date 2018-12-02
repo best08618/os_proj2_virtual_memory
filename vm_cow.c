@@ -319,6 +319,7 @@ int main(int argc,char* argv[])
 				fork_check ++;
 				copy_pagetable();
 				pid[i] = fork ();
+				printf("FORK! NEW PROCESS\n");
 				run_queue[(rear++)%20] = i;
 				if(pid[i] == 0 ){
 					struct sigaction old_sa;

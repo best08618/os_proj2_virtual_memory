@@ -11,9 +11,9 @@
 #include <sys/msg.h>
 #include <time.h>
 
-#define CHILDNUM 3
-#define PAGETNUM 1000
-#define INDEXNUM 1000
+#define CHILDNUM 10
+#define PAGETNUM 1024
+#define INDEXNUM 1024
 #define FRAMENUM 32
 
 int count = 0;
@@ -24,7 +24,7 @@ int front, rear = 0;
 int run_queue[20];
 int flag = 0;
 
-int child_execution_time[CHILDNUM] ={2,6,5};
+int child_execution_time[CHILDNUM] ={10,6,5,2,8,4,3,2,7,4};
 int child_execution_ctime[CHILDNUM];
 
 struct msgbuf{
@@ -55,6 +55,7 @@ int msgq;
 int ret;
 int key = 0x12345;
 struct msgbuf msg;
+FILE* flog;
 
 void initialize_first_table()
 {
@@ -70,17 +71,17 @@ void initialize_first_table()
 
 void child_signal_handler(int signum)  // sig child handler
 {
-	printf("pid:%d ,remaining cpu-burst%d\n",getpid(),child_execution_time[i]);
+	//printf("pid:%d ,remaining cpu-burst%d\n",getpid(),child_execution_time[i]);
 	child_execution_time[i] -- ;
 	if(child_execution_time[i] <= 0)
 		child_execution_time[i] = child_execution_ctime[i];
-	printf("pid: %d get signal\n",getpid());
+	//printf("pid: %d get signal\n",getpid());
 	memset(&msg,0,sizeof(msg));
 	msg.mtype = IPC_NOWAIT;
 	msg.pid_index = i;
 	unsigned int addr;
 	for (int k=0; k< 10 ; k++){
-		addr = (rand() %3)<<22;
+		addr = (rand() %2)<<22;
 		addr |= (rand()%3)<<12;
 		addr |= (rand()%0xfff);
 		msg.virt_mem[k] = addr ;
@@ -100,7 +101,7 @@ void clean_memory(DIR_TABLE* dtpt)
 			dir_ptf[j].valid=0;
 			for(int k=0 ; k < INDEXNUM ; k++)
 				if((dir_ptf[j].pt)[k].valid == 1){
-					printf("add %d to fpl\n",(dir_ptf[j].pt)[k].pfn);
+					fprintf(flog,"add %d to fpl\n",(dir_ptf[j].pt)[k].pfn);
 					fpl[(fpl_rear++)%FRAMENUM]=(dir_ptf[j].pt)[k].pfn; 
 				}
 			dir_ptf[j].pt =NULL;
@@ -121,7 +122,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 
         total_count ++;
         count ++;
-        if(total_count >= 13){
+        if(total_count >= 10000){
 
 		for(int k = 0; k < CHILDNUM ; k ++)
 		{
@@ -131,9 +132,11 @@ void parent_signal_handler(int signum)  // sig parent handler
 
 		exit(0);
 	}
+	fprintf(flog,"time %d:================================================\n",total_count);
+	fprintf(flog,"pid:%d ,remaining cpu-burst%d\n",pid[run_queue[front% 20]],child_execution_time[run_queue[front% 20]]);
+
 	if((front%20) != (rear%20)){
 		child_execution_time[run_queue[front%20]] --;
-		printf("time %d:================================================\n",total_count);
 		kill(pid[run_queue[front % 20]],SIGINT);
 		if((count == 3)|(child_execution_time[run_queue[front%20]]==0)){
 	                count  = 0;
@@ -154,6 +157,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 int main(int argc, char *argv[])
 {
         //pid_t pid;
+	flog = fopen("twolevel_log","w");
 	unsigned int virt_mem[10];
         unsigned int offset[10];
 	unsigned int pageTIndex[10];
@@ -199,10 +203,10 @@ int main(int argc, char *argv[])
 			sigaction(SIGALRM, &new_sa, &old_sa);
 
 			struct itimerval new_itimer, old_itimer;
-			new_itimer.it_interval.tv_sec = 1;
-			new_itimer.it_interval.tv_usec = 0;
-			new_itimer.it_value.tv_sec = 1;
-			new_itimer.it_value.tv_usec = 0;
+			new_itimer.it_interval.tv_sec = 0;
+			new_itimer.it_interval.tv_usec = 10000;
+			new_itimer.it_value.tv_sec = 0;
+			new_itimer.it_value.tv_usec = 10000;
 			setitimer(ITIMER_REAL, &new_itimer, &old_itimer);
 		}
 		i++;
@@ -210,7 +214,7 @@ int main(int argc, char *argv[])
 	while(1){
 		ret = msgrcv(msgq,&msg,sizeof(msg),IPC_NOWAIT,IPC_NOWAIT); //to receive message
 		if(ret != -1){
-			printf("get message\n");
+			//printf("get message\n");
 			pid_index = msg.pid_index;
 			for(int k=0 ; k < 10 ; k ++ ){
 	
@@ -228,7 +232,7 @@ int main(int argc, char *argv[])
 				//When page fault happened in first level 
 				if( dir_table[pid_index][pageTIndex[k]].valid == 0 )
 				{	
-					printf("pagefault in first page \n");
+					fprintf(flog,"pagefault in first page \n");
 					TABLE* table = (TABLE*) calloc(INDEXNUM, sizeof(TABLE));
 					dir_table[pid_index][pageTIndex[k]].pt = table;
 					dir_table[pid_index][pageTIndex[k]].valid = 1; 
@@ -238,20 +242,29 @@ int main(int argc, char *argv[])
 
 				if(imm_tp[pageIndex[k]].valid== 0)
 				{
-					printf("page fault in second page\n");
+					fprintf(flog,"page fault in second page\n");
 					if(fpl_front != fpl_rear){
 						imm_tp[pageIndex[k]].pfn = fpl[(fpl_front%FRAMENUM)];
 						imm_tp[pageIndex[k]].valid = 1;
 						fpl_front++;
 					}
 					else{
-						printf("full");
+						fprintf(flog,"full");
+
+						for(int k = 0; k < CHILDNUM ; k ++)
+						{
+							kill(pid[k],SIGKILL);
+						}
+						msgctl(msgq, IPC_RMID, NULL);
+
+						exit(0);
+
 						return 0;
 					}
 				}
 			
 
-				printf("VM : 0x%08x , PFN : %d\n", virt_mem[k], imm_tp[pageIndex[k]].pfn);
+				fprintf(flog,"VM : 0x%08x , PFN : %d PA:0x%04x\n", virt_mem[k], imm_tp[pageIndex[k]].pfn,(imm_tp[pageIndex[k]].pfn<<12)+offset[k]);
 				
 			//	printf("message virtual memory: 0x%08x\n",msg.virt_mem[k]);
 			//	printf("Offset: 0x%04x\n", offset[k]);

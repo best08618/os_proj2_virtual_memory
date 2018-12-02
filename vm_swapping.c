@@ -11,7 +11,7 @@
 #include <sys/msg.h>
 #include <time.h>
 
-#define CHILDNUM 3
+#define CHILDNUM 10
 #define PAGETNUM 1024
 #define INDEXNUM 1024
 #define FRAMENUM 32
@@ -24,7 +24,7 @@ int front, rear = 0;
 int run_queue[20];
 int flag = 0;
 
-int child_execution_time[CHILDNUM] ={10,6,5};
+int child_execution_time[CHILDNUM] ={10,6,5,2,8,4,3,2,7,4};
 int child_execution_ctime[CHILDNUM];
 
 struct msgbuf{
@@ -66,7 +66,7 @@ int key = 0x12345;
 struct msgbuf msg;
 
 FILE* fptr;
-
+FILE* flog;
 void initialize_first_table()
 {
 	for( int l = 0; l < CHILDNUM ; l++){
@@ -81,11 +81,11 @@ void initialize_first_table()
 
 void child_signal_handler(int signum)  // sig child handler
 {
-	printf("pid:%d ,remaining cpu-burst%d\n",getpid(),child_execution_time[i]);
+	//printf("pid:%d ,remaining cpu-burst%d\n",getpid(),child_execution_time[i]);
 	child_execution_time[i] -- ;
 	if(child_execution_time[i] <= 0)
 		child_execution_time[i] = child_execution_ctime[i];
-	printf("pid: %d get signal\n",getpid());
+	//printf("pid: %d get signal\n",getpid());
 	memset(&msg,0,sizeof(msg));
 	msg.mtype = IPC_NOWAIT;
 	msg.pid_index = i;
@@ -112,7 +112,7 @@ void clean_memory(DIR_TABLE* dtpt)
 			for(int k=0 ; k < INDEXNUM ; k++)
 				if(((dir_ptf[j].pt)[k].valid == 1)){
 					if((dir_ptf[j].pt)[k].disk == 0){
-						printf("add %d to fpl\n",(dir_ptf[j].pt)[k].pfn);
+						fprintf(flog,"add %d to fpl\n",(dir_ptf[j].pt)[k].pfn);
 						fpl[(fpl_rear++)%FRAMENUM]=(dir_ptf[j].pt)[k].pfn;
 					}
 					else{
@@ -167,7 +167,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 
         total_count ++;
         count ++;
-        if(total_count >= 25){
+        if(total_count >= 10000){
 
 		for(int k = 0; k < CHILDNUM ; k ++)
 		{
@@ -177,9 +177,10 @@ void parent_signal_handler(int signum)  // sig parent handler
 //		fclose(fptr);
 		exit(0);
 	}
+	 fprintf(flog,"time %d:================================================\n",total_count);
+	fprintf(flog,"pid:%d ,remaining cpu-burst%d\n",pid[run_queue[front% 20]],child_execution_time[run_queue[front% 20]]);
 	if((front%20) != (rear%20)){
 		child_execution_time[run_queue[front%20]] --;
-		printf("time %d:================================================\n",total_count);
 		kill(pid[run_queue[front % 20]],SIGINT);
 		if((count == 3)|(child_execution_time[run_queue[front%20]]==0)){
 	                count  = 0;
@@ -228,13 +229,13 @@ void update_table(int vict_pfn){
 int swapping (){
 	int vict_pfn;
 	vict_pfn = find_victim();
-	printf("vict_pfm is %d\n",vict_pfn);
+	fprintf(flog,"vict_pfm is %d\n",vict_pfn);
 	int  fpl = vict_pfn;
 	update_table(vict_pfn);
-	printf("vict_pm %d goes to disk\n",vict_pfn);
+	fprintf(flog,"vict_pm %d goes to disk\n",vict_pfn);
 	fpl_front ++;
 	fptr = fopen("disk2.txt","a");
-	printf("disk : %d %d %d\n",phy_mem[vict_pfn].pid,phy_mem[vict_pfn].dir,phy_mem[vict_pfn].pgn);
+	fprintf(flog,"disk : %d %d %d\n",phy_mem[vict_pfn].pid,phy_mem[vict_pfn].dir,phy_mem[vict_pfn].pgn);
 	fprintf(fptr,"%d %d %d\n",phy_mem[vict_pfn].pid,phy_mem[vict_pfn].dir,phy_mem[vict_pfn].pgn);  
 	fclose(fptr);
 	return fpl;
@@ -243,6 +244,7 @@ int swapping (){
 int main(int argc, char *argv[])
 {
         //pid_t pid;
+	flog = fopen("twolevel_swapping_log","w");
 	unsigned int virt_mem[10];
         unsigned int offset[10];
 	unsigned int pageTIndex[10];
@@ -288,10 +290,10 @@ int main(int argc, char *argv[])
 			sigaction(SIGALRM, &new_sa, &old_sa);
 
 			struct itimerval new_itimer, old_itimer;
-			new_itimer.it_interval.tv_sec = 1;
-			new_itimer.it_interval.tv_usec = 0;
-			new_itimer.it_value.tv_sec = 1;
-			new_itimer.it_value.tv_usec = 0;
+			new_itimer.it_interval.tv_sec = 0;
+			new_itimer.it_interval.tv_usec = 10000;
+			new_itimer.it_value.tv_sec = 0;
+			new_itimer.it_value.tv_usec = 10000;
 			setitimer(ITIMER_REAL, &new_itimer, &old_itimer);
 		}
 		i++;
@@ -299,7 +301,7 @@ int main(int argc, char *argv[])
 	while(1){
 		ret = msgrcv(msgq,&msg,sizeof(msg),IPC_NOWAIT,IPC_NOWAIT); //to receive message
 		if(ret != -1){
-			printf("get message\n");
+			//printf("get message\n");
 			pid_index = msg.pid_index;
 			for(int k=0 ; k < 10 ; k ++ ){
 	
@@ -312,12 +314,12 @@ int main(int argc, char *argv[])
 	//			      printf("message virtual memory: 0x%08x\n",msg.virt_mem[k]);
 	//			    printf("Offset: 0x%04x\n", offset[k]);
 				    
-				      printf("DIR index : %d\n",pageTIndex[k]);
-  					  printf("Page Index: %d\n", pageIndex[k]);
+				      fprintf(flog,"DIR index : %d\n",pageTIndex[k]);
+  					  fprintf(flog,"Page Index: %d\n", pageIndex[k]);
 				//When page fault happened in first level 
 				if( dir_table[pid_index][pageTIndex[k]].valid == 0 )
 				{	
-					printf("pagefault in first page \n");
+					fprintf(flog,"pagefault in first page \n");
 					TABLE* table = (TABLE*) calloc(INDEXNUM, sizeof(TABLE));
 					dir_table[pid_index][pageTIndex[k]].pt = table;
 					dir_table[pid_index][pageTIndex[k]].valid = 1; 
@@ -327,7 +329,7 @@ int main(int argc, char *argv[])
 
 				if(imm_tp[pageIndex[k]].valid== 0)
 				{
-					printf("page fault in second page\n");
+					fprintf(flog,"page fault in second page\n");
 					if(fpl_front != fpl_rear){
 						imm_tp[pageIndex[k]].pfn = fpl[(fpl_front%FRAMENUM)];
 						imm_tp[pageIndex[k]].valid = 1;
@@ -337,10 +339,14 @@ int main(int argc, char *argv[])
 						fpl_front++;
 					}
 					else{
-						printf("full");
+						fprintf(flog,"full memory\n");
 						int sfn = swapping(); // swapping frame number
 						imm_tp[pageIndex[k]].pfn = sfn ;
                                                 imm_tp[pageIndex[k]].valid = 1;
+						phy_mem[sfn].pid= pid_index;
+						phy_mem[sfn].dir= pageTIndex[k];
+						phy_mem[sfn].pgn= pageIndex[k];
+
 						fpl[(fpl_rear++)%32] = sfn ;
 						phy_mem[sfn].pid= pid_index;
 						phy_mem[sfn].dir= pageTIndex[k];
@@ -355,7 +361,7 @@ int main(int argc, char *argv[])
 					//file에서 pid , pagen num으로 접근하는 코드 추가해야함
 	  			     
 		
-					printf("get data from disk\n");
+					fprintf(flog,"get data from disk\n");
 				
 					FILE* pFile = fopen("disk2.txt","r");
 					FILE* ptemp = fopen("temp.txt","w");
@@ -382,7 +388,7 @@ int main(int argc, char *argv[])
 								else if( p == 1) 
 									break;
 								if((p == 2) && (atoi(token) == pageIndex[k])){
-									printf("swap out\n");
+									fprintf(flog,"swap out\n");
 									swap_out = 1;
 								}
 							}
@@ -408,13 +414,14 @@ int main(int argc, char *argv[])
                                                 fpl_front++;
                                         }
                                         else{
-                                                printf("full");
+                                                fprintf(flog,"full memeory \n");
                                                 int sfn = swapping(); // swapping frame number
                                                 imm_tp[pageIndex[k]].pfn = sfn ;
 						fpl[(fpl_rear++)%32] = sfn ;
 						phy_mem[sfn].pid= pid_index;
-                                                phy_mem[sfn].dir= pageTIndex[k];
-                                                phy_mem[sfn].pgn= pageIndex[k];
+						phy_mem[sfn].dir= pageTIndex[k];
+						phy_mem[sfn].pgn= pageIndex[k];
+
                                         }
 
 					imm_tp[pageIndex[k]].disk =0;
@@ -423,7 +430,7 @@ int main(int argc, char *argv[])
 				
 
 				phy_mem[imm_tp[pageIndex[k]].pfn].sca = 1;
-				printf("VM : 0x%08x , PFN : %d, sca:%d\n", virt_mem[k], imm_tp[pageIndex[k]].pfn,phy_mem[imm_tp[pageIndex[k]].pfn].sca);
+				fprintf(flog,"VM : 0x%08x , PFN : %d\n", virt_mem[k], imm_tp[pageIndex[k]].pfn);
 				
 			//	printf("message virtual memory: 0x%08x\n",msg.virt_mem[k]);
 			//	printf("Offset: 0x%04x\n", offset[k]);

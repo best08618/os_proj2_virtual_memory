@@ -1,0 +1,268 @@
+time 1:================================================
+pid:9972 ,remaining cpu-burst10
+pagefault in first page 
+page fault in second page
+VM : 0x00401c96 , PFN : 0 PA:0x0c96
+page fault in second page
+VM : 0x004021ae , PFN : 1 PA:0x11ae
+pagefault in first page 
+page fault in second page
+VM : 0x0000082e , PFN : 2 PA:0x282e
+VM : 0x00402fe8 , PFN : 1 PA:0x1fe8
+page fault in second page
+VM : 0x00001887 , PFN : 3 PA:0x3887
+VM : 0x00000024 , PFN : 2 PA:0x2024
+VM : 0x0000147f , PFN : 3 PA:0x347f
+VM : 0x000002e8 , PFN : 2 PA:0x22e8
+page fault in second page
+VM : 0x0000230e , PFN : 4 PA:0x430e
+VM : 0x004016b8 , PFN : 0 PA:0x06b8
+time 2:================================================
+pid:9972 ,remaining cpu-burst9
+page fault in second page
+VM : 0x00400264 , PFN : 5 PA:0x5264
+VM : 0x000029b7 , PFN : 4 PA:0x49b7
+VM : 0x004017db , PFN : 0 PA:0x07db
+VM : 0x00000288 , PFN : 2 PA:0x2288
+VM : 0x00402cb6 , PFN : 1 PA:0x1cb6
+VM : 0x00402374 , PFN : 1 PA:0x1374
+VM : 0x0040064d , PFN : 5 PA:0x564d
+VM : 0x00001d52 , PFN : 3 PA:0x3d52
+VM : 0x00000782 , PFN : 2 PA:0x2782
+VM : 0x00001781 , PFN : 3 PA:0x3781
+time 3:================================================
+pid:9972 ,remaining cpu-burst8
+VM : 0x00400608 , PFN : 5 PA:0x5608
+VM : 0x00402f9b , PFN : 1 PA:0x1f9b
+VM : 0x00000c2e , PFN : 2 PA:0x2c2e
+VM : 0x004003de , PFN : 5 PA:0x53de
+VM : 0x00000941 , PFN : 2 PA:0x2941
+VM : 0x004023bf , PFN : 1 PA:0x13bf
+VM : 0x004028a4 , PFN : 1 PA:0x18a4
+VM : 0x000008ff , PFN : 2 PA:0x28ff
+VM : 0x00000945 , PFN : 2 PA:0x2945
+VM : 0x00402b53 , PFN : 1 PA:0x1b53
+time 4:================================================
+pid:9973 ,remaining cpu-burst6
+pagefault in first page 
+page fault in second page
+VM : 0x00401c96 , PFN : 6 PA:0x6c96
+page fault in second page
+VM : 0x004021ae , PFN : 7 PA:0x71ae
+pagefault in first page 
+page fault in second page
+VM : 0x0000082e , PFN : 8 PA:0x882e
+VM : 0x00402fe8 , PFN : 7 PA:0x7fe8
+page fault in second page
+VM : 0x00001887 , PFN : 9 PA:0x9887
+VM : 0x00000024 , PFN : 8 PA:0x8024
+VM : 0x0000147f , PFN : 9 PA:0x947f
+VM : 0x000002e8 , PFN : 8 PA:0x82e8
+page fault in second page
+VM : 0x0000230e , PFN : 10 PA:0xa30e
+VM : 0x004016b8 , PFN : 6 PA:0x66b8
+time 5:================================================
+pid:9973 ,remaining cpu-burst5
+page fault in second page
+VM : 0x00400264 , PFN : 11 PA:0xb264
+VM : 0x000029b7 , PFN : 10 PA:0xa9b7
+VM : 0x004017db , PFN : 6 PA:0x67db
+VM : 0x00000288 , PFN : 8 PA:0x8288
+VM : 0x00402cb6 , PFN : 7 PA:0x7cb6
+VM : 0x00402374 , PFN : 7 PA:0x7374
+VM : 0x0040064d , PFN : 11 PA:0xb64d
+VM : 0x00001d52 , PFN : 9 PA:0x9d52
+VM : 0x00000782 , PFN : 8 PA:0x8782
+VM : 0x00001781 , PFN : 9 PA:0x9781
+time 6:================================================
+pid:9973 ,remaining cpu-burst4
+VM : 0x00400608 , PFN : 11 PA:0xb608
+VM : 0x00402f9b , PFN : 7 PA:0x7f9b
+VM : 0x00000c2e , PFN : 8 PA:0x8c2e
+VM : 0x004003de , PFN : 11 PA:0xb3de
+VM : 0x00000941 , PFN : 8 PA:0x8941
+VM : 0x004023bf , PFN : 7 PA:0x73bf
+VM : 0x004028a4 , PFN : 7 PA:0x78a4
+VM : 0x000008ff , PFN : 8 PA:0x88ff
+VM : 0x00000945 , PFN : 8 PA:0x8945
+VM : 0x00402b53 , PFN : 7 PA:0x7b53
+time 7:================================================
+pid:9974 ,remaining cpu-burst5
+pagefault in first page 
+page fault in second page
+VM : 0x00401c96 , PFN : 12 PA:0xcc96
+page fault in second page
+VM : 0x004021ae , PFN : 13 PA:0xd1ae
+pagefault in first page 
+page fault in second page
+VM : 0x0000082e , PFN : 14 PA:0xe82e
+VM : 0x00402fe8 , PFN : 13 PA:0xdfe8
+page fault in second page
+VM : 0x00001887 , PFN : 15 PA:0xf887
+VM : 0x00000024 , PFN : 14 PA:0xe024
+VM : 0x0000147f , PFN : 15 PA:0xf47f
+VM : 0x000002e8 , PFN : 14 PA:0xe2e8
+page fault in second page
+VM : 0x0000230e , PFN : 16 PA:0x1030e
+VM : 0x004016b8 , PFN : 12 PA:0xc6b8
+time 8:================================================
+pid:9974 ,remaining cpu-burst4
+page fault in second page
+VM : 0x00400264 , PFN : 17 PA:0x11264
+VM : 0x000029b7 , PFN : 16 PA:0x109b7
+VM : 0x004017db , PFN : 12 PA:0xc7db
+VM : 0x00000288 , PFN : 14 PA:0xe288
+VM : 0x00402cb6 , PFN : 13 PA:0xdcb6
+VM : 0x00402374 , PFN : 13 PA:0xd374
+VM : 0x0040064d , PFN : 17 PA:0x1164d
+VM : 0x00001d52 , PFN : 15 PA:0xfd52
+VM : 0x00000782 , PFN : 14 PA:0xe782
+VM : 0x00001781 , PFN : 15 PA:0xf781
+time 9:================================================
+pid:9974 ,remaining cpu-burst3
+VM : 0x00400608 , PFN : 17 PA:0x11608
+VM : 0x00402f9b , PFN : 13 PA:0xdf9b
+VM : 0x00000c2e , PFN : 14 PA:0xec2e
+VM : 0x004003de , PFN : 17 PA:0x113de
+VM : 0x00000941 , PFN : 14 PA:0xe941
+VM : 0x004023bf , PFN : 13 PA:0xd3bf
+VM : 0x004028a4 , PFN : 13 PA:0xd8a4
+VM : 0x000008ff , PFN : 14 PA:0xe8ff
+VM : 0x00000945 , PFN : 14 PA:0xe945
+VM : 0x00402b53 , PFN : 13 PA:0xdb53
+time 10:================================================
+pid:9975 ,remaining cpu-burst2
+pagefault in first page 
+page fault in second page
+VM : 0x00401c96 , PFN : 18 PA:0x12c96
+page fault in second page
+VM : 0x004021ae , PFN : 19 PA:0x131ae
+pagefault in first page 
+page fault in second page
+VM : 0x0000082e , PFN : 20 PA:0x1482e
+VM : 0x00402fe8 , PFN : 19 PA:0x13fe8
+page fault in second page
+VM : 0x00001887 , PFN : 21 PA:0x15887
+VM : 0x00000024 , PFN : 20 PA:0x14024
+VM : 0x0000147f , PFN : 21 PA:0x1547f
+VM : 0x000002e8 , PFN : 20 PA:0x142e8
+page fault in second page
+VM : 0x0000230e , PFN : 22 PA:0x1630e
+VM : 0x004016b8 , PFN : 18 PA:0x126b8
+time 11:================================================
+pid:9975 ,remaining cpu-burst1
+page fault in second page
+VM : 0x00400264 , PFN : 23 PA:0x17264
+VM : 0x000029b7 , PFN : 22 PA:0x169b7
+VM : 0x004017db , PFN : 18 PA:0x127db
+VM : 0x00000288 , PFN : 20 PA:0x14288
+VM : 0x00402cb6 , PFN : 19 PA:0x13cb6
+VM : 0x00402374 , PFN : 19 PA:0x13374
+VM : 0x0040064d , PFN : 23 PA:0x1764d
+VM : 0x00001d52 , PFN : 21 PA:0x15d52
+VM : 0x00000782 , PFN : 20 PA:0x14782
+VM : 0x00001781 , PFN : 21 PA:0x15781
+add 20 to fpl
+add 21 to fpl
+add 22 to fpl
+add 23 to fpl
+add 18 to fpl
+add 19 to fpl
+time 12:================================================
+pid:9976 ,remaining cpu-burst8
+pagefault in first page 
+page fault in second page
+VM : 0x00401c96 , PFN : 24 PA:0x18c96
+page fault in second page
+VM : 0x004021ae , PFN : 25 PA:0x191ae
+pagefault in first page 
+page fault in second page
+VM : 0x0000082e , PFN : 26 PA:0x1a82e
+VM : 0x00402fe8 , PFN : 25 PA:0x19fe8
+page fault in second page
+VM : 0x00001887 , PFN : 27 PA:0x1b887
+VM : 0x00000024 , PFN : 26 PA:0x1a024
+VM : 0x0000147f , PFN : 27 PA:0x1b47f
+VM : 0x000002e8 , PFN : 26 PA:0x1a2e8
+page fault in second page
+VM : 0x0000230e , PFN : 28 PA:0x1c30e
+VM : 0x004016b8 , PFN : 24 PA:0x186b8
+time 13:================================================
+pid:9976 ,remaining cpu-burst7
+page fault in second page
+VM : 0x00400264 , PFN : 29 PA:0x1d264
+VM : 0x000029b7 , PFN : 28 PA:0x1c9b7
+VM : 0x004017db , PFN : 24 PA:0x187db
+VM : 0x00000288 , PFN : 26 PA:0x1a288
+VM : 0x00402cb6 , PFN : 25 PA:0x19cb6
+VM : 0x00402374 , PFN : 25 PA:0x19374
+VM : 0x0040064d , PFN : 29 PA:0x1d64d
+VM : 0x00001d52 , PFN : 27 PA:0x1bd52
+VM : 0x00000782 , PFN : 26 PA:0x1a782
+VM : 0x00001781 , PFN : 27 PA:0x1b781
+time 14:================================================
+pid:9976 ,remaining cpu-burst6
+VM : 0x00400608 , PFN : 29 PA:0x1d608
+VM : 0x00402f9b , PFN : 25 PA:0x19f9b
+VM : 0x00000c2e , PFN : 26 PA:0x1ac2e
+VM : 0x004003de , PFN : 29 PA:0x1d3de
+VM : 0x00000941 , PFN : 26 PA:0x1a941
+VM : 0x004023bf , PFN : 25 PA:0x193bf
+VM : 0x004028a4 , PFN : 25 PA:0x198a4
+VM : 0x000008ff , PFN : 26 PA:0x1a8ff
+VM : 0x00000945 , PFN : 26 PA:0x1a945
+VM : 0x00402b53 , PFN : 25 PA:0x19b53
+time 15:================================================
+pid:9977 ,remaining cpu-burst4
+pagefault in first page 
+page fault in second page
+VM : 0x00401c96 , PFN : 30 PA:0x1ec96
+page fault in second page
+VM : 0x004021ae , PFN : 31 PA:0x1f1ae
+pagefault in first page 
+page fault in second page
+VM : 0x0000082e , PFN : 20 PA:0x1482e
+VM : 0x00402fe8 , PFN : 31 PA:0x1ffe8
+page fault in second page
+VM : 0x00001887 , PFN : 21 PA:0x15887
+VM : 0x00000024 , PFN : 20 PA:0x14024
+VM : 0x0000147f , PFN : 21 PA:0x1547f
+VM : 0x000002e8 , PFN : 20 PA:0x142e8
+page fault in second page
+VM : 0x0000230e , PFN : 22 PA:0x1630e
+VM : 0x004016b8 , PFN : 30 PA:0x1e6b8
+time 16:================================================
+pid:9977 ,remaining cpu-burst3
+page fault in second page
+VM : 0x00400264 , PFN : 23 PA:0x17264
+VM : 0x000029b7 , PFN : 22 PA:0x169b7
+VM : 0x004017db , PFN : 30 PA:0x1e7db
+VM : 0x00000288 , PFN : 20 PA:0x14288
+VM : 0x00402cb6 , PFN : 31 PA:0x1fcb6
+VM : 0x00402374 , PFN : 31 PA:0x1f374
+VM : 0x0040064d , PFN : 23 PA:0x1764d
+VM : 0x00001d52 , PFN : 21 PA:0x15d52
+VM : 0x00000782 , PFN : 20 PA:0x14782
+VM : 0x00001781 , PFN : 21 PA:0x15781
+time 17:================================================
+pid:9977 ,remaining cpu-burst2
+VM : 0x00400608 , PFN : 23 PA:0x17608
+VM : 0x00402f9b , PFN : 31 PA:0x1ff9b
+VM : 0x00000c2e , PFN : 20 PA:0x14c2e
+VM : 0x004003de , PFN : 23 PA:0x173de
+VM : 0x00000941 , PFN : 20 PA:0x14941
+VM : 0x004023bf , PFN : 31 PA:0x1f3bf
+VM : 0x004028a4 , PFN : 31 PA:0x1f8a4
+VM : 0x000008ff , PFN : 20 PA:0x148ff
+VM : 0x00000945 , PFN : 20 PA:0x14945
+VM : 0x00402b53 , PFN : 31 PA:0x1fb53
+time 18:================================================
+pid:9978 ,remaining cpu-burst3
+pagefault in first page 
+page fault in second page
+VM : 0x00401c96 , PFN : 18 PA:0x12c96
+page fault in second page
+VM : 0x004021ae , PFN : 19 PA:0x131ae
+pagefault in first page 
+page fault in second page
+full
