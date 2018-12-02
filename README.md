@@ -3,6 +3,7 @@ virtual memory simulator<br />
 1.virtual_memory.c<br />
 ---------------
 one level paging vm<br />
+log file : one_level_result
 
 2.vm_tlb.c<br />
 ---------------
