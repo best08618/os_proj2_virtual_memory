@@ -124,7 +124,7 @@ void parent_signal_handler(int signum)  // sig parent handler
 
 	total_count ++;
     count ++;
-    if(total_count >= 100 )
+    if(total_count >= 10000 )
 	{
 	 	for(int k = 0; k < CHILDNUM ; k ++)
         {
