@@ -1,0 +1,2285 @@
+time 1:==================================
+pid: 12722 remaining cpu-burst1
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 0a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 1b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 2250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 21f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 35f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 0751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 02b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 2a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 065e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 1b7b
+time 2:==================================
+pid: 12722 remaining cpu-burst0
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 354f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 0624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 2fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 2ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 2153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 08ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 2c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 069d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 068d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 2fe2
+0 is free to fpl
+3 is free to fpl
+2 is free to fpl
+1 is free to fpl
+time 3:==================================
+pid: 12723 remaining cpu-burst5
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 4a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 5b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 6250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 61f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 75f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 4751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 42b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 6a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 465e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 5b7b
+time 4:==================================
+pid: 12723 remaining cpu-burst4
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 754f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 4624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 6fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 6ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 6153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 48ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 6c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 469d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 468d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 6fe2
+time 5:==================================
+pid: 12723 remaining cpu-burst3
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 675c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 5d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 5b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 6a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 66eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 51af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 48d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 7986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 7bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 4980
+time 6:==================================
+pid: 12724 remaining cpu-burst4
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 8a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 9b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 10250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 101f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 115f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 8751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 82b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 10a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 865e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 9b7b
+time 7:==================================
+pid: 12724 remaining cpu-burst3
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 1154f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 8624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 10fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 10ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 10153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 88ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 10c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 869d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 868d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 10fe2
+time 8:==================================
+pid: 12724 remaining cpu-burst2
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 1075c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 9d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 9b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 10a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 106eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 91af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 88d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 11986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 11bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 8980
+time 9:==================================
+pid: 12725 remaining cpu-burst7
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 12a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 13b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 14250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 141f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 155f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 12751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 122b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 14a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 1265e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 13b7b
+time 10:==================================
+pid: 12725 remaining cpu-burst6
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 1554f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 12624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 14fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 14ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 14153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 128ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 14c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 1269d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 1268d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 14fe2
+time 11:==================================
+pid: 12725 remaining cpu-burst5
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 1475c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 13d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 13b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 14a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 146eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 131af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 128d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 15986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 15bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 12980
+time 12:==================================
+pid: 12726 remaining cpu-burst2
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 16a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 17b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 18250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 181f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 195f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 16751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 162b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 18a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 1665e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 17b7b
+time 13:==================================
+pid: 12726 remaining cpu-burst1
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 1954f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 16624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 18fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 18ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 18153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 168ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 18c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 1669d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 1668d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 18fe2
+time 14:==================================
+pid: 12726 remaining cpu-burst0
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 1875c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 17d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 17b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 18a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 186eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 171af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 168d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 19986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 19bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 16980
+16 is free to fpl
+19 is free to fpl
+18 is free to fpl
+17 is free to fpl
+time 15:==================================
+pid: 12727 remaining cpu-burst1
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 20a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 21b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 22250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 221f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 235f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 20751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 202b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 22a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 2065e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 21b7b
+time 16:==================================
+pid: 12727 remaining cpu-burst0
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 2354f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 20624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 22fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 22ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 22153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 208ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 22c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 2069d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 2068d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 22fe2
+20 is free to fpl
+23 is free to fpl
+22 is free to fpl
+21 is free to fpl
+time 17:==================================
+pid: 12728 remaining cpu-burst8
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 24a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 25b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 26250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 261f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 275f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 24751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 242b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 26a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 2465e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 25b7b
+time 18:==================================
+pid: 12728 remaining cpu-burst7
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 2754f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 24624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 26fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 26ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 26153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 248ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 26c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 2469d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 2468d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 26fe2
+time 19:==================================
+pid: 12728 remaining cpu-burst6
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 2675c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 25d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 25b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 26a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 266eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 251af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 248d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 27986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 27bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 24980
+time 20:==================================
+pid: 12729 remaining cpu-burst0
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 28a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 29b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 30250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 301f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 315f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 28751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 282b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 30a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 2865e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 29b7b
+28 is free to fpl
+31 is free to fpl
+30 is free to fpl
+29 is free to fpl
+time 21:==================================
+pid: 12730 remaining cpu-burst2
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 0a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 3b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 2250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 21f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 15f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 0751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 02b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 2a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 065e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 3b7b
+time 22:==================================
+pid: 12730 remaining cpu-burst1
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 154f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 0624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 2fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 2ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 2153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 08ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 2c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 069d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 068d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 2fe2
+time 23:==================================
+pid: 12730 remaining cpu-burst0
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 275c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 3d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 3b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 2a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 26eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 31af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 08d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 1986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 1bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 0980
+0 is free to fpl
+1 is free to fpl
+2 is free to fpl
+3 is free to fpl
+time 24:==================================
+pid: 12731 remaining cpu-burst9
+virtual memory: 0x0a6b, offset: 0x0a6b, page index: 0
+VA 0 -> PA 16a6b
+virtual memory: 0x3b46, offset: 0x0b46, page index: 3
+VA 3 -> PA 19b46
+virtual memory: 0x2250, offset: 0x0250, page index: 2
+VA 2 -> PA 18250
+virtual memory: 0x201f, offset: 0x001f, page index: 2
+VA 2 -> PA 181f
+virtual memory: 0x15f5, offset: 0x05f5, page index: 1
+VA 1 -> PA 175f5
+virtual memory: 0x0751, offset: 0x0751, page index: 0
+VA 0 -> PA 16751
+virtual memory: 0x02b0, offset: 0x02b0, page index: 0
+VA 0 -> PA 162b0
+virtual memory: 0x2a1b, offset: 0x0a1b, page index: 2
+VA 2 -> PA 18a1b
+virtual memory: 0x065e, offset: 0x065e, page index: 0
+VA 0 -> PA 1665e
+virtual memory: 0x3b7b, offset: 0x0b7b, page index: 3
+VA 3 -> PA 19b7b
+time 25:==================================
+pid: 12731 remaining cpu-burst8
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 1754f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 16624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 18fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 18ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 18153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 168ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 18c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 1669d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 1668d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 18fe2
+time 26:==================================
+pid: 12731 remaining cpu-burst7
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 1875c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 19d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 19b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 18a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 186eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 191af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 168d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 17986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 17bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 16980
+time 27:==================================
+pid: 12722 remaining cpu-burst1
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 2075c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 23d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 23b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 20a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 206eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 231af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 228d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 21986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 21bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 22980
+time 28:==================================
+pid: 12722 remaining cpu-burst0
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 22717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 21861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 235a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 209ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 224bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 227b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 2387
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 215a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 22b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 20d45
+22 is free to fpl
+21 is free to fpl
+20 is free to fpl
+23 is free to fpl
+time 29:==================================
+pid: 12723 remaining cpu-burst2
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 4717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 7861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 55a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 69ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 44bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 47b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 587
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 75a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 4b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 6d45
+time 30:==================================
+pid: 12723 remaining cpu-burst1
+virtual memory: 0x153c, offset: 0x053c, page index: 1
+VA 1 -> PA 753c
+virtual memory: 0x3d90, offset: 0x0d90, page index: 3
+VA 3 -> PA 5d90
+virtual memory: 0x15c8, offset: 0x05c8, page index: 1
+VA 1 -> PA 75c8
+virtual memory: 0x0617, offset: 0x0617, page index: 0
+VA 0 -> PA 4617
+virtual memory: 0x006a, offset: 0x006a, page index: 0
+VA 0 -> PA 46a
+virtual memory: 0x1db8, offset: 0x0db8, page index: 1
+VA 1 -> PA 7db8
+virtual memory: 0x00c7, offset: 0x00c7, page index: 0
+VA 0 -> PA 4c7
+virtual memory: 0x2ddc, offset: 0x0ddc, page index: 2
+VA 2 -> PA 6ddc
+virtual memory: 0x0419, offset: 0x0419, page index: 0
+VA 0 -> PA 4419
+virtual memory: 0x219c, offset: 0x019c, page index: 2
+VA 2 -> PA 619c
+time 31:==================================
+pid: 12723 remaining cpu-burst0
+virtual memory: 0x111f, offset: 0x011f, page index: 1
+VA 1 -> PA 711f
+virtual memory: 0x346f, offset: 0x046f, page index: 3
+VA 3 -> PA 546f
+virtual memory: 0x1d93, offset: 0x0d93, page index: 1
+VA 1 -> PA 7d93
+virtual memory: 0x3d1c, offset: 0x0d1c, page index: 3
+VA 3 -> PA 5d1c
+virtual memory: 0x3949, offset: 0x0949, page index: 3
+VA 3 -> PA 5949
+virtual memory: 0x0ad5, offset: 0x0ad5, page index: 0
+VA 0 -> PA 4ad5
+virtual memory: 0x3957, offset: 0x0957, page index: 3
+VA 3 -> PA 5957
+virtual memory: 0x2b93, offset: 0x0b93, page index: 2
+VA 2 -> PA 6b93
+virtual memory: 0x0efe, offset: 0x0efe, page index: 0
+VA 0 -> PA 4efe
+virtual memory: 0x3038, offset: 0x0038, page index: 3
+VA 3 -> PA 538
+4 is free to fpl
+7 is free to fpl
+6 is free to fpl
+5 is free to fpl
+time 32:==================================
+pid: 12724 remaining cpu-burst1
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 8717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 11861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 95a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 109ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 84bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 87b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 987
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 115a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 8b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 10d45
+time 33:==================================
+pid: 12724 remaining cpu-burst0
+virtual memory: 0x153c, offset: 0x053c, page index: 1
+VA 1 -> PA 1153c
+virtual memory: 0x3d90, offset: 0x0d90, page index: 3
+VA 3 -> PA 9d90
+virtual memory: 0x15c8, offset: 0x05c8, page index: 1
+VA 1 -> PA 115c8
+virtual memory: 0x0617, offset: 0x0617, page index: 0
+VA 0 -> PA 8617
+virtual memory: 0x006a, offset: 0x006a, page index: 0
+VA 0 -> PA 86a
+virtual memory: 0x1db8, offset: 0x0db8, page index: 1
+VA 1 -> PA 11db8
+virtual memory: 0x00c7, offset: 0x00c7, page index: 0
+VA 0 -> PA 8c7
+virtual memory: 0x2ddc, offset: 0x0ddc, page index: 2
+VA 2 -> PA 10ddc
+virtual memory: 0x0419, offset: 0x0419, page index: 0
+VA 0 -> PA 8419
+virtual memory: 0x219c, offset: 0x019c, page index: 2
+VA 2 -> PA 1019c
+8 is free to fpl
+11 is free to fpl
+10 is free to fpl
+9 is free to fpl
+time 34:==================================
+pid: 12725 remaining cpu-burst4
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 12717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 15861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 135a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 149ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 124bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 127b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 1387
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 155a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 12b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 14d45
+time 35:==================================
+pid: 12725 remaining cpu-burst3
+virtual memory: 0x153c, offset: 0x053c, page index: 1
+VA 1 -> PA 1553c
+virtual memory: 0x3d90, offset: 0x0d90, page index: 3
+VA 3 -> PA 13d90
+virtual memory: 0x15c8, offset: 0x05c8, page index: 1
+VA 1 -> PA 155c8
+virtual memory: 0x0617, offset: 0x0617, page index: 0
+VA 0 -> PA 12617
+virtual memory: 0x006a, offset: 0x006a, page index: 0
+VA 0 -> PA 126a
+virtual memory: 0x1db8, offset: 0x0db8, page index: 1
+VA 1 -> PA 15db8
+virtual memory: 0x00c7, offset: 0x00c7, page index: 0
+VA 0 -> PA 12c7
+virtual memory: 0x2ddc, offset: 0x0ddc, page index: 2
+VA 2 -> PA 14ddc
+virtual memory: 0x0419, offset: 0x0419, page index: 0
+VA 0 -> PA 12419
+virtual memory: 0x219c, offset: 0x019c, page index: 2
+VA 2 -> PA 1419c
+time 36:==================================
+pid: 12725 remaining cpu-burst2
+virtual memory: 0x111f, offset: 0x011f, page index: 1
+VA 1 -> PA 1511f
+virtual memory: 0x346f, offset: 0x046f, page index: 3
+VA 3 -> PA 1346f
+virtual memory: 0x1d93, offset: 0x0d93, page index: 1
+VA 1 -> PA 15d93
+virtual memory: 0x3d1c, offset: 0x0d1c, page index: 3
+VA 3 -> PA 13d1c
+virtual memory: 0x3949, offset: 0x0949, page index: 3
+VA 3 -> PA 13949
+virtual memory: 0x0ad5, offset: 0x0ad5, page index: 0
+VA 0 -> PA 12ad5
+virtual memory: 0x3957, offset: 0x0957, page index: 3
+VA 3 -> PA 13957
+virtual memory: 0x2b93, offset: 0x0b93, page index: 2
+VA 2 -> PA 14b93
+virtual memory: 0x0efe, offset: 0x0efe, page index: 0
+VA 0 -> PA 12efe
+virtual memory: 0x3038, offset: 0x0038, page index: 3
+VA 3 -> PA 1338
+time 37:==================================
+pid: 12726 remaining cpu-burst2
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 28717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 31861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 305a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 299ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 284bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 287b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 3087
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 315a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 28b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 29d45
+time 38:==================================
+pid: 12726 remaining cpu-burst1
+virtual memory: 0x153c, offset: 0x053c, page index: 1
+VA 1 -> PA 3153c
+virtual memory: 0x3d90, offset: 0x0d90, page index: 3
+VA 3 -> PA 30d90
+virtual memory: 0x15c8, offset: 0x05c8, page index: 1
+VA 1 -> PA 315c8
+virtual memory: 0x0617, offset: 0x0617, page index: 0
+VA 0 -> PA 28617
+virtual memory: 0x006a, offset: 0x006a, page index: 0
+VA 0 -> PA 286a
+virtual memory: 0x1db8, offset: 0x0db8, page index: 1
+VA 1 -> PA 31db8
+virtual memory: 0x00c7, offset: 0x00c7, page index: 0
+VA 0 -> PA 28c7
+virtual memory: 0x2ddc, offset: 0x0ddc, page index: 2
+VA 2 -> PA 29ddc
+virtual memory: 0x0419, offset: 0x0419, page index: 0
+VA 0 -> PA 28419
+virtual memory: 0x219c, offset: 0x019c, page index: 2
+VA 2 -> PA 2919c
+time 39:==================================
+pid: 12726 remaining cpu-burst0
+virtual memory: 0x111f, offset: 0x011f, page index: 1
+VA 1 -> PA 3111f
+virtual memory: 0x346f, offset: 0x046f, page index: 3
+VA 3 -> PA 3046f
+virtual memory: 0x1d93, offset: 0x0d93, page index: 1
+VA 1 -> PA 31d93
+virtual memory: 0x3d1c, offset: 0x0d1c, page index: 3
+VA 3 -> PA 30d1c
+virtual memory: 0x3949, offset: 0x0949, page index: 3
+VA 3 -> PA 30949
+virtual memory: 0x0ad5, offset: 0x0ad5, page index: 0
+VA 0 -> PA 28ad5
+virtual memory: 0x3957, offset: 0x0957, page index: 3
+VA 3 -> PA 30957
+virtual memory: 0x2b93, offset: 0x0b93, page index: 2
+VA 2 -> PA 29b93
+virtual memory: 0x0efe, offset: 0x0efe, page index: 0
+VA 0 -> PA 28efe
+virtual memory: 0x3038, offset: 0x0038, page index: 3
+VA 3 -> PA 3038
+28 is free to fpl
+31 is free to fpl
+29 is free to fpl
+30 is free to fpl
+time 40:==================================
+pid: 12727 remaining cpu-burst1
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 075c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 1d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 1b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 0a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 06eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 11af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 28d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 3986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 3bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 2980
+time 41:==================================
+pid: 12727 remaining cpu-burst0
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 2717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 3861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 15a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 09ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 24bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 27b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 187
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 35a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 2b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 0d45
+2 is free to fpl
+3 is free to fpl
+0 is free to fpl
+1 is free to fpl
+time 42:==================================
+pid: 12728 remaining cpu-burst5
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 24717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 27861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 255a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 269ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 244bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 247b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 2587
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 275a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 24b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 26d45
+time 43:==================================
+pid: 12728 remaining cpu-burst4
+virtual memory: 0x153c, offset: 0x053c, page index: 1
+VA 1 -> PA 2753c
+virtual memory: 0x3d90, offset: 0x0d90, page index: 3
+VA 3 -> PA 25d90
+virtual memory: 0x15c8, offset: 0x05c8, page index: 1
+VA 1 -> PA 275c8
+virtual memory: 0x0617, offset: 0x0617, page index: 0
+VA 0 -> PA 24617
+virtual memory: 0x006a, offset: 0x006a, page index: 0
+VA 0 -> PA 246a
+virtual memory: 0x1db8, offset: 0x0db8, page index: 1
+VA 1 -> PA 27db8
+virtual memory: 0x00c7, offset: 0x00c7, page index: 0
+VA 0 -> PA 24c7
+virtual memory: 0x2ddc, offset: 0x0ddc, page index: 2
+VA 2 -> PA 26ddc
+virtual memory: 0x0419, offset: 0x0419, page index: 0
+VA 0 -> PA 24419
+virtual memory: 0x219c, offset: 0x019c, page index: 2
+VA 2 -> PA 2619c
+time 44:==================================
+pid: 12728 remaining cpu-burst3
+virtual memory: 0x111f, offset: 0x011f, page index: 1
+VA 1 -> PA 2711f
+virtual memory: 0x346f, offset: 0x046f, page index: 3
+VA 3 -> PA 2546f
+virtual memory: 0x1d93, offset: 0x0d93, page index: 1
+VA 1 -> PA 27d93
+virtual memory: 0x3d1c, offset: 0x0d1c, page index: 3
+VA 3 -> PA 25d1c
+virtual memory: 0x3949, offset: 0x0949, page index: 3
+VA 3 -> PA 25949
+virtual memory: 0x0ad5, offset: 0x0ad5, page index: 0
+VA 0 -> PA 24ad5
+virtual memory: 0x3957, offset: 0x0957, page index: 3
+VA 3 -> PA 25957
+virtual memory: 0x2b93, offset: 0x0b93, page index: 2
+VA 2 -> PA 26b93
+virtual memory: 0x0efe, offset: 0x0efe, page index: 0
+VA 0 -> PA 24efe
+virtual memory: 0x3038, offset: 0x0038, page index: 3
+VA 3 -> PA 2538
+time 45:==================================
+pid: 12729 remaining cpu-burst0
+virtual memory: 0x154f, offset: 0x054f, page index: 1
+VA 1 -> PA 2254f
+virtual memory: 0x0624, offset: 0x0624, page index: 0
+VA 0 -> PA 21624
+virtual memory: 0x2fb9, offset: 0x0fb9, page index: 2
+VA 2 -> PA 20fb9
+virtual memory: 0x20ca, offset: 0x00ca, page index: 2
+VA 2 -> PA 20ca
+virtual memory: 0x2153, offset: 0x0153, page index: 2
+VA 2 -> PA 20153
+virtual memory: 0x08ad, offset: 0x08ad, page index: 0
+VA 0 -> PA 218ad
+virtual memory: 0x20c4, offset: 0x00c4, page index: 2
+VA 2 -> PA 20c4
+virtual memory: 0x069d, offset: 0x069d, page index: 0
+VA 0 -> PA 2169d
+virtual memory: 0x068d, offset: 0x068d, page index: 0
+VA 0 -> PA 2168d
+virtual memory: 0x2fe2, offset: 0x0fe2, page index: 2
+VA 2 -> PA 20fe2
+21 is free to fpl
+22 is free to fpl
+20 is free to fpl
+time 46:==================================
+pid: 12730 remaining cpu-burst2
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 23717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 4861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 75a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 69ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 234bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 237b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 787
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 45a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 23b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 6d45
+time 47:==================================
+pid: 12730 remaining cpu-burst1
+virtual memory: 0x153c, offset: 0x053c, page index: 1
+VA 1 -> PA 453c
+virtual memory: 0x3d90, offset: 0x0d90, page index: 3
+VA 3 -> PA 7d90
+virtual memory: 0x15c8, offset: 0x05c8, page index: 1
+VA 1 -> PA 45c8
+virtual memory: 0x0617, offset: 0x0617, page index: 0
+VA 0 -> PA 23617
+virtual memory: 0x006a, offset: 0x006a, page index: 0
+VA 0 -> PA 236a
+virtual memory: 0x1db8, offset: 0x0db8, page index: 1
+VA 1 -> PA 4db8
+virtual memory: 0x00c7, offset: 0x00c7, page index: 0
+VA 0 -> PA 23c7
+virtual memory: 0x2ddc, offset: 0x0ddc, page index: 2
+VA 2 -> PA 6ddc
+virtual memory: 0x0419, offset: 0x0419, page index: 0
+VA 0 -> PA 23419
+virtual memory: 0x219c, offset: 0x019c, page index: 2
+VA 2 -> PA 619c
+time 48:==================================
+pid: 12730 remaining cpu-burst0
+virtual memory: 0x111f, offset: 0x011f, page index: 1
+VA 1 -> PA 411f
+virtual memory: 0x346f, offset: 0x046f, page index: 3
+VA 3 -> PA 746f
+virtual memory: 0x1d93, offset: 0x0d93, page index: 1
+VA 1 -> PA 4d93
+virtual memory: 0x3d1c, offset: 0x0d1c, page index: 3
+VA 3 -> PA 7d1c
+virtual memory: 0x3949, offset: 0x0949, page index: 3
+VA 3 -> PA 7949
+virtual memory: 0x0ad5, offset: 0x0ad5, page index: 0
+VA 0 -> PA 23ad5
+virtual memory: 0x3957, offset: 0x0957, page index: 3
+VA 3 -> PA 7957
+virtual memory: 0x2b93, offset: 0x0b93, page index: 2
+VA 2 -> PA 6b93
+virtual memory: 0x0efe, offset: 0x0efe, page index: 0
+VA 0 -> PA 23efe
+virtual memory: 0x3038, offset: 0x0038, page index: 3
+VA 3 -> PA 738
+23 is free to fpl
+4 is free to fpl
+6 is free to fpl
+7 is free to fpl
+time 49:==================================
+pid: 12731 remaining cpu-burst6
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 16717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 17861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 195a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 189ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 164bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 167b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 1987
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 175a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 16b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 18d45
+time 50:==================================
+pid: 12731 remaining cpu-burst5
+virtual memory: 0x153c, offset: 0x053c, page index: 1
+VA 1 -> PA 1753c
+virtual memory: 0x3d90, offset: 0x0d90, page index: 3
+VA 3 -> PA 19d90
+virtual memory: 0x15c8, offset: 0x05c8, page index: 1
+VA 1 -> PA 175c8
+virtual memory: 0x0617, offset: 0x0617, page index: 0
+VA 0 -> PA 16617
+virtual memory: 0x006a, offset: 0x006a, page index: 0
+VA 0 -> PA 166a
+virtual memory: 0x1db8, offset: 0x0db8, page index: 1
+VA 1 -> PA 17db8
+virtual memory: 0x00c7, offset: 0x00c7, page index: 0
+VA 0 -> PA 16c7
+virtual memory: 0x2ddc, offset: 0x0ddc, page index: 2
+VA 2 -> PA 18ddc
+virtual memory: 0x0419, offset: 0x0419, page index: 0
+VA 0 -> PA 16419
+virtual memory: 0x219c, offset: 0x019c, page index: 2
+VA 2 -> PA 1819c
+time 51:==================================
+pid: 12731 remaining cpu-burst4
+virtual memory: 0x111f, offset: 0x011f, page index: 1
+VA 1 -> PA 1711f
+virtual memory: 0x346f, offset: 0x046f, page index: 3
+VA 3 -> PA 1946f
+virtual memory: 0x1d93, offset: 0x0d93, page index: 1
+VA 1 -> PA 17d93
+virtual memory: 0x3d1c, offset: 0x0d1c, page index: 3
+VA 3 -> PA 19d1c
+virtual memory: 0x3949, offset: 0x0949, page index: 3
+VA 3 -> PA 19949
+virtual memory: 0x0ad5, offset: 0x0ad5, page index: 0
+VA 0 -> PA 16ad5
+virtual memory: 0x3957, offset: 0x0957, page index: 3
+VA 3 -> PA 19957
+virtual memory: 0x2b93, offset: 0x0b93, page index: 2
+VA 2 -> PA 18b93
+virtual memory: 0x0efe, offset: 0x0efe, page index: 0
+VA 0 -> PA 16efe
+virtual memory: 0x3038, offset: 0x0038, page index: 3
+VA 3 -> PA 1938
+time 52:==================================
+pid: 12722 remaining cpu-burst1
+virtual memory: 0x153c, offset: 0x053c, page index: 1
+VA 1 -> PA 553c
+virtual memory: 0x3d90, offset: 0x0d90, page index: 3
+VA 3 -> PA 8d90
+virtual memory: 0x15c8, offset: 0x05c8, page index: 1
+VA 1 -> PA 55c8
+virtual memory: 0x0617, offset: 0x0617, page index: 0
+VA 0 -> PA 11617
+virtual memory: 0x006a, offset: 0x006a, page index: 0
+VA 0 -> PA 116a
+virtual memory: 0x1db8, offset: 0x0db8, page index: 1
+VA 1 -> PA 5db8
+virtual memory: 0x00c7, offset: 0x00c7, page index: 0
+VA 0 -> PA 11c7
+virtual memory: 0x2ddc, offset: 0x0ddc, page index: 2
+VA 2 -> PA 10ddc
+virtual memory: 0x0419, offset: 0x0419, page index: 0
+VA 0 -> PA 11419
+virtual memory: 0x219c, offset: 0x019c, page index: 2
+VA 2 -> PA 1019c
+time 53:==================================
+pid: 12722 remaining cpu-burst0
+virtual memory: 0x111f, offset: 0x011f, page index: 1
+VA 1 -> PA 511f
+virtual memory: 0x346f, offset: 0x046f, page index: 3
+VA 3 -> PA 846f
+virtual memory: 0x1d93, offset: 0x0d93, page index: 1
+VA 1 -> PA 5d93
+virtual memory: 0x3d1c, offset: 0x0d1c, page index: 3
+VA 3 -> PA 8d1c
+virtual memory: 0x3949, offset: 0x0949, page index: 3
+VA 3 -> PA 8949
+virtual memory: 0x0ad5, offset: 0x0ad5, page index: 0
+VA 0 -> PA 11ad5
+virtual memory: 0x3957, offset: 0x0957, page index: 3
+VA 3 -> PA 8957
+virtual memory: 0x2b93, offset: 0x0b93, page index: 2
+VA 2 -> PA 10b93
+virtual memory: 0x0efe, offset: 0x0efe, page index: 0
+VA 0 -> PA 11efe
+virtual memory: 0x3038, offset: 0x0038, page index: 3
+VA 3 -> PA 838
+11 is free to fpl
+5 is free to fpl
+10 is free to fpl
+8 is free to fpl
+time 54:==================================
+pid: 12723 remaining cpu-burst5
+virtual memory: 0x2044, offset: 0x0044, page index: 2
+VA 2 -> PA 944
+virtual memory: 0x05ea, offset: 0x05ea, page index: 0
+VA 0 -> PA 285ea
+virtual memory: 0x330b, offset: 0x030b, page index: 3
+VA 3 -> PA 3130b
+virtual memory: 0x1676, offset: 0x0676, page index: 1
+VA 1 -> PA 29676
+virtual memory: 0x2b13, offset: 0x0b13, page index: 2
+VA 2 -> PA 9b13
+virtual memory: 0x0ffa, offset: 0x0ffa, page index: 0
+VA 0 -> PA 28ffa
+virtual memory: 0x10e4, offset: 0x00e4, page index: 1
+VA 1 -> PA 29e4
+virtual memory: 0x1d58, offset: 0x0d58, page index: 1
+VA 1 -> PA 29d58
+virtual memory: 0x3d7f, offset: 0x0d7f, page index: 3
+VA 3 -> PA 31d7f
+virtual memory: 0x0777, offset: 0x0777, page index: 0
+VA 0 -> PA 28777
+time 55:==================================
+pid: 12723 remaining cpu-burst4
+virtual memory: 0x2459, offset: 0x0459, page index: 2
+VA 2 -> PA 9459
+virtual memory: 0x0451, offset: 0x0451, page index: 0
+VA 0 -> PA 28451
+virtual memory: 0x0a33, offset: 0x0a33, page index: 0
+VA 0 -> PA 28a33
+virtual memory: 0x1bd2, offset: 0x0bd2, page index: 1
+VA 1 -> PA 29bd2
+virtual memory: 0x1111, offset: 0x0111, page index: 1
+VA 1 -> PA 29111
+virtual memory: 0x081c, offset: 0x081c, page index: 0
+VA 0 -> PA 2881c
+virtual memory: 0x18fb, offset: 0x08fb, page index: 1
+VA 1 -> PA 298fb
+virtual memory: 0x21e1, offset: 0x01e1, page index: 2
+VA 2 -> PA 91e1
+virtual memory: 0x214f, offset: 0x014f, page index: 2
+VA 2 -> PA 914f
+virtual memory: 0x032b, offset: 0x032b, page index: 0
+VA 0 -> PA 2832b
+time 56:==================================
+pid: 12723 remaining cpu-burst3
+virtual memory: 0x3fea, offset: 0x0fea, page index: 3
+VA 3 -> PA 31fea
+virtual memory: 0x0816, offset: 0x0816, page index: 0
+VA 0 -> PA 28816
+virtual memory: 0x0690, offset: 0x0690, page index: 0
+VA 0 -> PA 28690
+virtual memory: 0x3ec7, offset: 0x0ec7, page index: 3
+VA 3 -> PA 31ec7
+virtual memory: 0x2ee6, offset: 0x0ee6, page index: 2
+VA 2 -> PA 9ee6
+virtual memory: 0x39db, offset: 0x09db, page index: 3
+VA 3 -> PA 319db
+virtual memory: 0x378c, offset: 0x078c, page index: 3
+VA 3 -> PA 3178c
+virtual memory: 0x1072, offset: 0x0072, page index: 1
+VA 1 -> PA 2972
+virtual memory: 0x1d91, offset: 0x0d91, page index: 1
+VA 1 -> PA 29d91
+virtual memory: 0x3a73, offset: 0x0a73, page index: 3
+VA 3 -> PA 31a73
+time 57:==================================
+pid: 12724 remaining cpu-burst4
+virtual memory: 0x111f, offset: 0x011f, page index: 1
+VA 1 -> PA 3011f
+virtual memory: 0x346f, offset: 0x046f, page index: 3
+VA 3 -> PA 246f
+virtual memory: 0x1d93, offset: 0x0d93, page index: 1
+VA 1 -> PA 30d93
+virtual memory: 0x3d1c, offset: 0x0d1c, page index: 3
+VA 3 -> PA 2d1c
+virtual memory: 0x3949, offset: 0x0949, page index: 3
+VA 3 -> PA 2949
+virtual memory: 0x0ad5, offset: 0x0ad5, page index: 0
+VA 0 -> PA 3ad5
+virtual memory: 0x3957, offset: 0x0957, page index: 3
+VA 3 -> PA 2957
+virtual memory: 0x2b93, offset: 0x0b93, page index: 2
+VA 2 -> PA 0b93
+virtual memory: 0x0efe, offset: 0x0efe, page index: 0
+VA 0 -> PA 3efe
+virtual memory: 0x3038, offset: 0x0038, page index: 3
+VA 3 -> PA 238
+time 58:==================================
+pid: 12724 remaining cpu-burst3
+virtual memory: 0x2044, offset: 0x0044, page index: 2
+VA 2 -> PA 044
+virtual memory: 0x05ea, offset: 0x05ea, page index: 0
+VA 0 -> PA 35ea
+virtual memory: 0x330b, offset: 0x030b, page index: 3
+VA 3 -> PA 230b
+virtual memory: 0x1676, offset: 0x0676, page index: 1
+VA 1 -> PA 30676
+virtual memory: 0x2b13, offset: 0x0b13, page index: 2
+VA 2 -> PA 0b13
+virtual memory: 0x0ffa, offset: 0x0ffa, page index: 0
+VA 0 -> PA 3ffa
+virtual memory: 0x10e4, offset: 0x00e4, page index: 1
+VA 1 -> PA 30e4
+virtual memory: 0x1d58, offset: 0x0d58, page index: 1
+VA 1 -> PA 30d58
+virtual memory: 0x3d7f, offset: 0x0d7f, page index: 3
+VA 3 -> PA 2d7f
+virtual memory: 0x0777, offset: 0x0777, page index: 0
+VA 0 -> PA 3777
+time 59:==================================
+pid: 12724 remaining cpu-burst2
+virtual memory: 0x2459, offset: 0x0459, page index: 2
+VA 2 -> PA 0459
+virtual memory: 0x0451, offset: 0x0451, page index: 0
+VA 0 -> PA 3451
+virtual memory: 0x0a33, offset: 0x0a33, page index: 0
+VA 0 -> PA 3a33
+virtual memory: 0x1bd2, offset: 0x0bd2, page index: 1
+VA 1 -> PA 30bd2
+virtual memory: 0x1111, offset: 0x0111, page index: 1
+VA 1 -> PA 30111
+virtual memory: 0x081c, offset: 0x081c, page index: 0
+VA 0 -> PA 381c
+virtual memory: 0x18fb, offset: 0x08fb, page index: 1
+VA 1 -> PA 308fb
+virtual memory: 0x21e1, offset: 0x01e1, page index: 2
+VA 2 -> PA 01e1
+virtual memory: 0x214f, offset: 0x014f, page index: 2
+VA 2 -> PA 014f
+virtual memory: 0x032b, offset: 0x032b, page index: 0
+VA 0 -> PA 332b
+time 60:==================================
+pid: 12725 remaining cpu-burst1
+virtual memory: 0x2044, offset: 0x0044, page index: 2
+VA 2 -> PA 1444
+virtual memory: 0x05ea, offset: 0x05ea, page index: 0
+VA 0 -> PA 125ea
+virtual memory: 0x330b, offset: 0x030b, page index: 3
+VA 3 -> PA 1330b
+virtual memory: 0x1676, offset: 0x0676, page index: 1
+VA 1 -> PA 15676
+virtual memory: 0x2b13, offset: 0x0b13, page index: 2
+VA 2 -> PA 14b13
+virtual memory: 0x0ffa, offset: 0x0ffa, page index: 0
+VA 0 -> PA 12ffa
+virtual memory: 0x10e4, offset: 0x00e4, page index: 1
+VA 1 -> PA 15e4
+virtual memory: 0x1d58, offset: 0x0d58, page index: 1
+VA 1 -> PA 15d58
+virtual memory: 0x3d7f, offset: 0x0d7f, page index: 3
+VA 3 -> PA 13d7f
+virtual memory: 0x0777, offset: 0x0777, page index: 0
+VA 0 -> PA 12777
+time 61:==================================
+pid: 12725 remaining cpu-burst0
+virtual memory: 0x2459, offset: 0x0459, page index: 2
+VA 2 -> PA 14459
+virtual memory: 0x0451, offset: 0x0451, page index: 0
+VA 0 -> PA 12451
+virtual memory: 0x0a33, offset: 0x0a33, page index: 0
+VA 0 -> PA 12a33
+virtual memory: 0x1bd2, offset: 0x0bd2, page index: 1
+VA 1 -> PA 15bd2
+virtual memory: 0x1111, offset: 0x0111, page index: 1
+VA 1 -> PA 15111
+virtual memory: 0x081c, offset: 0x081c, page index: 0
+VA 0 -> PA 1281c
+virtual memory: 0x18fb, offset: 0x08fb, page index: 1
+VA 1 -> PA 158fb
+virtual memory: 0x21e1, offset: 0x01e1, page index: 2
+VA 2 -> PA 141e1
+virtual memory: 0x214f, offset: 0x014f, page index: 2
+VA 2 -> PA 1414f
+virtual memory: 0x032b, offset: 0x032b, page index: 0
+VA 0 -> PA 1232b
+12 is free to fpl
+15 is free to fpl
+14 is free to fpl
+13 is free to fpl
+time 62:==================================
+pid: 12726 remaining cpu-burst2
+virtual memory: 0x2044, offset: 0x0044, page index: 2
+VA 2 -> PA 144
+virtual memory: 0x05ea, offset: 0x05ea, page index: 0
+VA 0 -> PA 215ea
+virtual memory: 0x330b, offset: 0x030b, page index: 3
+VA 3 -> PA 2230b
+virtual memory: 0x1676, offset: 0x0676, page index: 1
+VA 1 -> PA 20676
+virtual memory: 0x2b13, offset: 0x0b13, page index: 2
+VA 2 -> PA 1b13
+virtual memory: 0x0ffa, offset: 0x0ffa, page index: 0
+VA 0 -> PA 21ffa
+virtual memory: 0x10e4, offset: 0x00e4, page index: 1
+VA 1 -> PA 20e4
+virtual memory: 0x1d58, offset: 0x0d58, page index: 1
+VA 1 -> PA 20d58
+virtual memory: 0x3d7f, offset: 0x0d7f, page index: 3
+VA 3 -> PA 22d7f
+virtual memory: 0x0777, offset: 0x0777, page index: 0
+VA 0 -> PA 21777
+time 63:==================================
+pid: 12726 remaining cpu-burst1
+virtual memory: 0x2459, offset: 0x0459, page index: 2
+VA 2 -> PA 1459
+virtual memory: 0x0451, offset: 0x0451, page index: 0
+VA 0 -> PA 21451
+virtual memory: 0x0a33, offset: 0x0a33, page index: 0
+VA 0 -> PA 21a33
+virtual memory: 0x1bd2, offset: 0x0bd2, page index: 1
+VA 1 -> PA 20bd2
+virtual memory: 0x1111, offset: 0x0111, page index: 1
+VA 1 -> PA 20111
+virtual memory: 0x081c, offset: 0x081c, page index: 0
+VA 0 -> PA 2181c
+virtual memory: 0x18fb, offset: 0x08fb, page index: 1
+VA 1 -> PA 208fb
+virtual memory: 0x21e1, offset: 0x01e1, page index: 2
+VA 2 -> PA 11e1
+virtual memory: 0x214f, offset: 0x014f, page index: 2
+VA 2 -> PA 114f
+virtual memory: 0x032b, offset: 0x032b, page index: 0
+VA 0 -> PA 2132b
+time 64:==================================
+pid: 12726 remaining cpu-burst0
+virtual memory: 0x3fea, offset: 0x0fea, page index: 3
+VA 3 -> PA 22fea
+virtual memory: 0x0816, offset: 0x0816, page index: 0
+VA 0 -> PA 21816
+virtual memory: 0x0690, offset: 0x0690, page index: 0
+VA 0 -> PA 21690
+virtual memory: 0x3ec7, offset: 0x0ec7, page index: 3
+VA 3 -> PA 22ec7
+virtual memory: 0x2ee6, offset: 0x0ee6, page index: 2
+VA 2 -> PA 1ee6
+virtual memory: 0x39db, offset: 0x09db, page index: 3
+VA 3 -> PA 229db
+virtual memory: 0x378c, offset: 0x078c, page index: 3
+VA 3 -> PA 2278c
+virtual memory: 0x1072, offset: 0x0072, page index: 1
+VA 1 -> PA 2072
+virtual memory: 0x1d91, offset: 0x0d91, page index: 1
+VA 1 -> PA 20d91
+virtual memory: 0x3a73, offset: 0x0a73, page index: 3
+VA 3 -> PA 22a73
+21 is free to fpl
+20 is free to fpl
+1 is free to fpl
+22 is free to fpl
+time 65:==================================
+pid: 12727 remaining cpu-burst1
+virtual memory: 0x153c, offset: 0x053c, page index: 1
+VA 1 -> PA 2353c
+virtual memory: 0x3d90, offset: 0x0d90, page index: 3
+VA 3 -> PA 4d90
+virtual memory: 0x15c8, offset: 0x05c8, page index: 1
+VA 1 -> PA 235c8
+virtual memory: 0x0617, offset: 0x0617, page index: 0
+VA 0 -> PA 6617
+virtual memory: 0x006a, offset: 0x006a, page index: 0
+VA 0 -> PA 66a
+virtual memory: 0x1db8, offset: 0x0db8, page index: 1
+VA 1 -> PA 23db8
+virtual memory: 0x00c7, offset: 0x00c7, page index: 0
+VA 0 -> PA 6c7
+virtual memory: 0x2ddc, offset: 0x0ddc, page index: 2
+VA 2 -> PA 7ddc
+virtual memory: 0x0419, offset: 0x0419, page index: 0
+VA 0 -> PA 6419
+virtual memory: 0x219c, offset: 0x019c, page index: 2
+VA 2 -> PA 719c
+time 66:==================================
+pid: 12727 remaining cpu-burst0
+virtual memory: 0x111f, offset: 0x011f, page index: 1
+VA 1 -> PA 2311f
+virtual memory: 0x346f, offset: 0x046f, page index: 3
+VA 3 -> PA 446f
+virtual memory: 0x1d93, offset: 0x0d93, page index: 1
+VA 1 -> PA 23d93
+virtual memory: 0x3d1c, offset: 0x0d1c, page index: 3
+VA 3 -> PA 4d1c
+virtual memory: 0x3949, offset: 0x0949, page index: 3
+VA 3 -> PA 4949
+virtual memory: 0x0ad5, offset: 0x0ad5, page index: 0
+VA 0 -> PA 6ad5
+virtual memory: 0x3957, offset: 0x0957, page index: 3
+VA 3 -> PA 4957
+virtual memory: 0x2b93, offset: 0x0b93, page index: 2
+VA 2 -> PA 7b93
+virtual memory: 0x0efe, offset: 0x0efe, page index: 0
+VA 0 -> PA 6efe
+virtual memory: 0x3038, offset: 0x0038, page index: 3
+VA 3 -> PA 438
+6 is free to fpl
+23 is free to fpl
+7 is free to fpl
+4 is free to fpl
+time 67:==================================
+pid: 12728 remaining cpu-burst2
+virtual memory: 0x2044, offset: 0x0044, page index: 2
+VA 2 -> PA 2644
+virtual memory: 0x05ea, offset: 0x05ea, page index: 0
+VA 0 -> PA 245ea
+virtual memory: 0x330b, offset: 0x030b, page index: 3
+VA 3 -> PA 2530b
+virtual memory: 0x1676, offset: 0x0676, page index: 1
+VA 1 -> PA 27676
+virtual memory: 0x2b13, offset: 0x0b13, page index: 2
+VA 2 -> PA 26b13
+virtual memory: 0x0ffa, offset: 0x0ffa, page index: 0
+VA 0 -> PA 24ffa
+virtual memory: 0x10e4, offset: 0x00e4, page index: 1
+VA 1 -> PA 27e4
+virtual memory: 0x1d58, offset: 0x0d58, page index: 1
+VA 1 -> PA 27d58
+virtual memory: 0x3d7f, offset: 0x0d7f, page index: 3
+VA 3 -> PA 25d7f
+virtual memory: 0x0777, offset: 0x0777, page index: 0
+VA 0 -> PA 24777
+time 68:==================================
+pid: 12728 remaining cpu-burst1
+virtual memory: 0x2459, offset: 0x0459, page index: 2
+VA 2 -> PA 26459
+virtual memory: 0x0451, offset: 0x0451, page index: 0
+VA 0 -> PA 24451
+virtual memory: 0x0a33, offset: 0x0a33, page index: 0
+VA 0 -> PA 24a33
+virtual memory: 0x1bd2, offset: 0x0bd2, page index: 1
+VA 1 -> PA 27bd2
+virtual memory: 0x1111, offset: 0x0111, page index: 1
+VA 1 -> PA 27111
+virtual memory: 0x081c, offset: 0x081c, page index: 0
+VA 0 -> PA 2481c
+virtual memory: 0x18fb, offset: 0x08fb, page index: 1
+VA 1 -> PA 278fb
+virtual memory: 0x21e1, offset: 0x01e1, page index: 2
+VA 2 -> PA 261e1
+virtual memory: 0x214f, offset: 0x014f, page index: 2
+VA 2 -> PA 2614f
+virtual memory: 0x032b, offset: 0x032b, page index: 0
+VA 0 -> PA 2432b
+time 69:==================================
+pid: 12728 remaining cpu-burst0
+virtual memory: 0x3fea, offset: 0x0fea, page index: 3
+VA 3 -> PA 25fea
+virtual memory: 0x0816, offset: 0x0816, page index: 0
+VA 0 -> PA 24816
+virtual memory: 0x0690, offset: 0x0690, page index: 0
+VA 0 -> PA 24690
+virtual memory: 0x3ec7, offset: 0x0ec7, page index: 3
+VA 3 -> PA 25ec7
+virtual memory: 0x2ee6, offset: 0x0ee6, page index: 2
+VA 2 -> PA 26ee6
+virtual memory: 0x39db, offset: 0x09db, page index: 3
+VA 3 -> PA 259db
+virtual memory: 0x378c, offset: 0x078c, page index: 3
+VA 3 -> PA 2578c
+virtual memory: 0x1072, offset: 0x0072, page index: 1
+VA 1 -> PA 2772
+virtual memory: 0x1d91, offset: 0x0d91, page index: 1
+VA 1 -> PA 27d91
+virtual memory: 0x3a73, offset: 0x0a73, page index: 3
+VA 3 -> PA 25a73
+24 is free to fpl
+27 is free to fpl
+26 is free to fpl
+25 is free to fpl
+time 70:==================================
+pid: 12729 remaining cpu-burst0
+virtual memory: 0x275c, offset: 0x075c, page index: 2
+VA 2 -> PA 1175c
+virtual memory: 0x3d0c, offset: 0x0d0c, page index: 3
+VA 3 -> PA 5d0c
+virtual memory: 0x3b6f, offset: 0x0b6f, page index: 3
+VA 3 -> PA 5b6f
+virtual memory: 0x2a8c, offset: 0x0a8c, page index: 2
+VA 2 -> PA 11a8c
+virtual memory: 0x26eb, offset: 0x06eb, page index: 2
+VA 2 -> PA 116eb
+virtual memory: 0x31af, offset: 0x01af, page index: 3
+VA 3 -> PA 51af
+virtual memory: 0x08d0, offset: 0x08d0, page index: 0
+VA 0 -> PA 108d0
+virtual memory: 0x1986, offset: 0x0986, page index: 1
+VA 1 -> PA 8986
+virtual memory: 0x1bcd, offset: 0x0bcd, page index: 1
+VA 1 -> PA 8bcd
+virtual memory: 0x0980, offset: 0x0980, page index: 0
+VA 0 -> PA 10980
+10 is free to fpl
+8 is free to fpl
+11 is free to fpl
+5 is free to fpl
+time 71:==================================
+pid: 12730 remaining cpu-burst2
+virtual memory: 0x2044, offset: 0x0044, page index: 2
+VA 2 -> PA 1244
+virtual memory: 0x05ea, offset: 0x05ea, page index: 0
+VA 0 -> PA 155ea
+virtual memory: 0x330b, offset: 0x030b, page index: 3
+VA 3 -> PA 1430b
+virtual memory: 0x1676, offset: 0x0676, page index: 1
+VA 1 -> PA 13676
+virtual memory: 0x2b13, offset: 0x0b13, page index: 2
+VA 2 -> PA 12b13
+virtual memory: 0x0ffa, offset: 0x0ffa, page index: 0
+VA 0 -> PA 15ffa
+virtual memory: 0x10e4, offset: 0x00e4, page index: 1
+VA 1 -> PA 13e4
+virtual memory: 0x1d58, offset: 0x0d58, page index: 1
+VA 1 -> PA 13d58
+virtual memory: 0x3d7f, offset: 0x0d7f, page index: 3
+VA 3 -> PA 14d7f
+virtual memory: 0x0777, offset: 0x0777, page index: 0
+VA 0 -> PA 15777
+time 72:==================================
+pid: 12730 remaining cpu-burst1
+virtual memory: 0x2459, offset: 0x0459, page index: 2
+VA 2 -> PA 12459
+virtual memory: 0x0451, offset: 0x0451, page index: 0
+VA 0 -> PA 15451
+virtual memory: 0x0a33, offset: 0x0a33, page index: 0
+VA 0 -> PA 15a33
+virtual memory: 0x1bd2, offset: 0x0bd2, page index: 1
+VA 1 -> PA 13bd2
+virtual memory: 0x1111, offset: 0x0111, page index: 1
+VA 1 -> PA 13111
+virtual memory: 0x081c, offset: 0x081c, page index: 0
+VA 0 -> PA 1581c
+virtual memory: 0x18fb, offset: 0x08fb, page index: 1
+VA 1 -> PA 138fb
+virtual memory: 0x21e1, offset: 0x01e1, page index: 2
+VA 2 -> PA 121e1
+virtual memory: 0x214f, offset: 0x014f, page index: 2
+VA 2 -> PA 1214f
+virtual memory: 0x032b, offset: 0x032b, page index: 0
+VA 0 -> PA 1532b
+time 73:==================================
+pid: 12730 remaining cpu-burst0
+virtual memory: 0x3fea, offset: 0x0fea, page index: 3
+VA 3 -> PA 14fea
+virtual memory: 0x0816, offset: 0x0816, page index: 0
+VA 0 -> PA 15816
+virtual memory: 0x0690, offset: 0x0690, page index: 0
+VA 0 -> PA 15690
+virtual memory: 0x3ec7, offset: 0x0ec7, page index: 3
+VA 3 -> PA 14ec7
+virtual memory: 0x2ee6, offset: 0x0ee6, page index: 2
+VA 2 -> PA 12ee6
+virtual memory: 0x39db, offset: 0x09db, page index: 3
+VA 3 -> PA 149db
+virtual memory: 0x378c, offset: 0x078c, page index: 3
+VA 3 -> PA 1478c
+virtual memory: 0x1072, offset: 0x0072, page index: 1
+VA 1 -> PA 1372
+virtual memory: 0x1d91, offset: 0x0d91, page index: 1
+VA 1 -> PA 13d91
+virtual memory: 0x3a73, offset: 0x0a73, page index: 3
+VA 3 -> PA 14a73
+15 is free to fpl
+13 is free to fpl
+12 is free to fpl
+14 is free to fpl
+time 74:==================================
+pid: 12731 remaining cpu-burst3
+virtual memory: 0x2044, offset: 0x0044, page index: 2
+VA 2 -> PA 1844
+virtual memory: 0x05ea, offset: 0x05ea, page index: 0
+VA 0 -> PA 165ea
+virtual memory: 0x330b, offset: 0x030b, page index: 3
+VA 3 -> PA 1930b
+virtual memory: 0x1676, offset: 0x0676, page index: 1
+VA 1 -> PA 17676
+virtual memory: 0x2b13, offset: 0x0b13, page index: 2
+VA 2 -> PA 18b13
+virtual memory: 0x0ffa, offset: 0x0ffa, page index: 0
+VA 0 -> PA 16ffa
+virtual memory: 0x10e4, offset: 0x00e4, page index: 1
+VA 1 -> PA 17e4
+virtual memory: 0x1d58, offset: 0x0d58, page index: 1
+VA 1 -> PA 17d58
+virtual memory: 0x3d7f, offset: 0x0d7f, page index: 3
+VA 3 -> PA 19d7f
+virtual memory: 0x0777, offset: 0x0777, page index: 0
+VA 0 -> PA 16777
+time 75:==================================
+pid: 12731 remaining cpu-burst2
+virtual memory: 0x2459, offset: 0x0459, page index: 2
+VA 2 -> PA 18459
+virtual memory: 0x0451, offset: 0x0451, page index: 0
+VA 0 -> PA 16451
+virtual memory: 0x0a33, offset: 0x0a33, page index: 0
+VA 0 -> PA 16a33
+virtual memory: 0x1bd2, offset: 0x0bd2, page index: 1
+VA 1 -> PA 17bd2
+virtual memory: 0x1111, offset: 0x0111, page index: 1
+VA 1 -> PA 17111
+virtual memory: 0x081c, offset: 0x081c, page index: 0
+VA 0 -> PA 1681c
+virtual memory: 0x18fb, offset: 0x08fb, page index: 1
+VA 1 -> PA 178fb
+virtual memory: 0x21e1, offset: 0x01e1, page index: 2
+VA 2 -> PA 181e1
+virtual memory: 0x214f, offset: 0x014f, page index: 2
+VA 2 -> PA 1814f
+virtual memory: 0x032b, offset: 0x032b, page index: 0
+VA 0 -> PA 1632b
+time 76:==================================
+pid: 12731 remaining cpu-burst1
+virtual memory: 0x3fea, offset: 0x0fea, page index: 3
+VA 3 -> PA 19fea
+virtual memory: 0x0816, offset: 0x0816, page index: 0
+VA 0 -> PA 16816
+virtual memory: 0x0690, offset: 0x0690, page index: 0
+VA 0 -> PA 16690
+virtual memory: 0x3ec7, offset: 0x0ec7, page index: 3
+VA 3 -> PA 19ec7
+virtual memory: 0x2ee6, offset: 0x0ee6, page index: 2
+VA 2 -> PA 18ee6
+virtual memory: 0x39db, offset: 0x09db, page index: 3
+VA 3 -> PA 199db
+virtual memory: 0x378c, offset: 0x078c, page index: 3
+VA 3 -> PA 1978c
+virtual memory: 0x1072, offset: 0x0072, page index: 1
+VA 1 -> PA 1772
+virtual memory: 0x1d91, offset: 0x0d91, page index: 1
+VA 1 -> PA 17d91
+virtual memory: 0x3a73, offset: 0x0a73, page index: 3
+VA 3 -> PA 19a73
+time 77:==================================
+pid: 12722 remaining cpu-burst1
+virtual memory: 0x2044, offset: 0x0044, page index: 2
+VA 2 -> PA 2144
+virtual memory: 0x05ea, offset: 0x05ea, page index: 0
+VA 0 -> PA 205ea
+virtual memory: 0x330b, offset: 0x030b, page index: 3
+VA 3 -> PA 130b
+virtual memory: 0x1676, offset: 0x0676, page index: 1
+VA 1 -> PA 22676
+virtual memory: 0x2b13, offset: 0x0b13, page index: 2
+VA 2 -> PA 21b13
+virtual memory: 0x0ffa, offset: 0x0ffa, page index: 0
+VA 0 -> PA 20ffa
+virtual memory: 0x10e4, offset: 0x00e4, page index: 1
+VA 1 -> PA 22e4
+virtual memory: 0x1d58, offset: 0x0d58, page index: 1
+VA 1 -> PA 22d58
+virtual memory: 0x3d7f, offset: 0x0d7f, page index: 3
+VA 3 -> PA 1d7f
+virtual memory: 0x0777, offset: 0x0777, page index: 0
+VA 0 -> PA 20777
+time 78:==================================
+pid: 12722 remaining cpu-burst0
+virtual memory: 0x2459, offset: 0x0459, page index: 2
+VA 2 -> PA 21459
+virtual memory: 0x0451, offset: 0x0451, page index: 0
+VA 0 -> PA 20451
+virtual memory: 0x0a33, offset: 0x0a33, page index: 0
+VA 0 -> PA 20a33
+virtual memory: 0x1bd2, offset: 0x0bd2, page index: 1
+VA 1 -> PA 22bd2
+virtual memory: 0x1111, offset: 0x0111, page index: 1
+VA 1 -> PA 22111
+virtual memory: 0x081c, offset: 0x081c, page index: 0
+VA 0 -> PA 2081c
+virtual memory: 0x18fb, offset: 0x08fb, page index: 1
+VA 1 -> PA 228fb
+virtual memory: 0x21e1, offset: 0x01e1, page index: 2
+VA 2 -> PA 211e1
+virtual memory: 0x214f, offset: 0x014f, page index: 2
+VA 2 -> PA 2114f
+virtual memory: 0x032b, offset: 0x032b, page index: 0
+VA 0 -> PA 2032b
+20 is free to fpl
+22 is free to fpl
+21 is free to fpl
+1 is free to fpl
+time 79:==================================
+pid: 12723 remaining cpu-burst2
+virtual memory: 0x37cf, offset: 0x07cf, page index: 3
+VA 3 -> PA 317cf
+virtual memory: 0x2f79, offset: 0x0f79, page index: 2
+VA 2 -> PA 9f79
+virtual memory: 0x3f98, offset: 0x0f98, page index: 3
+VA 3 -> PA 31f98
+virtual memory: 0x0c51, offset: 0x0c51, page index: 0
+VA 0 -> PA 28c51
+virtual memory: 0x3933, offset: 0x0933, page index: 3
+VA 3 -> PA 31933
+virtual memory: 0x2c4b, offset: 0x0c4b, page index: 2
+VA 2 -> PA 9c4b
+virtual memory: 0x2124, offset: 0x0124, page index: 2
+VA 2 -> PA 9124
+virtual memory: 0x396d, offset: 0x096d, page index: 3
+VA 3 -> PA 3196d
+virtual memory: 0x08d3, offset: 0x08d3, page index: 0
+VA 0 -> PA 288d3
+virtual memory: 0x2ac6, offset: 0x0ac6, page index: 2
+VA 2 -> PA 9ac6
+time 80:==================================
+pid: 12723 remaining cpu-burst1
+virtual memory: 0x1df4, offset: 0x0df4, page index: 1
+VA 1 -> PA 29df4
+virtual memory: 0x2afa, offset: 0x0afa, page index: 2
+VA 2 -> PA 9afa
+virtual memory: 0x024f, offset: 0x024f, page index: 0
+VA 0 -> PA 2824f
+virtual memory: 0x0742, offset: 0x0742, page index: 0
+VA 0 -> PA 28742
+virtual memory: 0x1732, offset: 0x0732, page index: 1
+VA 1 -> PA 29732
+virtual memory: 0x0e04, offset: 0x0e04, page index: 0
+VA 0 -> PA 28e04
+virtual memory: 0x3347, offset: 0x0347, page index: 3
+VA 3 -> PA 31347
+virtual memory: 0x0ecd, offset: 0x0ecd, page index: 0
+VA 0 -> PA 28ecd
+virtual memory: 0x2e5a, offset: 0x0e5a, page index: 2
+VA 2 -> PA 9e5a
+virtual memory: 0x0349, offset: 0x0349, page index: 0
+VA 0 -> PA 28349
+time 81:==================================
+pid: 12723 remaining cpu-burst0
+virtual memory: 0x299e, offset: 0x099e, page index: 2
+VA 2 -> PA 999e
+virtual memory: 0x00ad, offset: 0x00ad, page index: 0
+VA 0 -> PA 28ad
+virtual memory: 0x0378, offset: 0x0378, page index: 0
+VA 0 -> PA 28378
+virtual memory: 0x21f8, offset: 0x01f8, page index: 2
+VA 2 -> PA 91f8
+virtual memory: 0x11d1, offset: 0x01d1, page index: 1
+VA 1 -> PA 291d1
+virtual memory: 0x2406, offset: 0x0406, page index: 2
+VA 2 -> PA 9406
+virtual memory: 0x20e1, offset: 0x00e1, page index: 2
+VA 2 -> PA 9e1
+virtual memory: 0x34c8, offset: 0x04c8, page index: 3
+VA 3 -> PA 314c8
+virtual memory: 0x39ef, offset: 0x09ef, page index: 3
+VA 3 -> PA 319ef
+virtual memory: 0x1292, offset: 0x0292, page index: 1
+VA 1 -> PA 29292
+28 is free to fpl
+29 is free to fpl
+9 is free to fpl
+31 is free to fpl
+time 82:==================================
+pid: 12724 remaining cpu-burst1
+virtual memory: 0x3fea, offset: 0x0fea, page index: 3
+VA 3 -> PA 2fea
+virtual memory: 0x0816, offset: 0x0816, page index: 0
+VA 0 -> PA 3816
+virtual memory: 0x0690, offset: 0x0690, page index: 0
+VA 0 -> PA 3690
+virtual memory: 0x3ec7, offset: 0x0ec7, page index: 3
+VA 3 -> PA 2ec7
+virtual memory: 0x2ee6, offset: 0x0ee6, page index: 2
+VA 2 -> PA 0ee6
+virtual memory: 0x39db, offset: 0x09db, page index: 3
+VA 3 -> PA 29db
+virtual memory: 0x378c, offset: 0x078c, page index: 3
+VA 3 -> PA 278c
+virtual memory: 0x1072, offset: 0x0072, page index: 1
+VA 1 -> PA 3072
+virtual memory: 0x1d91, offset: 0x0d91, page index: 1
+VA 1 -> PA 30d91
+virtual memory: 0x3a73, offset: 0x0a73, page index: 3
+VA 3 -> PA 2a73
+time 83:==================================
+pid: 12724 remaining cpu-burst0
+virtual memory: 0x37cf, offset: 0x07cf, page index: 3
+VA 3 -> PA 27cf
+virtual memory: 0x2f79, offset: 0x0f79, page index: 2
+VA 2 -> PA 0f79
+virtual memory: 0x3f98, offset: 0x0f98, page index: 3
+VA 3 -> PA 2f98
+virtual memory: 0x0c51, offset: 0x0c51, page index: 0
+VA 0 -> PA 3c51
+virtual memory: 0x3933, offset: 0x0933, page index: 3
+VA 3 -> PA 2933
+virtual memory: 0x2c4b, offset: 0x0c4b, page index: 2
+VA 2 -> PA 0c4b
+virtual memory: 0x2124, offset: 0x0124, page index: 2
+VA 2 -> PA 0124
+virtual memory: 0x396d, offset: 0x096d, page index: 3
+VA 3 -> PA 296d
+virtual memory: 0x08d3, offset: 0x08d3, page index: 0
+VA 0 -> PA 38d3
+virtual memory: 0x2ac6, offset: 0x0ac6, page index: 2
+VA 2 -> PA 0ac6
+3 is free to fpl
+30 is free to fpl
+0 is free to fpl
+2 is free to fpl
+time 84:==================================
+pid: 12725 remaining cpu-burst7
+virtual memory: 0x3fea, offset: 0x0fea, page index: 3
+VA 3 -> PA 6fea
+virtual memory: 0x0816, offset: 0x0816, page index: 0
+VA 0 -> PA 23816
+virtual memory: 0x0690, offset: 0x0690, page index: 0
+VA 0 -> PA 23690
+virtual memory: 0x3ec7, offset: 0x0ec7, page index: 3
+VA 3 -> PA 6ec7
+virtual memory: 0x2ee6, offset: 0x0ee6, page index: 2
+VA 2 -> PA 7ee6
+virtual memory: 0x39db, offset: 0x09db, page index: 3
+VA 3 -> PA 69db
+virtual memory: 0x378c, offset: 0x078c, page index: 3
+VA 3 -> PA 678c
+virtual memory: 0x1072, offset: 0x0072, page index: 1
+VA 1 -> PA 472
+virtual memory: 0x1d91, offset: 0x0d91, page index: 1
+VA 1 -> PA 4d91
+virtual memory: 0x3a73, offset: 0x0a73, page index: 3
+VA 3 -> PA 6a73
+time 85:==================================
+pid: 12725 remaining cpu-burst6
+virtual memory: 0x37cf, offset: 0x07cf, page index: 3
+VA 3 -> PA 67cf
+virtual memory: 0x2f79, offset: 0x0f79, page index: 2
+VA 2 -> PA 7f79
+virtual memory: 0x3f98, offset: 0x0f98, page index: 3
+VA 3 -> PA 6f98
+virtual memory: 0x0c51, offset: 0x0c51, page index: 0
+VA 0 -> PA 23c51
+virtual memory: 0x3933, offset: 0x0933, page index: 3
+VA 3 -> PA 6933
+virtual memory: 0x2c4b, offset: 0x0c4b, page index: 2
+VA 2 -> PA 7c4b
+virtual memory: 0x2124, offset: 0x0124, page index: 2
+VA 2 -> PA 7124
+virtual memory: 0x396d, offset: 0x096d, page index: 3
+VA 3 -> PA 696d
+virtual memory: 0x08d3, offset: 0x08d3, page index: 0
+VA 0 -> PA 238d3
+virtual memory: 0x2ac6, offset: 0x0ac6, page index: 2
+VA 2 -> PA 7ac6
+time 86:==================================
+pid: 12725 remaining cpu-burst5
+virtual memory: 0x1df4, offset: 0x0df4, page index: 1
+VA 1 -> PA 4df4
+virtual memory: 0x2afa, offset: 0x0afa, page index: 2
+VA 2 -> PA 7afa
+virtual memory: 0x024f, offset: 0x024f, page index: 0
+VA 0 -> PA 2324f
+virtual memory: 0x0742, offset: 0x0742, page index: 0
+VA 0 -> PA 23742
+virtual memory: 0x1732, offset: 0x0732, page index: 1
+VA 1 -> PA 4732
+virtual memory: 0x0e04, offset: 0x0e04, page index: 0
+VA 0 -> PA 23e04
+virtual memory: 0x3347, offset: 0x0347, page index: 3
+VA 3 -> PA 6347
+virtual memory: 0x0ecd, offset: 0x0ecd, page index: 0
+VA 0 -> PA 23ecd
+virtual memory: 0x2e5a, offset: 0x0e5a, page index: 2
+VA 2 -> PA 7e5a
+virtual memory: 0x0349, offset: 0x0349, page index: 0
+VA 0 -> PA 23349
+time 87:==================================
+pid: 12726 remaining cpu-burst2
+virtual memory: 0x37cf, offset: 0x07cf, page index: 3
+VA 3 -> PA 247cf
+virtual memory: 0x2f79, offset: 0x0f79, page index: 2
+VA 2 -> PA 27f79
+virtual memory: 0x3f98, offset: 0x0f98, page index: 3
+VA 3 -> PA 24f98
+virtual memory: 0x0c51, offset: 0x0c51, page index: 0
+VA 0 -> PA 26c51
+virtual memory: 0x3933, offset: 0x0933, page index: 3
+VA 3 -> PA 24933
+virtual memory: 0x2c4b, offset: 0x0c4b, page index: 2
+VA 2 -> PA 27c4b
+virtual memory: 0x2124, offset: 0x0124, page index: 2
+VA 2 -> PA 27124
+virtual memory: 0x396d, offset: 0x096d, page index: 3
+VA 3 -> PA 2496d
+virtual memory: 0x08d3, offset: 0x08d3, page index: 0
+VA 0 -> PA 268d3
+virtual memory: 0x2ac6, offset: 0x0ac6, page index: 2
+VA 2 -> PA 27ac6
+time 88:==================================
+pid: 12726 remaining cpu-burst1
+virtual memory: 0x1df4, offset: 0x0df4, page index: 1
+VA 1 -> PA 25df4
+virtual memory: 0x2afa, offset: 0x0afa, page index: 2
+VA 2 -> PA 27afa
+virtual memory: 0x024f, offset: 0x024f, page index: 0
+VA 0 -> PA 2624f
+virtual memory: 0x0742, offset: 0x0742, page index: 0
+VA 0 -> PA 26742
+virtual memory: 0x1732, offset: 0x0732, page index: 1
+VA 1 -> PA 25732
+virtual memory: 0x0e04, offset: 0x0e04, page index: 0
+VA 0 -> PA 26e04
+virtual memory: 0x3347, offset: 0x0347, page index: 3
+VA 3 -> PA 24347
+virtual memory: 0x0ecd, offset: 0x0ecd, page index: 0
+VA 0 -> PA 26ecd
+virtual memory: 0x2e5a, offset: 0x0e5a, page index: 2
+VA 2 -> PA 27e5a
+virtual memory: 0x0349, offset: 0x0349, page index: 0
+VA 0 -> PA 26349
+time 89:==================================
+pid: 12726 remaining cpu-burst0
+virtual memory: 0x299e, offset: 0x099e, page index: 2
+VA 2 -> PA 2799e
+virtual memory: 0x00ad, offset: 0x00ad, page index: 0
+VA 0 -> PA 26ad
+virtual memory: 0x0378, offset: 0x0378, page index: 0
+VA 0 -> PA 26378
+virtual memory: 0x21f8, offset: 0x01f8, page index: 2
+VA 2 -> PA 271f8
+virtual memory: 0x11d1, offset: 0x01d1, page index: 1
+VA 1 -> PA 251d1
+virtual memory: 0x2406, offset: 0x0406, page index: 2
+VA 2 -> PA 27406
+virtual memory: 0x20e1, offset: 0x00e1, page index: 2
+VA 2 -> PA 27e1
+virtual memory: 0x34c8, offset: 0x04c8, page index: 3
+VA 3 -> PA 244c8
+virtual memory: 0x39ef, offset: 0x09ef, page index: 3
+VA 3 -> PA 249ef
+virtual memory: 0x1292, offset: 0x0292, page index: 1
+VA 1 -> PA 25292
+26 is free to fpl
+25 is free to fpl
+27 is free to fpl
+24 is free to fpl
+time 90:==================================
+pid: 12727 remaining cpu-burst1
+virtual memory: 0x2044, offset: 0x0044, page index: 2
+VA 2 -> PA 1044
+virtual memory: 0x05ea, offset: 0x05ea, page index: 0
+VA 0 -> PA 85ea
+virtual memory: 0x330b, offset: 0x030b, page index: 3
+VA 3 -> PA 1130b
+virtual memory: 0x1676, offset: 0x0676, page index: 1
+VA 1 -> PA 5676
+virtual memory: 0x2b13, offset: 0x0b13, page index: 2
+VA 2 -> PA 10b13
+virtual memory: 0x0ffa, offset: 0x0ffa, page index: 0
+VA 0 -> PA 8ffa
+virtual memory: 0x10e4, offset: 0x00e4, page index: 1
+VA 1 -> PA 5e4
+virtual memory: 0x1d58, offset: 0x0d58, page index: 1
+VA 1 -> PA 5d58
+virtual memory: 0x3d7f, offset: 0x0d7f, page index: 3
+VA 3 -> PA 11d7f
+virtual memory: 0x0777, offset: 0x0777, page index: 0
+VA 0 -> PA 8777
+time 91:==================================
+pid: 12727 remaining cpu-burst0
+virtual memory: 0x2459, offset: 0x0459, page index: 2
+VA 2 -> PA 10459
+virtual memory: 0x0451, offset: 0x0451, page index: 0
+VA 0 -> PA 8451
+virtual memory: 0x0a33, offset: 0x0a33, page index: 0
+VA 0 -> PA 8a33
+virtual memory: 0x1bd2, offset: 0x0bd2, page index: 1
+VA 1 -> PA 5bd2
+virtual memory: 0x1111, offset: 0x0111, page index: 1
+VA 1 -> PA 5111
+virtual memory: 0x081c, offset: 0x081c, page index: 0
+VA 0 -> PA 881c
+virtual memory: 0x18fb, offset: 0x08fb, page index: 1
+VA 1 -> PA 58fb
+virtual memory: 0x21e1, offset: 0x01e1, page index: 2
+VA 2 -> PA 101e1
+virtual memory: 0x214f, offset: 0x014f, page index: 2
+VA 2 -> PA 1014f
+virtual memory: 0x032b, offset: 0x032b, page index: 0
+VA 0 -> PA 832b
+8 is free to fpl
+5 is free to fpl
+10 is free to fpl
+11 is free to fpl
+time 92:==================================
+pid: 12728 remaining cpu-burst8
+virtual memory: 0x37cf, offset: 0x07cf, page index: 3
+VA 3 -> PA 157cf
+virtual memory: 0x2f79, offset: 0x0f79, page index: 2
+VA 2 -> PA 13f79
+virtual memory: 0x3f98, offset: 0x0f98, page index: 3
+VA 3 -> PA 15f98
+virtual memory: 0x0c51, offset: 0x0c51, page index: 0
+VA 0 -> PA 12c51
+virtual memory: 0x3933, offset: 0x0933, page index: 3
+VA 3 -> PA 15933
+virtual memory: 0x2c4b, offset: 0x0c4b, page index: 2
+VA 2 -> PA 13c4b
+virtual memory: 0x2124, offset: 0x0124, page index: 2
+VA 2 -> PA 13124
+virtual memory: 0x396d, offset: 0x096d, page index: 3
+VA 3 -> PA 1596d
+virtual memory: 0x08d3, offset: 0x08d3, page index: 0
+VA 0 -> PA 128d3
+virtual memory: 0x2ac6, offset: 0x0ac6, page index: 2
+VA 2 -> PA 13ac6
+time 93:==================================
+pid: 12728 remaining cpu-burst7
+virtual memory: 0x1df4, offset: 0x0df4, page index: 1
+VA 1 -> PA 14df4
+virtual memory: 0x2afa, offset: 0x0afa, page index: 2
+VA 2 -> PA 13afa
+virtual memory: 0x024f, offset: 0x024f, page index: 0
+VA 0 -> PA 1224f
+virtual memory: 0x0742, offset: 0x0742, page index: 0
+VA 0 -> PA 12742
+virtual memory: 0x1732, offset: 0x0732, page index: 1
+VA 1 -> PA 14732
+virtual memory: 0x0e04, offset: 0x0e04, page index: 0
+VA 0 -> PA 12e04
+virtual memory: 0x3347, offset: 0x0347, page index: 3
+VA 3 -> PA 15347
+virtual memory: 0x0ecd, offset: 0x0ecd, page index: 0
+VA 0 -> PA 12ecd
+virtual memory: 0x2e5a, offset: 0x0e5a, page index: 2
+VA 2 -> PA 13e5a
+virtual memory: 0x0349, offset: 0x0349, page index: 0
+VA 0 -> PA 12349
+time 94:==================================
+pid: 12728 remaining cpu-burst6
+virtual memory: 0x299e, offset: 0x099e, page index: 2
+VA 2 -> PA 1399e
+virtual memory: 0x00ad, offset: 0x00ad, page index: 0
+VA 0 -> PA 12ad
+virtual memory: 0x0378, offset: 0x0378, page index: 0
+VA 0 -> PA 12378
+virtual memory: 0x21f8, offset: 0x01f8, page index: 2
+VA 2 -> PA 131f8
+virtual memory: 0x11d1, offset: 0x01d1, page index: 1
+VA 1 -> PA 141d1
+virtual memory: 0x2406, offset: 0x0406, page index: 2
+VA 2 -> PA 13406
+virtual memory: 0x20e1, offset: 0x00e1, page index: 2
+VA 2 -> PA 13e1
+virtual memory: 0x34c8, offset: 0x04c8, page index: 3
+VA 3 -> PA 154c8
+virtual memory: 0x39ef, offset: 0x09ef, page index: 3
+VA 3 -> PA 159ef
+virtual memory: 0x1292, offset: 0x0292, page index: 1
+VA 1 -> PA 14292
+time 95:==================================
+pid: 12729 remaining cpu-burst0
+virtual memory: 0x0717, offset: 0x0717, page index: 0
+VA 0 -> PA 20717
+virtual memory: 0x1861, offset: 0x0861, page index: 1
+VA 1 -> PA 22861
+virtual memory: 0x35a3, offset: 0x05a3, page index: 3
+VA 3 -> PA 215a3
+virtual memory: 0x29ef, offset: 0x09ef, page index: 2
+VA 2 -> PA 19ef
+virtual memory: 0x04bc, offset: 0x04bc, page index: 0
+VA 0 -> PA 204bc
+virtual memory: 0x07b4, offset: 0x07b4, page index: 0
+VA 0 -> PA 207b4
+virtual memory: 0x3087, offset: 0x0087, page index: 3
+VA 3 -> PA 2187
+virtual memory: 0x15a6, offset: 0x05a6, page index: 1
+VA 1 -> PA 225a6
+virtual memory: 0x0b6a, offset: 0x0b6a, page index: 0
+VA 0 -> PA 20b6a
+virtual memory: 0x2d45, offset: 0x0d45, page index: 2
+VA 2 -> PA 1d45
+20 is free to fpl
+22 is free to fpl
+1 is free to fpl
+21 is free to fpl
+time 96:==================================
+pid: 12730 remaining cpu-burst2
+virtual memory: 0x37cf, offset: 0x07cf, page index: 3
+VA 3 -> PA 287cf
+virtual memory: 0x2f79, offset: 0x0f79, page index: 2
+VA 2 -> PA 29f79
+virtual memory: 0x3f98, offset: 0x0f98, page index: 3
+VA 3 -> PA 28f98
+virtual memory: 0x0c51, offset: 0x0c51, page index: 0
+VA 0 -> PA 9c51
+virtual memory: 0x3933, offset: 0x0933, page index: 3
+VA 3 -> PA 28933
+virtual memory: 0x2c4b, offset: 0x0c4b, page index: 2
+VA 2 -> PA 29c4b
+virtual memory: 0x2124, offset: 0x0124, page index: 2
+VA 2 -> PA 29124
+virtual memory: 0x396d, offset: 0x096d, page index: 3
+VA 3 -> PA 2896d
+virtual memory: 0x08d3, offset: 0x08d3, page index: 0
+VA 0 -> PA 98d3
+virtual memory: 0x2ac6, offset: 0x0ac6, page index: 2
+VA 2 -> PA 29ac6
+time 97:==================================
+pid: 12730 remaining cpu-burst1
+virtual memory: 0x1df4, offset: 0x0df4, page index: 1
+VA 1 -> PA 31df4
+virtual memory: 0x2afa, offset: 0x0afa, page index: 2
+VA 2 -> PA 29afa
+virtual memory: 0x024f, offset: 0x024f, page index: 0
+VA 0 -> PA 924f
+virtual memory: 0x0742, offset: 0x0742, page index: 0
+VA 0 -> PA 9742
+virtual memory: 0x1732, offset: 0x0732, page index: 1
+VA 1 -> PA 31732
+virtual memory: 0x0e04, offset: 0x0e04, page index: 0
+VA 0 -> PA 9e04
+virtual memory: 0x3347, offset: 0x0347, page index: 3
+VA 3 -> PA 28347
+virtual memory: 0x0ecd, offset: 0x0ecd, page index: 0
+VA 0 -> PA 9ecd
+virtual memory: 0x2e5a, offset: 0x0e5a, page index: 2
+VA 2 -> PA 29e5a
+virtual memory: 0x0349, offset: 0x0349, page index: 0
+VA 0 -> PA 9349
+time 98:==================================
+pid: 12730 remaining cpu-burst0
+virtual memory: 0x299e, offset: 0x099e, page index: 2
+VA 2 -> PA 2999e
+virtual memory: 0x00ad, offset: 0x00ad, page index: 0
+VA 0 -> PA 9ad
+virtual memory: 0x0378, offset: 0x0378, page index: 0
+VA 0 -> PA 9378
+virtual memory: 0x21f8, offset: 0x01f8, page index: 2
+VA 2 -> PA 291f8
+virtual memory: 0x11d1, offset: 0x01d1, page index: 1
+VA 1 -> PA 311d1
+virtual memory: 0x2406, offset: 0x0406, page index: 2
+VA 2 -> PA 29406
+virtual memory: 0x20e1, offset: 0x00e1, page index: 2
+VA 2 -> PA 29e1
+virtual memory: 0x34c8, offset: 0x04c8, page index: 3
+VA 3 -> PA 284c8
+virtual memory: 0x39ef, offset: 0x09ef, page index: 3
+VA 3 -> PA 289ef
+virtual memory: 0x1292, offset: 0x0292, page index: 1
+VA 1 -> PA 31292
+9 is free to fpl
+31 is free to fpl
+29 is free to fpl
+28 is free to fpl
+time 99:==================================
+pid: 12731 remaining cpu-burst0
+virtual memory: 0x37cf, offset: 0x07cf, page index: 3
+VA 3 -> PA 197cf
+virtual memory: 0x2f79, offset: 0x0f79, page index: 2
+VA 2 -> PA 18f79
+virtual memory: 0x3f98, offset: 0x0f98, page index: 3
+VA 3 -> PA 19f98
+virtual memory: 0x0c51, offset: 0x0c51, page index: 0
+VA 0 -> PA 16c51
+virtual memory: 0x3933, offset: 0x0933, page index: 3
+VA 3 -> PA 19933
+virtual memory: 0x2c4b, offset: 0x0c4b, page index: 2
+VA 2 -> PA 18c4b
+virtual memory: 0x2124, offset: 0x0124, page index: 2
+VA 2 -> PA 18124
+virtual memory: 0x396d, offset: 0x096d, page index: 3
+VA 3 -> PA 1996d
+virtual memory: 0x08d3, offset: 0x08d3, page index: 0
+VA 0 -> PA 168d3
+virtual memory: 0x2ac6, offset: 0x0ac6, page index: 2
+VA 2 -> PA 18ac6
+16 is free to fpl
+17 is free to fpl
+18 is free to fpl
+19 is free to fpl
