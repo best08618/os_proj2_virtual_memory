@@ -262,7 +262,7 @@ int swapping (){
 	if(pid_index == phy_mem[vict_pfn].pid){	// 만약victim pid 와 current pid 같을경우
 		for(int j = 0;  j < 8; 	j++){
 			if((tlb[j].tlb_flag == 1) && (tlb[j].tag == phy_mem[vict_pfn].pgn)){
-				tlb[j].tlb_flag = -1 ;
+				tlb[j].tlb_flag = 0 ;
 				break;
 			}
 		}
@@ -291,348 +291,231 @@ int main(int argc, char *argv[])
 	}
 
 	msgq = msgget( key, IPC_CREAT | 0666);
-    while(i< CHILDNUM) 
+	while(i< CHILDNUM) 
 	{
 		srand(time(NULL));
- 		initialize_table();
+		initialize_table();
 		pid[i] = fork();
 		run_queue[(rear++)%20] = i ;
-		
-        if (pid[i]== -1) 
+
+		if (pid[i]== -1) 
 		{
-        	perror("fork error");
-            return 0;
-        }
-        else if (pid[i]== 0) 
-		{
-        	//child
-            struct sigaction old_sa;
-            struct sigaction new_sa;
-            memset(&new_sa, 0, sizeof(new_sa));
-            new_sa.sa_handler = &child_signal_handler;
-            sigaction(SIGINT, &new_sa, &old_sa);
-            while(1);
-            	return 0;
+			perror("fork error");
+			return 0;
 		}
-	else 
+		else if (pid[i]== 0) 
+		{
+			//child
+			struct sigaction old_sa;
+			struct sigaction new_sa;
+			memset(&new_sa, 0, sizeof(new_sa));
+			new_sa.sa_handler = &child_signal_handler;
+			sigaction(SIGINT, &new_sa, &old_sa);
+			while(1);
+			return 0;
+		}
+		else 
+		{
+			struct sigaction old_sa;
+			struct sigaction new_sa;
+			memset(&new_sa, 0, sizeof(new_sa));
+			new_sa.sa_handler = &parent_signal_handler;
+			sigaction(SIGALRM, &new_sa, &old_sa);
+
+			struct itimerval new_itimer, old_itimer;
+			new_itimer.it_interval.tv_sec = 1;
+			new_itimer.it_interval.tv_usec = 0;
+			new_itimer.it_value.tv_sec = 1;
+			new_itimer.it_value.tv_usec = 0;
+			setitimer(ITIMER_REAL, &new_itimer, &old_itimer);
+		}
+		i++;
+	}
+
+	while(1)
 	{
-		struct sigaction old_sa;
-		struct sigaction new_sa;
-		memset(&new_sa, 0, sizeof(new_sa));
-		new_sa.sa_handler = &parent_signal_handler;
-		sigaction(SIGALRM, &new_sa, &old_sa);
+		ret = msgrcv(msgq,&msg,sizeof(msg),IPC_NOWAIT,IPC_NOWAIT); //to receive message
+		if(ret != -1)
+		{
+			printf("get message\n");
+			pid_index = msg.pid_index;
+			printf("pid index: %d\n", pid_index);
 
-		struct itimerval new_itimer, old_itimer;
-		new_itimer.it_interval.tv_sec = 1;
-		new_itimer.it_interval.tv_usec = 0;
-		new_itimer.it_value.tv_sec = 1;
-		new_itimer.it_value.tv_usec = 0;
-		setitimer(ITIMER_REAL, &new_itimer, &old_itimer);
-	}
-	i++;
-	}
+			for(int l=0 ; l <10; l++ ) 
+			{
+				virt_mem[l]=msg.virt_mem[l]; 
+				offset[l] = virt_mem[l] & 0xfff;
+				pageIndex[l] = (virt_mem[l] & 0xf000)>>12;
+				printf("message virtual memory: 0x%04x\n",msg.virt_mem[l]);					
 
-    while(1)
-    {
-	    ret = msgrcv(msgq,&msg,sizeof(msg),IPC_NOWAIT,IPC_NOWAIT); //to receive message
-	    if(ret != -1)
-	    {
-		    printf("get message\n");
-		    pid_index = msg.pid_index;
-		    printf("pid index: %d\n", pid_index);
+				for(int m=0;m<TLBSIZE; m++)
+				{
+					if((tlb[m].tag == pageIndex[l]) &&(tlb[m].tlb_flag == 1)){ //hit일때 
+						printf("HIT !!\n");
+						tlb[m].counter++;
+						printf("tlb %d: VA %d -> PA %d (tlb)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n",m, pageIndex[l], tlb[m].tlb_pfn ,tlb[m].counter);
+						break;
 
-		    for(int l=0 ; l <10; l++ ) 
-		    {
-			    virt_mem[l]=msg.virt_mem[l]; 
-			    offset[l] = virt_mem[l] & 0xfff;
-			    pageIndex[l] = (virt_mem[l] & 0xf000)>>12;
-			    printf("message virtual memory: 0x%04x\n",msg.virt_mem[l]);					
-			    //				printf("Offset: 0x%04x\n", offset[l]);
-			    //				printf("Page Index: 0x%2d\n", pageIndex[l]);
-
-			    for(int m=0;m<TLBSIZE; m++)
-			    {
-				    if(tlb[m].tlb_flag == 0) // nothing in tlb
-				    {
-					    printf("tlb%d\nEmpty miss!! get page index into tag:%d\n",m, pageIndex[l]);
-					    tlb[m].tag=pageIndex[l];
-					    tlb[m].tlb_flag =1;
-					    tlb[m].counter =1;
-
-					    if(table[pid_index][pageIndex[l]].valid == 0) //if its invalid 
-					    {
-						    printf("page fault\n");
-						    if(fpl_front != fpl_rear)
-						    {
-							    table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-							    printf("VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], fpl[fpl_front%FRAMENUM], tlb[m].counter);
-							    table[pid_index][pageIndex[l]].valid = 1;
-							    tlb[m].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
-							    phy_mem[fpl[(fpl_front%FRAMENUM)]].pid= pid_index;
-							    phy_mem[fpl[(fpl_front%FRAMENUM)]].pgn= pageIndex[l];
-
-							    fpl_front++;
-							    break;
-						    }
-						    else
-						    {
-							    printf("full");
-							    int sfn = swapping(); // swapping frame number
-							    table[pid_index][pageIndex[l]].pfn = sfn ;
-							    table[pid_index][pageIndex[l]].valid = 1;
-							    fpl[(fpl_rear++)%32] = sfn ;
-					 		    phy_mem[sfn].pid= pid_index;
-                                                            phy_mem[sfn].pgn= pageIndex[l];
-							    tlb[m].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
+					}
+					else{	 // miss 
+						if(m == 7 ) { // check 다하고 miss 인경우
+							printf("Miss!\n"); 
+							int tlb_num;
+							for(int j=0;j<TLBSIZE;j++){
+								if(tlb[j].tlb_flag == 0){ // 빈 곳이 있는경우 
+									tlb_num = j;
+									printf("Empty \n");
+									break;	
+								} 
+								if(j == 7){ // 다 채워져 있는 경우 
+									printf("TLB is full\n");
+									min = tlb[0].counter;
+									for(int n=0; n<TLBSIZE; n++)
+									{
+										if(tlb[n].counter < min)
+										{
+											min = tlb[n].counter;
+										}
+									}
+									for(int n= 0 ; n<TLBSIZE; n++){
+										if(tlb[(n+check)%TLBSIZE].counter ==min){
+											tlb_num = (n+check)%TLBSIZE;
+										check ++;
+										break;
+										}
+									}
 
 
-							    printf("VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l],tlb[m].tlb_pfn, tlb[m].counter);
-							   break;
+								}
 
-							   /*==============swapping====================== */
-						    }
-					    }
-					    else // get table vlue to tlb
-					    {
-						    if(table[pid_index][pageIndex[l]].disk == 1){  // if this data is in disk
-								printf("get daa from disk\n");	
-							    FILE* pFile = fopen("disk1.txt","r");
-							    FILE* ptemp = fopen("temp.txt","w");
-							    char* str;
-							    char cstr[256];
-							    char* pstr = cstr;
-							    int swap_out = 0;
-							    ssize_t read;
-							    ssize_t len=0;
-							    while( (read=getline(&str, &len, pFile)) != -1)
-							    {
-								    swap_out = 0;
-								    printf("str : %s", str);
-								    for(int j = 0; j < 256; j ++)
-									    cstr[j] = str[j];
-								    char* token = strtok(pstr, " ");
-								    if(atoi(token) == pid_index){
-										    token = strtok(NULL, " ");
-										    if((atoi(token) == pageIndex[l]))
-											    swap_out = 1;
-								    }
+							}
+							//이제 tlb_num에다가 채울 것임
+							tlb[tlb_num].tag = pageIndex[l];
+							tlb[tlb_num].tlb_flag = 1;
+							tlb[tlb_num].counter  =1;
+							if(table[pid_index][pageIndex[l]].valid == 0) //pagetable 확인했는데 안채워 져있을 경우 
+							{
+								printf("page fault\n"); // table 먼저 채운다
 
+								if(fpl_front != fpl_rear)
+								{
+									table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
+									printf("tlb%d: VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n",tlb_num, tlb[tlb_num].tag, fpl[fpl_front%FRAMENUM], tlb[tlb_num].counter);
+									table[pid_index][pageIndex[l]].valid = 1;
+									tlb[tlb_num].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
+									phy_mem[fpl[(fpl_front%FRAMENUM)]].pid= pid_index;
+									phy_mem[fpl[(fpl_front%FRAMENUM)]].pgn= pageIndex[l];
+									fpl_front++;
+									break;
+								}
+								else
+								{
+									printf("full");
+									int sfn = swapping(); // swapping frame number
+									table[pid_index][pageIndex[l]].pfn = sfn ;
+									table[pid_index][pageIndex[l]].valid = 1;
+									fpl[(fpl_rear++)%32] = sfn ;
+									tlb[tlb_num].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
+									printf("tlb%d: VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n",tlb_num, pageIndex[l],tlb[tlb_num].tlb_pfn, tlb[tlb_num].counter);
 
-								    if(swap_out == 1 )
-									    continue;
-								    else
-									    fprintf(ptemp,"%s",str);
-							    }
+									phy_mem[sfn].pid= pid_index;
+									phy_mem[sfn].pgn= pageIndex[l];
+									break;   
+								}
+							}
+							else //pagetable 에 있는 경우  
+							{
 
-							    fclose(pFile);
-							    fclose(ptemp);
-							    remove("disk1.txt");
-							    rename("temp.txt","disk1.txt");
-								printf("swap out \n");
-							    if(fpl_front != fpl_rear)
-							    {
-								    table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-								    printf("VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], fpl[fpl_front%FRAMENUM], tlb[m].counter);
-								    table[pid_index][pageIndex[l]].valid = 1;
-								    tlb[m].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
-								    phy_mem[fpl[(fpl_front%FRAMENUM)]].pid= pid_index;
-								    phy_mem[fpl[(fpl_front%FRAMENUM)]].pgn= pageIndex[l];
-								   table[pid_index][pageIndex[l]].disk = 0;
-								    fpl_front++;
-								    break;
-							    }
-							    else
-							    {
-								    printf("full");
-								    int sfn = swapping(); // swapping frame number
-								    table[pid_index][pageIndex[l]].pfn = sfn ;
-								    table[pid_index][pageIndex[l]].valid = 1;
-								    fpl[(fpl_rear++)%32] = sfn ;
-								    tlb[m].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
+								if(table[pid_index][pageIndex[l]].disk == 1){  // if this data is in disk
+									printf("get daa from disk\n");
 
+									FILE* pFile = fopen("disk1.txt","r");
+									FILE* ptemp = fopen("temp.txt","w");
+									char* str;
+									char cstr[256];
+									char* pstr = cstr;
+									int swap_out = 0;
+									ssize_t read;
+									ssize_t len=0;
+									while( (read=getline(&str, &len, pFile)) != -1)
+									{
+										swap_out = 0;
+										//      printf("str : %s", str);
+										for(int j = 0; j < 256; j ++)
+											cstr[j] = str[j];
+										char* token = strtok(pstr, " ");
+										if(atoi(token) == pid_index){
 
-								    printf("VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l],tlb[m].tlb_pfn, tlb[m].counter);
+											token = strtok(NULL, " ");
+											if((atoi(token) == pageIndex[l]))
+												swap_out = 1;
 
-								    phy_mem[sfn].pid= pid_index;
-								    phy_mem[sfn].pgn= pageIndex[l];
-								    table[pid_index][pageIndex[l]].disk = 0;
-								    break;
-
-								   
-							    }
-
-								
-						    }
-						    else{
-							    tlb[m].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
-							    printf("VA %d -> PA %d (pagetable)\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], table[pid_index][pageIndex[l]].pfn);
-							    break;
-						    }
-					    }
-				    }
-				    else //if the line is taken, comapre the current one with the one in tlb
-				    {
-
-					    if(tlb[m].tag == pageIndex[l]) // hit 
-					    {
-
-						    printf("tlb%d hit!! get pfn\n", m);
-						    
-						    tlb[m].counter++;
-						    printf("VA %d -> PA %d (tlb)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], tlb[m].tlb_pfn ,tlb[m].counter);
-						    break;
-					    } 
-					    else  // miss 
-					    {
-						    //printf("tlb%d miss!!\n", m);
-						    if(m==7) //all tlb taken
-						    {	
-							    printf("all tlb are taken, find a space\n");
-							    //find the least frequent used tlb
-							    for(int n=0; n<1; n++)
-							    {
-								    min = tlb[n].counter;
-							    }
-							    for(int n=0; n<TLBSIZE; n++)
-							    {
-								    if(tlb[n].counter < min)
-								    {
-									    min = tlb[n].counter;
-								    }
-							    }
-							    for(int n=0; n<TLBSIZE; n++)
-							    {
-								    if(tlb[((check%TLBSIZE)+n)%TLBSIZE].counter == min)
-								    {	
-									 //   printf("check: %d\n", check);
-									    tlb[((check%TLBSIZE)+n)%TLBSIZE].tag = pageIndex[l];
-									    if(table[pid_index][pageIndex[l]].valid == 0) //invalid, means not in page table
-									    {
-										    printf("page fault\n");
-
-										    if(fpl_front != fpl_rear)
-										    {
-											    table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-											    printf("tlb%d: VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n",((check%TLBSIZE)+n)%TLBSIZE, tlb[((check%TLBSIZE)+n)%TLBSIZE].tag, fpl[fpl_front%FRAMENUM], tlb[((check%TLBSIZE)+n)%TLBSIZE].counter);
-											    table[pid_index][pageIndex[l]].valid = 1;
-											    tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
-											    phy_mem[fpl[(fpl_front%FRAMENUM)]].pid= pid_index;
-											    phy_mem[fpl[(fpl_front%FRAMENUM)]].pgn= pageIndex[l];
-
-												fpl_front++;
-											    check++;
-										//	    printf("check: %d\n", check);
-											    break;
-										    }
-										    else
-										    {
-											    printf("full");
-											    int sfn = swapping(); // swapping frame number
-											    table[pid_index][pageIndex[l]].pfn = sfn ;
-											    table[pid_index][pageIndex[l]].valid = 1;
-											    fpl[(fpl_rear++)%32] = sfn ;
-											    tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
-											    printf("VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l],tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn, tlb[m].counter);
-
-											    phy_mem[sfn].pid= pid_index;
-											    phy_mem[sfn].pgn= pageIndex[l];
-
-											    check++;
-											    break;   
-										 }
-									    }
-									    else //means in pagetable,straight get pfn value 
-									    {
-		
-										    if(table[pid_index][pageIndex[l]].disk == 1){  // if this data is in disk
-												     printf("get daa from disk\n");
-
-											    FILE* pFile = fopen("disk1.txt","r");
-											    FILE* ptemp = fopen("temp.txt","w");
-											    char* str;
-											    char cstr[256];
-											    char* pstr = cstr;
-											    int swap_out = 0;
-											    ssize_t read;
-											    ssize_t len=0;
-											    while( (read=getline(&str, &len, pFile)) != -1)
-											    {
-												    swap_out = 0;
-												    //      printf("str : %s", str);
-												    for(int j = 0; j < 256; j ++)
-													    cstr[j] = str[j];
-												    char* token = strtok(pstr, " ");
-												    if(atoi(token) == pid_index){
-													    
-														    token = strtok(NULL, " ");
-														    if((atoi(token) == pageIndex[l]))
-															    swap_out = 1;
-													    
-												    }
+										}
 
 
-												    if(swap_out == 1 )
-													    continue;
-												    else
-													    fprintf(ptemp,"%s",str);
-											    }
+										if(swap_out == 1 )
+											continue;
+										else
+											fprintf(ptemp,"%s",str);
+									}
 
-											    fclose(pFile);
-											    fclose(ptemp);
-											    remove("disk1.txt");
-											    rename("temp.txt","disk1.txt");
+									fclose(pFile);
+									fclose(ptemp);
+									remove("disk1.txt");
+									rename("temp.txt","disk1.txt");
 
-											    if(fpl_front != fpl_rear)
-											    {
-												    table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-												    table[pid_index][pageIndex[l]].valid = 1;
-												    tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
+									if(fpl_front != fpl_rear)
+									{
+										table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
+										table[pid_index][pageIndex[l]].valid = 1;
+										tlb[tlb_num].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
+										 printf("tlb%d: VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n",tlb_num, pageIndex[l],tlb[tlb_num].tlb_pfn, tlb[tlb_num].counter);
 
-												    printf("VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn , tlb[m].counter);
-												    fpl_front++;
-													
-												table[pid_index][pageIndex[l]].disk = 0;
-												    break;
-											    }
-											    else
-											    {
-												    printf("full");
-												    int sfn = swapping(); // swapping frame number
-												    table[pid_index][pageIndex[l]].pfn = sfn ;
-												    table[pid_index][pageIndex[l]].valid = 1;
-												    fpl[(fpl_rear++)%32] = sfn ;
-												     tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
+										 phy_mem[fpl[(fpl_front%FRAMENUM)]].pid= pid_index;
+										 phy_mem[fpl[(fpl_front%FRAMENUM)]].pgn= pageIndex[l];
+										fpl_front++;
+										table[pid_index][pageIndex[l]].disk = 0;
+										break;
+									}
+									else
+									{
+										printf("full");
+										int sfn = swapping(); // swapping frame number
+										table[pid_index][pageIndex[l]].pfn = sfn ;
+										table[pid_index][pageIndex[l]].valid = 1;
+										fpl[(fpl_rear++)%32] = sfn ;
+										tlb[tlb_num].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
 
-												    printf("VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l],tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn, tlb[m].counter);
-												    phy_mem[sfn].pid= pid_index;
-												    phy_mem[sfn].pgn= pageIndex[l];
-												table[pid_index][pageIndex[l]].disk = 0;
+										phy_mem[sfn].pid= pid_index;
+										printf("tlb%d: VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n",tlb_num, pageIndex[l],tlb[tlb_num].tlb_pfn, tlb[tlb_num].counter);
 
-												    break;
-
-
-											    }
-										    }
-										   else{
-										    tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
-										    printf("tlb%d: VA %d -> PA %d (pagetable)\n~~~~~~~~~~~~~~~~~~~~\n", ((check%TLBSIZE)+n)%TLBSIZE, pageIndex[l], tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn);
-										    check++;
-
-										    break;}
-									    }
-								    }
-							    }
-
-						    }
-					    }
+										phy_mem[sfn].pgn= pageIndex[l];
+										table[pid_index][pageIndex[l]].disk = 0;
+										break;
 
 
-				    }					
-			    }
-		 phy_mem[table[pid_index][pageIndex[l]].pfn].sca = 1;    
+									}
+								}
+								else{
+									tlb[tlb_num].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
+									printf("tlb:%d VA %d -> PA %d (pagetable)\n~~~~~~~~~~~~~~~~~~~~\n",tlb_num, pageIndex[l], table[pid_index][pageIndex[l]].pfn);
+									break;
+								}
+
+
+							}
+
+						}
+					}	
+				}
+				
+				phy_mem[table[pid_index][pageIndex[l]].pfn].sca = 1;    
+			//	memset(&msg, 0, sizeof(msg));
+			}
+				 memset(&msg, 0, sizeof(msg));
 		}
-		    memset(&msg, 0, sizeof(msg));
-	    }
-    }
-    return 0;
+
+	}
+	return 0;
+
 }
