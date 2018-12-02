@@ -11,7 +11,7 @@
 #include <sys/msg.h>
 #include <time.h>
 
-#define CHILDNUM 3
+#define CHILDNUM 10
 #define INDEXNUM 16
 #define FRAMENUM 32
 #define TLBSIZE 8
@@ -28,7 +28,10 @@ int m=0;
 int min=0;
 int check=0;
 
-int child_execution_time[CHILDNUM] = {2,6,4};
+char str[12];
+char str2[12];
+
+int child_execution_time[CHILDNUM] = {2,6,5,8,3,2,9,1,3,10};
 int child_execution_ctime[CHILDNUM];
 
 struct msgbuf{
@@ -49,7 +52,6 @@ typedef struct
 	int tlb_flag;
 	int counter;
 }TLB;
-
 
 int phy_mem[FRAMENUM];
 int fpl[32];
@@ -95,13 +97,11 @@ void child_signal_handler(int signum)  // sig child handler
 {
 
 	printf("pid: %d remaining cpu-burst%d\n",getpid(), child_execution_time[i]);
-
 	child_execution_time[i]--;
 	if(child_execution_time[i] <= 0)
 	{
 		child_execution_time[i] = child_execution_ctime[i];
 	}
-	printf("pid: %d get signal\n",getpid());
 	memset(&msg,0,sizeof(msg));
 	msg.mtype = IPC_NOWAIT;
 	msg.pid_index = i;
@@ -125,7 +125,7 @@ void clean_memory(TABLE* page_table)
 		if(pageTable[a].valid == 1)
        	{
 			fpl[(fpl_rear++)%FRAMENUM] = pageTable[a].pfn;
-			printf("add %d to fpl\n", pageTable[a].pfn);
+			printf("free %d into fpl\n", pageTable[a].pfn);
            	pageTable[a].valid =0;
            	pageTable[a].pfn =0;
        	}
@@ -141,14 +141,15 @@ void parent_signal_handler(int signum)  // sig parent handler
 		clean_memory(table[run_queue[(front-1)%20]]);
 		flag =0;
 	}
-	total_count ++;
+
+	total_count++;
 	if(count == 0)
 	{
 		initialize_tlb();
 	}
 	count++;
     
-    if(total_count >= 10 )
+    if(total_count >= 10000 )
 	{
 	 	for(int k = 0; k < CHILDNUM ; k ++)
         {
@@ -181,21 +182,8 @@ void parent_signal_handler(int signum)  // sig parent handler
 	}
 }
 
-int compare(int a, int b)
-{
-	if(a<b)
-		return a;
-	else if(a>b)
-		return b;
-	else
-		return a;
-}
-
-
 int main(int argc, char *argv[])
 {
-	int* cptr = malloc(sizeof(int));
-
 	for(int l = 0; l< CHILDNUM; l++)
 	{
 		child_execution_ctime[l]= child_execution_time[l];
@@ -240,10 +228,10 @@ int main(int argc, char *argv[])
             sigaction(SIGALRM, &new_sa, &old_sa);
 
             struct itimerval new_itimer, old_itimer;
-            new_itimer.it_interval.tv_sec = 1;
-            new_itimer.it_interval.tv_usec = 0;
-            new_itimer.it_value.tv_sec = 1;
-            new_itimer.it_value.tv_usec = 0;
+            new_itimer.it_interval.tv_sec = 0;
+            new_itimer.it_interval.tv_usec = 10000;
+            new_itimer.it_value.tv_sec = 0;
+            new_itimer.it_value.tv_usec = 10000;
             setitimer(ITIMER_REAL, &new_itimer, &old_itimer);
        	}
        	i++;
@@ -254,7 +242,6 @@ int main(int argc, char *argv[])
 		ret = msgrcv(msgq,&msg,sizeof(msg),IPC_NOWAIT,IPC_NOWAIT); //to receive message
 		if(ret != -1)
 		{
-			printf("get message\n");
 			pid_index = msg.pid_index;
 			printf("pid index: %d\n", pid_index);
 
@@ -263,15 +250,16 @@ int main(int argc, char *argv[])
 				virt_mem[l]=msg.virt_mem[l]; 
 				offset[l] = virt_mem[l] & 0xfff;
 				pageIndex[l] = (virt_mem[l] & 0xf000)>>12;
-				printf("message virtual memory: 0x%04x\n",msg.virt_mem[l]);					
-//				printf("Offset: 0x%04x\n", offset[l]);
-//				printf("Page Index: 0x%2d\n", pageIndex[l]);
-
+				printf("virtual memory: 0x%04x,",msg.virt_mem[l]);
+				printf(" offset: 0x%04x, ", offset[l]);
+                printf("page index: %d\n", pageIndex[l]);
+				sprintf(str2, "%03x", offset[l]);
+					
 				for(int m=0;m<TLBSIZE; m++)
 				{
 					if(tlb[m].tlb_flag == 0)
 					{
-						printf("tlb%d\nEmpty miss!! get page index into tag:%d\n",m, pageIndex[l]);
+						printf("tlb%d -> Empty miss!!\n",m);
 						tlb[m].tag=pageIndex[l];
 						tlb[m].tlb_flag =1;
 						tlb[m].counter =1;
@@ -281,7 +269,9 @@ int main(int argc, char *argv[])
                             if(fpl_front != fpl_rear)
                             {
                                 table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-                                printf("VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], fpl[fpl_front%FRAMENUM], tlb[m].counter);
+								sprintf(str, "%d", table[pid_index][pageIndex[l]].pfn);
+								strcat(str,str2);
+                                printf("VA %d -> PA %s (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], str, tlb[m].counter);
                                 table[pid_index][pageIndex[l]].valid = 1;
 								tlb[m].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
                                 fpl_front++;
@@ -295,7 +285,6 @@ int main(int argc, char *argv[])
 											kill(pid[k],SIGKILL);
 									}
 									msgctl(msgq, IPC_RMID, NULL);
-									//      fclose(fptr);
 									exit(0);
 
                                 return 0;
@@ -304,7 +293,9 @@ int main(int argc, char *argv[])
                         else
                         {
                             tlb[m].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
-							printf("VA %d -> PA %d (pagetable)\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], table[pid_index][pageIndex[l]].pfn);
+							sprintf(str, "%d", tlb[m].tlb_pfn);
+                    		strcat(str,str2);
+							printf("VA %d -> PA %s (pagetable)\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], str);
 							break;
                         }
 					}
@@ -316,7 +307,9 @@ int main(int argc, char *argv[])
                         	printf("tlb%d hit!! get pfn\n", m);
                         	tlb[m].tlb_pfn = table[pid_index][pageIndex[l]].pfn;
 							tlb[m].counter++;
-                        	printf("VA %d -> PA %d (tlb)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], tlb[m].tlb_pfn ,tlb[m].counter);
+							sprintf(str, "%d", tlb[m].tlb_pfn);
+                            strcat(str,str2);
+                        	printf("VA %d -> PA %s (tlb)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n", pageIndex[l], str ,tlb[m].counter);
                         	break;
                     	} 
                     	else  // miss 
@@ -341,19 +334,19 @@ int main(int argc, char *argv[])
 								{
 									if(tlb[((check%TLBSIZE)+n)%TLBSIZE].counter == min)
                                     {	
-										printf("check: %d\n", check);
                                         tlb[((check%TLBSIZE)+n)%TLBSIZE].tag = pageIndex[l];
 										if(table[pid_index][pageIndex[l]].valid == 0) //invalid, means not in page table
                         				{
                             				if(fpl_front != fpl_rear)
                             				{
 	            	            		        table[pid_index][pageIndex[l]].pfn=fpl[fpl_front%FRAMENUM];
-    	            	                		printf("tlb%d: VA %d -> PA %d (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n",((check%TLBSIZE)+n)%TLBSIZE, tlb[((check%TLBSIZE)+n)%TLBSIZE].tag, fpl[fpl_front%FRAMENUM], tlb[((check%TLBSIZE)+n)%TLBSIZE].counter);
+												sprintf(str, "%d", table[pid_index][pageIndex[l]].pfn);
+                            					strcat(str,str2);
+    	            	                		printf("tlb%d: VA %d -> PA %s (fpl)\ncounter -> %d\n~~~~~~~~~~~~~~~~~~~~\n",((check%TLBSIZE)+n)%TLBSIZE, tlb[((check%TLBSIZE)+n)%TLBSIZE].tag, str, tlb[((check%TLBSIZE)+n)%TLBSIZE].counter);
         			            	            table[pid_index][pageIndex[l]].valid = 1;
             			            	        tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn= table[pid_index][pageIndex[l]].pfn;
                         				        fpl_front++;
 												check++;
-												printf("check: %d\n", check);
                                 				break;
                             				}
                            					else
@@ -364,27 +357,23 @@ int main(int argc, char *argv[])
 															kill(pid[k],SIGKILL);
 													}
 													msgctl(msgq, IPC_RMID, NULL);
-													//      fclose(fptr);
 													exit(0);
-
                                 				return 0;
                             				}
                         				}
                         				else //means in pagetable,straight get pfn value 
                         				{
                             				tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn =  table[pid_index][pageIndex[l]].pfn;
-                            				printf("tlb%d: VA %d -> PA %d (pagetable)\n~~~~~~~~~~~~~~~~~~~~\n", ((check%TLBSIZE)+n)%TLBSIZE, pageIndex[l], tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn);
+											sprintf(str, "%d", tlb[((check%TLBSIZE)+n)%TLBSIZE].tlb_pfn);
+                                            strcat(str,str2);
+                            				printf("tlb%d: VA %d -> PA %s (pagetable)\n~~~~~~~~~~~~~~~~~~~~\n", ((check%TLBSIZE)+n)%TLBSIZE, pageIndex[l], str);
                             				check++;
-
 											break;
                         				}
                                     }
 								}
-				
 							}
 						}
-							
-	
                 	}					
 				}
 			}
