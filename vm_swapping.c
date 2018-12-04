@@ -348,9 +348,9 @@ int main(int argc, char *argv[])
 						phy_mem[sfn].pgn= pageIndex[k];
 
 						fpl[(fpl_rear++)%32] = sfn ;
-						phy_mem[sfn].pid= pid_index;
-						phy_mem[sfn].dir= pageTIndex[k];
-						phy_mem[sfn].pgn= pageIndex[k];
+						//phy_mem[sfn].pid= pid_index;
+						//phy_mem[sfn].dir= pageTIndex[k];
+						//phy_mem[sfn].pgn= pageIndex[k];
 
 						 
 					}
